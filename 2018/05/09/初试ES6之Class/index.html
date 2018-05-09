@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Class," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Class基础知识语法：12345678910111213141516171819202122232425// 方法一 Class声明class Point &amp;#123;    construstor(x, y) &amp;#123;        this.x = x;        this.y = y;    &amp;#125;        toString() &amp;#123;        return">
+<meta name="keywords" content="Class">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初试ES6之Class">
+<meta property="og:url" content="https://YoungZhang08.github.io/2018/05/09/初试ES6之Class/index.html">
+<meta property="og:site_name" content="YoungZhang&#39;s Blog">
+<meta property="og:description" content="Class基础知识语法：12345678910111213141516171819202122232425// 方法一 Class声明class Point &amp;#123;    construstor(x, y) &amp;#123;        this.x = x;        this.y = y;    &amp;#125;        toString() &amp;#123;        return">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-05-09T15:54:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="初试ES6之Class">
+<meta name="twitter:description" content="Class基础知识语法：12345678910111213141516171819202122232425// 方法一 Class声明class Point &amp;#123;    construstor(x, y) &amp;#123;        this.x = x;        this.y = y;    &amp;#125;        toString() &amp;#123;        return">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://YoungZhang08.github.io/2018/05/09/初试ES6之Class/"/>
+
+
+
+
+
+  <title>初试ES6之Class | YoungZhang's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">YoungZhang's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/05/09/初试ES6之Class/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YoungZhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YoungZhang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">初试ES6之Class</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-09T23:52:36+08:00">
+                2018-05-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ES6/" itemprop="url" rel="index">
+                    <span itemprop="name">ES6</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/09/初试ES6之Class/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/05/09/初试ES6之Class/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+      
+      </div>
+    </header>
+  
+
+          
+
+          
+
+        
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Class基础知识"><a href="#Class基础知识" class="headerlink" title="Class基础知识"></a>Class基础知识</h2><h3 id="语法："><a href="#语法：" class="headerlink" title="语法："></a>语法：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">// 方法一 Class声明</span><br><span class="line">class Point &#123;</span><br><span class="line">    construstor(x, y) &#123;</span><br><span class="line">        this.x = x;</span><br><span class="line">        this.y = y;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    toString() &#123;</span><br><span class="line">        return &apos;(&apos; + this.x + &apos;,&apos; + this.y + &apos;)&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 方法二 Class表达式</span><br><span class="line">let person = new class &#123;</span><br><span class="line">    constructor(name) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    sayName() &#123;</span><br><span class="line">        console.log(this.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;(&apos;张三&apos;);</span><br><span class="line"></span><br><span class="line">person.sayName(); // &quot;张三&quot;</span><br><span class="line">// person是一个立即执行的类的实例</span><br></pre></td></tr></table></figure>
+<h3 id="类的数据类型是函数，因为类本身指向构造函数，类的方法都定义在prototype属性上面，可以使用Object-assign方法一次向类添加多个方法"><a href="#类的数据类型是函数，因为类本身指向构造函数，类的方法都定义在prototype属性上面，可以使用Object-assign方法一次向类添加多个方法" class="headerlink" title="类的数据类型是函数，因为类本身指向构造函数，类的方法都定义在prototype属性上面，可以使用Object.assign方法一次向类添加多个方法"></a>类的数据类型是函数，因为类本身指向构造函数，类的方法都定义在prototype属性上面，可以使用Object.assign方法一次向类添加多个方法</h3><a id="more"></a>
+<h3 id="！注意："><a href="#！注意：" class="headerlink" title="！注意："></a>！注意：</h3><h4 id="1-在类的实例上调用方法，就是调用原型上的方法"><a href="#1-在类的实例上调用方法，就是调用原型上的方法" class="headerlink" title="1.在类的实例上调用方法，就是调用原型上的方法"></a>1.在类的实例上调用方法，就是调用原型上的方法</h4><h4 id="2-prototype对象的constructor属性直接指向类本身"><a href="#2-prototype对象的constructor属性直接指向类本身" class="headerlink" title="2.prototype对象的constructor属性直接指向类本身"></a>2.prototype对象的constructor属性直接指向类本身</h4><h4 id="3-类的内部所有定义的方法都是不可枚举的"><a href="#3-类的内部所有定义的方法都是不可枚举的" class="headerlink" title="3.类的内部所有定义的方法都是不可枚举的"></a>3.类的内部所有定义的方法都是不可枚举的</h4><h4 id="4-类默认有constructor方法，如果没有显示定义，空的constructor方法会被默认添加"><a href="#4-类默认有constructor方法，如果没有显示定义，空的constructor方法会被默认添加" class="headerlink" title="4.类默认有constructor方法，如果没有显示定义，空的constructor方法会被默认添加"></a>4.类默认有constructor方法，如果没有显示定义，空的constructor方法会被默认添加</h4><h4 id="5-constructor方法默认返回实例对象（即this），完全可以指定返回另外一个对象"><a href="#5-constructor方法默认返回实例对象（即this），完全可以指定返回另外一个对象" class="headerlink" title="5.constructor方法默认返回实例对象（即this），完全可以指定返回另外一个对象"></a>5.constructor方法默认返回实例对象（即this），完全可以指定返回另外一个对象</h4><h4 id="6-Class的name属性总是返回类名"><a href="#6-Class的name属性总是返回类名" class="headerlink" title="6.Class的name属性总是返回类名"></a>6.Class的name属性总是返回类名</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Point &#123;</span><br><span class="line">    constructor() &#123;</span><br><span class="line">        return Object.create(null);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">new Point instanceof Point   // false</span><br></pre></td></tr></table></figure>
+<h4 id="6-类必须使用new调用"><a href="#6-类必须使用new调用" class="headerlink" title="6.类必须使用new调用"></a>6.类必须使用new调用</h4><hr>
+<h2 id="敲黑板！！！划重点！！！"><a href="#敲黑板！！！划重点！！！" class="headerlink" title="敲黑板！！！划重点！！！"></a>敲黑板！！！划重点！！！</h2><ul>
+<li><h4 id="实例的属性除非显示定义在this对象上，否则都是定义在原型（class）上，即实例的自身属性都定义在this变量上，实例共享的属性和方法都定义在原型对象上也就是类上。"><a href="#实例的属性除非显示定义在this对象上，否则都是定义在原型（class）上，即实例的自身属性都定义在this变量上，实例共享的属性和方法都定义在原型对象上也就是类上。" class="headerlink" title="实例的属性除非显示定义在this对象上，否则都是定义在原型（class）上，即实例的自身属性都定义在this变量上，实例共享的属性和方法都定义在原型对象上也就是类上。"></a>实例的属性除非显示定义在this对象上，否则都是定义在原型（class）上，即实例的自身属性都定义在this变量上，实例共享的属性和方法都定义在原型对象上也就是类上。</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">//定义类</span><br><span class="line">class Point &#123;</span><br><span class="line"></span><br><span class="line">  constructor(x, y) &#123;</span><br><span class="line">    this.x = x;</span><br><span class="line">    this.y = y;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  toString() &#123;</span><br><span class="line">    return &apos;(&apos; + this.x + &apos;, &apos; + this.y + &apos;)&apos;;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var point = new Point(2, 3);</span><br><span class="line"></span><br><span class="line">point.toString() // (2, 3)</span><br><span class="line"></span><br><span class="line">point.hasOwnProperty(&apos;x&apos;) // true</span><br><span class="line">point.hasOwnProperty(&apos;y&apos;) // true</span><br><span class="line">point.hasOwnProperty(&apos;toString&apos;) // false</span><br><span class="line">point.__proto__.hasOwnProperty(&apos;toString&apos;) // true</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="类的所有实例共享一个原型对象，也就是说可以通过实例的proto属性为class添加方法。不过，因为通过实例的proto属性改写原型会改变class的原始定义，会影响到所有实例，需注意！"><a href="#类的所有实例共享一个原型对象，也就是说可以通过实例的proto属性为class添加方法。不过，因为通过实例的proto属性改写原型会改变class的原始定义，会影响到所有实例，需注意！" class="headerlink" title="类的所有实例共享一个原型对象，也就是说可以通过实例的proto属性为class添加方法。不过，因为通过实例的proto属性改写原型会改变class的原始定义，会影响到所有实例，需注意！"></a>类的所有实例共享一个原型对象，也就是说可以通过实例的<strong>proto</strong>属性为class添加方法。不过，因为通过实例的<strong>proto</strong>属性改写原型会改变class的原始定义，会影响到所有实例，需注意！</h4></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var p1 = new Point(2,3);</span><br><span class="line">var p2 = new Point(3,2);</span><br><span class="line"></span><br><span class="line">p1.__proto__.printName = function () &#123; return &apos;Oops&apos; &#125;;</span><br><span class="line"></span><br><span class="line">p1.printName() // &quot;Oops&quot;</span><br><span class="line">p2.printName() // &quot;Oops&quot;</span><br><span class="line"></span><br><span class="line">var p3 = new Point(4,2);</span><br><span class="line">p3.printName() // &quot;Oops&quot;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>proto</strong>不是语言本身特性，而是各大厂商实现的私有属性，不建议在生产环境中使用该属性，建议使用Object.getPrototypeOf方法来获取实例对象的原型，然后再添加源性方法/属性。</p>
+<hr>
+<ul>
+<li><h4 id="类不存在变量提升，必须保证子类在父类之后定义"><a href="#类不存在变量提升，必须保证子类在父类之后定义" class="headerlink" title="类不存在变量提升，必须保证子类在父类之后定义"></a>类不存在变量提升，必须保证子类在父类之后定义</h4></li>
+<li><h4 id="私有方法的实现："><a href="#私有方法的实现：" class="headerlink" title="私有方法的实现："></a>私有方法的实现：</h4><h5 id="1-方法名前加下划线（不保险），类的外部还是可以调到这个方法"><a href="#1-方法名前加下划线（不保险），类的外部还是可以调到这个方法" class="headerlink" title="1.方法名前加下划线（不保险），类的外部还是可以调到这个方法"></a>1.方法名前加下划线（不保险），类的外部还是可以调到这个方法</h5><h5 id="2-将私有方法移出模块（因为模块内部的方法都是对外可见的）"><a href="#2-将私有方法移出模块（因为模块内部的方法都是对外可见的）" class="headerlink" title="2.将私有方法移出模块（因为模块内部的方法都是对外可见的）"></a>2.将私有方法移出模块（因为模块内部的方法都是对外可见的）</h5><h5 id="3-利用Symbol值的唯一性，将私有方法的名字命名为一个Symbol值"><a href="#3-利用Symbol值的唯一性，将私有方法的名字命名为一个Symbol值" class="headerlink" title="3.利用Symbol值的唯一性，将私有方法的名字命名为一个Symbol值"></a>3.利用Symbol值的唯一性，将私有方法的名字命名为一个Symbol值</h5></li>
+<li><h4 id="私有属性的提案："><a href="#私有属性的提案：" class="headerlink" title="私有属性的提案："></a>私有属性的提案：</h4><h5 id="1-使用-在属性名之前，使用时必须带有-一起使用"><a href="#1-使用-在属性名之前，使用时必须带有-一起使用" class="headerlink" title="1.使用#在属性名之前，使用时必须带有#一起使用"></a>1.使用#在属性名之前，使用时必须带有#一起使用</h5><h5 id="2-私有属性可以指定初始值，在构造函数时进行初始化"><a href="#2-私有属性可以指定初始值，在构造函数时进行初始化" class="headerlink" title="2.私有属性可以指定初始值，在构造函数时进行初始化"></a>2.私有属性可以指定初始值，在构造函数时进行初始化</h5><ul>
+<li>#设置私有属性，也可以设置私有方法</li>
+<li>私有属性也可以设置getter和setter方法</li>
+</ul>
+</li>
+<li><h4 id="this指向：类的方法内部如果使用this，则默认指向类的实例，但是单独使用这个方法时，this会指向该方法运行时所在的环境，此时会因为找不到绑定对象而报错"><a href="#this指向：类的方法内部如果使用this，则默认指向类的实例，但是单独使用这个方法时，this会指向该方法运行时所在的环境，此时会因为找不到绑定对象而报错" class="headerlink" title="this指向：类的方法内部如果使用this，则默认指向类的实例，但是单独使用这个方法时，this会指向该方法运行时所在的环境，此时会因为找不到绑定对象而报错"></a>this指向：类的方法内部如果使用this，则默认指向类的实例，但是单独使用这个方法时，this会指向该方法运行时所在的环境，此时会因为找不到绑定对象而报错</h4><ul>
+<li>解决方法：<ol>
+<li>构造方法中指定this（最推荐！）</li>
+<li>使用箭头函数</li>
+<li>使用Proxy（未使用，详见ES6文档）</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><h4 id="Class的取值函数（getter）和存值函数（setter）是设置在属性的Descriptor对象上的"><a href="#Class的取值函数（getter）和存值函数（setter）是设置在属性的Descriptor对象上的" class="headerlink" title="Class的取值函数（getter）和存值函数（setter）是设置在属性的Descriptor对象上的"></a>Class的取值函数（getter）和存值函数（setter）是设置在属性的Descriptor对象上的</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class CustomHTMLElement &#123;</span><br><span class="line">  constructor(element) &#123;</span><br><span class="line">    this.element = element;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  get html() &#123;</span><br><span class="line">    return this.element.innerHTML;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  set html(value) &#123;</span><br><span class="line">    this.element.innerHTML = value;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var descriptor = Object.getOwnPropertyDescriptor(</span><br><span class="line">  CustomHTMLElement.prototype, &quot;html&quot;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">&quot;get&quot; in descriptor  // true</span><br><span class="line">&quot;set&quot; in descriptor  // true</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="Class内部的方法前加上-，即为一个Generator函数（emmmmm，是时候又回去看看generator啦-）"><a href="#Class内部的方法前加上-，即为一个Generator函数（emmmmm，是时候又回去看看generator啦-）" class="headerlink" title="Class内部的方法前加上*，即为一个Generator函数（emmmmm，是时候又回去看看generator啦~）"></a>Class内部的方法前加上*，即为一个Generator函数（emmmmm，是时候又回去看看generator啦~）</h4></li>
+<li><h4 id="Class的静态方法："><a href="#Class的静态方法：" class="headerlink" title="Class的静态方法："></a>Class的静态方法：</h4><ul>
+<li>语法：static methodName() {}</li>
+<li>可以在类上调用，但是不能在实例上调用。如果静态方法中指定了this，则指向类。</li>
+<li>静态方法可以与非静态方法重名。</li>
+<li>父类的静态方法可以被子类继承，也可以从super对象上调用的。</li>
+</ul>
+</li>
+<li><h4 id="Class的静态属性和实例属性："><a href="#Class的静态属性和实例属性：" class="headerlink" title="Class的静态属性和实例属性："></a>Class的静态属性和实例属性：</h4><ul>
+<li>静态属性指的是类本身的属性，而不是this上的属性</li>
+<li>类的实例属性可以用等式写在类的定义中<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class MyClass &#123;</span><br><span class="line">    myProp = 42;</span><br><span class="line"></span><br><span class="line">    constructor() &#123;</span><br><span class="line">        console.log(this.myProp); // 42</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>* 类的静态属性是在实例属性写法前面加上static关键字
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 老写法</span><br><span class="line">class Foo &#123;</span><br><span class="line">    // ...</span><br><span class="line">&#125;</span><br><span class="line">Foo.prop = 1;</span><br><span class="line"></span><br><span class="line">// 新写法</span><br><span class="line">class Foo &#123;</span><br><span class="line">    static prop = 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</code></pre><ul>
+<li><h4 id="new-target属性用在构造函数之中可以确定构造函数是怎么调用的，正常返回new命令作用于的构造函数，如果构造函数不是通过new命令调用的，new-target返回undefined"><a href="#new-target属性用在构造函数之中可以确定构造函数是怎么调用的，正常返回new命令作用于的构造函数，如果构造函数不是通过new命令调用的，new-target返回undefined" class="headerlink" title="new.target属性用在构造函数之中可以确定构造函数是怎么调用的，正常返回new命令作用于的构造函数，如果构造函数不是通过new命令调用的，new.target返回undefined"></a>new.target属性用在构造函数之中可以确定构造函数是怎么调用的，正常返回new命令作用于的构造函数，如果构造函数不是通过new命令调用的，new.target返回undefined</h4><ul>
+<li>Class内部调用new.target，返回当前Class</li>
+<li>子类继承父类时，new.target返回子类[可以用来写不能单独使用必须继承后才可使用的类]</li>
+<li>函数外部，使用new.target会报错</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Class/" rel="tag"># Class</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/08/由一道算法带进ES6之SetMap/" rel="next" title="由一道算法带进ES6之SetMap">
+                <i class="fa fa-chevron-left"></i> 由一道算法带进ES6之SetMap
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">YoungZhang</p>
+              <p class="site-description motion-element" itemprop="description">越努力越幸运~</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/YoungZhang08" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zhangyangyang@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/zhangyangyang" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/youngzhang1001" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Class基础知识"><span class="nav-number">1.</span> <span class="nav-text">Class基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#语法："><span class="nav-number">1.1.</span> <span class="nav-text">语法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类的数据类型是函数，因为类本身指向构造函数，类的方法都定义在prototype属性上面，可以使用Object-assign方法一次向类添加多个方法"><span class="nav-number">1.2.</span> <span class="nav-text">类的数据类型是函数，因为类本身指向构造函数，类的方法都定义在prototype属性上面，可以使用Object.assign方法一次向类添加多个方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#！注意："><span class="nav-number">1.3.</span> <span class="nav-text">！注意：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-在类的实例上调用方法，就是调用原型上的方法"><span class="nav-number">1.3.1.</span> <span class="nav-text">1.在类的实例上调用方法，就是调用原型上的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-prototype对象的constructor属性直接指向类本身"><span class="nav-number">1.3.2.</span> <span class="nav-text">2.prototype对象的constructor属性直接指向类本身</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-类的内部所有定义的方法都是不可枚举的"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.类的内部所有定义的方法都是不可枚举的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-类默认有constructor方法，如果没有显示定义，空的constructor方法会被默认添加"><span class="nav-number">1.3.4.</span> <span class="nav-text">4.类默认有constructor方法，如果没有显示定义，空的constructor方法会被默认添加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-constructor方法默认返回实例对象（即this），完全可以指定返回另外一个对象"><span class="nav-number">1.3.5.</span> <span class="nav-text">5.constructor方法默认返回实例对象（即this），完全可以指定返回另外一个对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-Class的name属性总是返回类名"><span class="nav-number">1.3.6.</span> <span class="nav-text">6.Class的name属性总是返回类名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-类必须使用new调用"><span class="nav-number">1.3.7.</span> <span class="nav-text">6.类必须使用new调用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#敲黑板！！！划重点！！！"><span class="nav-number">2.</span> <span class="nav-text">敲黑板！！！划重点！！！</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实例的属性除非显示定义在this对象上，否则都是定义在原型（class）上，即实例的自身属性都定义在this变量上，实例共享的属性和方法都定义在原型对象上也就是类上。"><span class="nav-number">2.0.1.</span> <span class="nav-text">实例的属性除非显示定义在this对象上，否则都是定义在原型（class）上，即实例的自身属性都定义在this变量上，实例共享的属性和方法都定义在原型对象上也就是类上。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类的所有实例共享一个原型对象，也就是说可以通过实例的proto属性为class添加方法。不过，因为通过实例的proto属性改写原型会改变class的原始定义，会影响到所有实例，需注意！"><span class="nav-number">2.0.2.</span> <span class="nav-text">类的所有实例共享一个原型对象，也就是说可以通过实例的proto属性为class添加方法。不过，因为通过实例的proto属性改写原型会改变class的原始定义，会影响到所有实例，需注意！</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类不存在变量提升，必须保证子类在父类之后定义"><span class="nav-number">2.0.3.</span> <span class="nav-text">类不存在变量提升，必须保证子类在父类之后定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#私有方法的实现："><span class="nav-number">2.0.4.</span> <span class="nav-text">私有方法的实现：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-方法名前加下划线（不保险），类的外部还是可以调到这个方法"><span class="nav-number">2.0.4.1.</span> <span class="nav-text">1.方法名前加下划线（不保险），类的外部还是可以调到这个方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-将私有方法移出模块（因为模块内部的方法都是对外可见的）"><span class="nav-number">2.0.4.2.</span> <span class="nav-text">2.将私有方法移出模块（因为模块内部的方法都是对外可见的）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-利用Symbol值的唯一性，将私有方法的名字命名为一个Symbol值"><span class="nav-number">2.0.4.3.</span> <span class="nav-text">3.利用Symbol值的唯一性，将私有方法的名字命名为一个Symbol值</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#私有属性的提案："><span class="nav-number">2.0.5.</span> <span class="nav-text">私有属性的提案：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-使用-在属性名之前，使用时必须带有-一起使用"><span class="nav-number">2.0.5.1.</span> <span class="nav-text">1.使用#在属性名之前，使用时必须带有#一起使用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-私有属性可以指定初始值，在构造函数时进行初始化"><span class="nav-number">2.0.5.2.</span> <span class="nav-text">2.私有属性可以指定初始值，在构造函数时进行初始化</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#this指向：类的方法内部如果使用this，则默认指向类的实例，但是单独使用这个方法时，this会指向该方法运行时所在的环境，此时会因为找不到绑定对象而报错"><span class="nav-number">2.0.6.</span> <span class="nav-text">this指向：类的方法内部如果使用this，则默认指向类的实例，但是单独使用这个方法时，this会指向该方法运行时所在的环境，此时会因为找不到绑定对象而报错</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Class的取值函数（getter）和存值函数（setter）是设置在属性的Descriptor对象上的"><span class="nav-number">2.0.7.</span> <span class="nav-text">Class的取值函数（getter）和存值函数（setter）是设置在属性的Descriptor对象上的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Class内部的方法前加上-，即为一个Generator函数（emmmmm，是时候又回去看看generator啦-）"><span class="nav-number">2.0.8.</span> <span class="nav-text">Class内部的方法前加上*，即为一个Generator函数（emmmmm，是时候又回去看看generator啦~）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Class的静态方法："><span class="nav-number">2.0.9.</span> <span class="nav-text">Class的静态方法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Class的静态属性和实例属性："><span class="nav-number">2.0.10.</span> <span class="nav-text">Class的静态属性和实例属性：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#new-target属性用在构造函数之中可以确定构造函数是怎么调用的，正常返回new命令作用于的构造函数，如果构造函数不是通过new命令调用的，new-target返回undefined"><span class="nav-number">2.0.11.</span> <span class="nav-text">new.target属性用在构造函数之中可以确定构造函数是怎么调用的，正常返回new命令作用于的构造函数，如果构造函数不是通过new命令调用的，new.target返回undefined</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YoungZhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://YoungZhang08.github.io/2018/05/09/初试ES6之Class/';
+          this.page.identifier = '2018/05/09/初试ES6之Class/';
+          this.page.title = '初试ES6之Class';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+  
+</body>
+</html>
