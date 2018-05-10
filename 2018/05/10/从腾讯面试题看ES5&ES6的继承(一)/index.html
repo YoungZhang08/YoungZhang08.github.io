@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="腾讯now直播一面笔试题第二题1234写一个构造方法Point，要求实现以下功能：let point = new Point(100, 100);let anotherPoint = point.move(-10, 10);console.info(anotherPoint.coor)   //&amp;#123;x: 90, y:110&amp;#125;">
+<meta name="description" content="腾讯now直播一面笔试题第二题1234写一个构造方法Point，要求实现以下功能：let point = new Point(100, 100);let anotherPoint = point.move(-10, 10);console.info(anotherPoint.coor)   //&amp;#123;x: 90, y:110&amp;#125;   原型和继承，是学习JS过程中相当重要并且难懂的点，">
 <meta name="keywords" content="原型,继承">
 <meta property="og:type" content="article">
-<meta property="og:title" content="初试ES6之Class">
+<meta property="og:title" content="从腾讯面试题看ES5&amp;ES6的继承(一)">
 <meta property="og:url" content="https://YoungZhang08.github.io/2018/05/10/从腾讯面试题看ES5&ES6的继承(一)/index.html">
 <meta property="og:site_name" content="YoungZhang&#39;s Blog">
-<meta property="og:description" content="腾讯now直播一面笔试题第二题1234写一个构造方法Point，要求实现以下功能：let point = new Point(100, 100);let anotherPoint = point.move(-10, 10);console.info(anotherPoint.coor)   //&amp;#123;x: 90, y:110&amp;#125;">
+<meta property="og:description" content="腾讯now直播一面笔试题第二题1234写一个构造方法Point，要求实现以下功能：let point = new Point(100, 100);let anotherPoint = point.move(-10, 10);console.info(anotherPoint.coor)   //&amp;#123;x: 90, y:110&amp;#125;   原型和继承，是学习JS过程中相当重要并且难懂的点，">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://note.youdao.com/yws/public/resource/c1554b4563a4504a4b47be66421ba010/xmlnote/WEBRESOURCE1c5ea84c6c60b09c19ba3974de065153/2699">
-<meta property="og:updated_time" content="2018-05-10T13:57:02.000Z">
+<meta property="og:updated_time" content="2018-05-10T13:59:18.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="初试ES6之Class">
-<meta name="twitter:description" content="腾讯now直播一面笔试题第二题1234写一个构造方法Point，要求实现以下功能：let point = new Point(100, 100);let anotherPoint = point.move(-10, 10);console.info(anotherPoint.coor)   //&amp;#123;x: 90, y:110&amp;#125;">
+<meta name="twitter:title" content="从腾讯面试题看ES5&amp;ES6的继承(一)">
+<meta name="twitter:description" content="腾讯now直播一面笔试题第二题1234写一个构造方法Point，要求实现以下功能：let point = new Point(100, 100);let anotherPoint = point.move(-10, 10);console.info(anotherPoint.coor)   //&amp;#123;x: 90, y:110&amp;#125;   原型和继承，是学习JS过程中相当重要并且难懂的点，">
 <meta name="twitter:image" content="https://note.youdao.com/yws/public/resource/c1554b4563a4504a4b47be66421ba010/xmlnote/WEBRESOURCE1c5ea84c6c60b09c19ba3974de065153/2699">
 
 
@@ -128,7 +128,7 @@
 
 
 
-  <title>初试ES6之Class | YoungZhang's Blog</title>
+  <title>从腾讯面试题看ES5&ES6的继承(一) | YoungZhang's Blog</title>
   
 
 
@@ -282,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">初试ES6之Class</h1>
+          <h1 class="post-title" itemprop="name headline">从腾讯面试题看ES5&ES6的继承(一)</h1>
         
 
         <div class="post-meta">
@@ -368,10 +368,10 @@
 
       
         <h3 id="腾讯now直播一面笔试题第二题"><a href="#腾讯now直播一面笔试题第二题" class="headerlink" title="腾讯now直播一面笔试题第二题"></a>腾讯now直播一面笔试题第二题</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">写一个构造方法Point，要求实现以下功能：</span><br><span class="line">let point = new Point(100, 100);</span><br><span class="line">let anotherPoint = point.move(-10, 10);</span><br><span class="line">console.info(anotherPoint.coor)   //&#123;x: 90, y:110&#125;</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
 <hr>
 <blockquote>
 <h5 id="原型和继承，是学习JS过程中相当重要并且难懂的点，第一次过这块的时候，完全是十脸懵逼的。之后因为准备春招，把这块的整个体系重新拜读了不下三次，才得以勉强面试。最近，也在学习ES6相关，看到Class的extend继承，就想对ES5的继承和ES6的继承做一比对和整理。好啦-正文开始······"><a href="#原型和继承，是学习JS过程中相当重要并且难懂的点，第一次过这块的时候，完全是十脸懵逼的。之后因为准备春招，把这块的整个体系重新拜读了不下三次，才得以勉强面试。最近，也在学习ES6相关，看到Class的extend继承，就想对ES5的继承和ES6的继承做一比对和整理。好啦-正文开始······" class="headerlink" title="原型和继承，是学习JS过程中相当重要并且难懂的点，第一次过这块的时候，完全是十脸懵逼的。之后因为准备春招，把这块的整个体系重新拜读了不下三次，才得以勉强面试。最近，也在学习ES6相关，看到Class的extend继承，就想对ES5的继承和ES6的继承做一比对和整理。好啦~正文开始······"></a>原型和继承，是学习JS过程中相当重要并且难懂的点，第一次过这块的时候，完全是十脸懵逼的。之后因为准备春招，把这块的整个体系重新拜读了不下三次，才得以勉强面试。最近，也在学习ES6相关，看到Class的extend继承，就想对ES5的继承和ES6的继承做一比对和整理。好啦~正文开始······</h5></blockquote>
+<a id="more"></a>
 <h3 id="首先，ES5继承"><a href="#首先，ES5继承" class="headerlink" title="首先，ES5继承"></a>首先，ES5继承</h3><p>整理一下构造函数、原型对象和实例之间的关系：构造函数中有一个prototype的属性指向它自己的原型(prototype)对象，而原型对象中又有一个constructor属性指回构造函数，原型对象中定义实例共享的属性和方法，实例对象也总有一个prototype属性指向自己的默认原型对象。实例对象和原型对象均有<strong>prpto</strong>属性，它们的<strong>proto</strong>也都指向它的构造函数的原型对象。</p>
 <blockquote>
 <p>注：JS中所有对象都有自己的<strong>proto</strong>属性，隐式指针，也就是后文中的[[prototype]]</p>
@@ -811,7 +811,7 @@
         var disqus_config = function () {
           this.page.url = 'https://YoungZhang08.github.io/2018/05/10/从腾讯面试题看ES5&ES6的继承(一)/';
           this.page.identifier = '2018/05/10/从腾讯面试题看ES5&ES6的继承(一)/';
-          this.page.title = '初试ES6之Class';
+          this.page.title = '从腾讯面试题看ES5&ES6的继承(一)';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';
