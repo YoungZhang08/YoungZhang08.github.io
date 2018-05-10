@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="原型,继承," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="腾讯now直播一面笔试题第二题1234写一个构造方法Point，要求实现以下功能：let point = new Point(100, 100);let anotherPoint = point.move(-10, 10);console.info(anotherPoint.coor)   //&amp;#123;x: 90, y:110&amp;#125;">
+<meta name="keywords" content="原型,继承">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初试ES6之Class">
+<meta property="og:url" content="https://YoungZhang08.github.io/2018/05/10/从腾讯面试题看ES5&ES6的继承(一)/index.html">
+<meta property="og:site_name" content="YoungZhang&#39;s Blog">
+<meta property="og:description" content="腾讯now直播一面笔试题第二题1234写一个构造方法Point，要求实现以下功能：let point = new Point(100, 100);let anotherPoint = point.move(-10, 10);console.info(anotherPoint.coor)   //&amp;#123;x: 90, y:110&amp;#125;">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/c1554b4563a4504a4b47be66421ba010/xmlnote/WEBRESOURCE1c5ea84c6c60b09c19ba3974de065153/2699">
+<meta property="og:updated_time" content="2018-05-10T13:57:02.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="初试ES6之Class">
+<meta name="twitter:description" content="腾讯now直播一面笔试题第二题1234写一个构造方法Point，要求实现以下功能：let point = new Point(100, 100);let anotherPoint = point.move(-10, 10);console.info(anotherPoint.coor)   //&amp;#123;x: 90, y:110&amp;#125;">
+<meta name="twitter:image" content="https://note.youdao.com/yws/public/resource/c1554b4563a4504a4b47be66421ba010/xmlnote/WEBRESOURCE1c5ea84c6c60b09c19ba3974de065153/2699">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://YoungZhang08.github.io/2018/05/10/从腾讯面试题看ES5&ES6的继承(一)/"/>
+
+
+
+
+
+  <title>初试ES6之Class | YoungZhang's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">YoungZhang's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/05/10/从腾讯面试题看ES5&ES6的继承(一)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YoungZhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YoungZhang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">初试ES6之Class</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-10T21:56:36+08:00">
+                2018-05-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ES5/" itemprop="url" rel="index">
+                    <span itemprop="name">ES5</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/10/从腾讯面试题看ES5&ES6的继承(一)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/05/10/从腾讯面试题看ES5&ES6的继承(一)/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+      
+      </div>
+    </header>
+  
+
+          
+
+          
+
+        
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="腾讯now直播一面笔试题第二题"><a href="#腾讯now直播一面笔试题第二题" class="headerlink" title="腾讯now直播一面笔试题第二题"></a>腾讯now直播一面笔试题第二题</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">写一个构造方法Point，要求实现以下功能：</span><br><span class="line">let point = new Point(100, 100);</span><br><span class="line">let anotherPoint = point.move(-10, 10);</span><br><span class="line">console.info(anotherPoint.coor)   //&#123;x: 90, y:110&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<hr>
+<blockquote>
+<h5 id="原型和继承，是学习JS过程中相当重要并且难懂的点，第一次过这块的时候，完全是十脸懵逼的。之后因为准备春招，把这块的整个体系重新拜读了不下三次，才得以勉强面试。最近，也在学习ES6相关，看到Class的extend继承，就想对ES5的继承和ES6的继承做一比对和整理。好啦-正文开始······"><a href="#原型和继承，是学习JS过程中相当重要并且难懂的点，第一次过这块的时候，完全是十脸懵逼的。之后因为准备春招，把这块的整个体系重新拜读了不下三次，才得以勉强面试。最近，也在学习ES6相关，看到Class的extend继承，就想对ES5的继承和ES6的继承做一比对和整理。好啦-正文开始······" class="headerlink" title="原型和继承，是学习JS过程中相当重要并且难懂的点，第一次过这块的时候，完全是十脸懵逼的。之后因为准备春招，把这块的整个体系重新拜读了不下三次，才得以勉强面试。最近，也在学习ES6相关，看到Class的extend继承，就想对ES5的继承和ES6的继承做一比对和整理。好啦~正文开始······"></a>原型和继承，是学习JS过程中相当重要并且难懂的点，第一次过这块的时候，完全是十脸懵逼的。之后因为准备春招，把这块的整个体系重新拜读了不下三次，才得以勉强面试。最近，也在学习ES6相关，看到Class的extend继承，就想对ES5的继承和ES6的继承做一比对和整理。好啦~正文开始······</h5></blockquote>
+<h3 id="首先，ES5继承"><a href="#首先，ES5继承" class="headerlink" title="首先，ES5继承"></a>首先，ES5继承</h3><p>整理一下构造函数、原型对象和实例之间的关系：构造函数中有一个prototype的属性指向它自己的原型(prototype)对象，而原型对象中又有一个constructor属性指回构造函数，原型对象中定义实例共享的属性和方法，实例对象也总有一个prototype属性指向自己的默认原型对象。实例对象和原型对象均有<strong>prpto</strong>属性，它们的<strong>proto</strong>也都指向它的构造函数的原型对象。</p>
+<blockquote>
+<p>注：JS中所有对象都有自己的<strong>proto</strong>属性，隐式指针，也就是后文中的[[prototype]]</p>
+</blockquote>
+<h4 id="1-ES5继承之原型链-核心：将父类的实例作为子类的原型，即重写子类的原型"><a href="#1-ES5继承之原型链-核心：将父类的实例作为子类的原型，即重写子类的原型" class="headerlink" title="1. ES5继承之原型链[ 核心：将父类的实例作为子类的原型，即重写子类的原型 ]"></a>1. ES5继承之原型链[ 核心：将父类的实例作为子类的原型，即重写子类的原型 ]</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// 实现模式</span><br><span class="line">function Father() &#123;</span><br><span class="line">    this.property = true;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Father.prototype.getFatherPro = function() &#123;</span><br><span class="line">    return this.property;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function Son() &#123;</span><br><span class="line">    this.sonProperty = false;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Son继承了Father</span><br><span class="line">Son.prototype = new Father();</span><br><span class="line"></span><br><span class="line">Son.prototype.getSonPro = function() &#123;</span><br><span class="line">    return this.sonProperty;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var instance = new Son();</span><br><span class="line">console.log(instance.getFatherPro); // true</span><br></pre></td></tr></table></figure>
+<p><img src="https://note.youdao.com/yws/public/resource/c1554b4563a4504a4b47be66421ba010/xmlnote/WEBRESOURCE1c5ea84c6c60b09c19ba3974de065153/2699" alt="image"></p>
+<blockquote>
+<p>这个代码中，我们改写了Son的原型，这个新原型是Father的实例，而Father的实例的prototype是指向Father Prototype的，所以新原型具有Father的实例拥有的所有属性（property）和方法，而我们后面也给它的新原型添加了方法getSonPro()，所以，在new出来Son的实例instance时，instance的prototype指向Son Prototype，并拥有Son的属性sonProperty和Son Prototype上的属性和方法，自然就可以调用getSonPro并打印出结果。</p>
+</blockquote>
+<h4 id="！！！敲黑板啦-——默认原型，前面的原型链还少一环，就是Father-Prototype的-prototype-指向Object-Prototype，而Object-Prototype的-prototype-指向null。"><a href="#！！！敲黑板啦-——默认原型，前面的原型链还少一环，就是Father-Prototype的-prototype-指向Object-Prototype，而Object-Prototype的-prototype-指向null。" class="headerlink" title="！！！敲黑板啦~——默认原型，前面的原型链还少一环，就是Father Prototype的[[prototype]]指向Object Prototype，而Object Prototype的[[prototype]]指向null。"></a>！！！敲黑板啦~——默认原型，前面的原型链还少一环，就是Father Prototype的[[prototype]]指向Object Prototype，而Object Prototype的[[prototype]]指向null。</h4><h5 id="确定原型和实例的关系"><a href="#确定原型和实例的关系" class="headerlink" title="确定原型和实例的关系"></a>确定原型和实例的关系</h5><ol>
+<li>instanceOf</li>
+<li>isPrototypeOf()</li>
+</ol>
+<blockquote>
+<p>原型链继承的问题：</p>
+<ol>
+<li>因为包含引用类型值的原型属性会被所有实例共享，所以我们一般都是在构造函数中定义属性。通过原型来继承的时候，因为子类的原型实际上是父类的实例，所以父类实例的属性就会变成子类的原型属性，那么子类的所有实例都会共享子类原型上的属性也就是父类上的属性，当子类实例访问或者改变这个属性的时候，也会反映在其他实例上。</li>
+<li>在创建子类的实例时不能向父类的构造函数中传递参数。</li>
+</ol>
+</blockquote>
+<hr>
+<h4 id="2-ES5继承之借用构造函数-核心：子类的构造函数中调用父类的构造函数"><a href="#2-ES5继承之借用构造函数-核心：子类的构造函数中调用父类的构造函数" class="headerlink" title="2. ES5继承之借用构造函数[ 核心：子类的构造函数中调用父类的构造函数 ]"></a>2. ES5继承之借用构造函数[ 核心：子类的构造函数中调用父类的构造函数 ]</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function Father() &#123;</span><br><span class="line">    this.arr = [1, 2, 3, 4];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function Son() &#123;</span><br><span class="line">    // 继承Father</span><br><span class="line">    Father.call(this);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var instance1 = new Son();</span><br><span class="line">instance1.arr.push(5);</span><br><span class="line">console.log(instance1.arr); // [1, 2, 3, 4, 5]</span><br><span class="line"></span><br><span class="line">var instance2 = new Son();</span><br><span class="line">console.log(instance2.arr); // [1, 2, 3, 4]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>call和apply方法的作用就是在（将来）新创建的实例对象上执行构造函数，所以每个实例对象都会有自己的属性副本，不会影响到所有实例都是相同的属性。而且，借用构造函数还有一个大优势就是可以在子类构造函数中向父类构造函数传参。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function Father(name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function Son() &#123;</span><br><span class="line">    // 继承Father，传入参数</span><br><span class="line">    Father.call(this, &apos;zyy&apos;);</span><br><span class="line">    </span><br><span class="line">    // 实例属性</span><br><span class="line">    this.age = 21;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var instance = new Son();</span><br><span class="line">console.log(instance.name); // zyy</span><br><span class="line">console.log(instance.age); // 21</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>构造函数的问题：</p>
+<ol>
+<li>方法都在构造函数中定义，函数复用就无法实现。</li>
+<li>在父类原型中定义的方法对于子类而言是不可见的，所以所有类型只能使用构造函数模式。</li>
+</ol>
+</blockquote>
+<h4 id="3-ES5继承之组合继承-核心：结合构造函数和原型链，即使用原型链实现对原型属性和方法的继承，通过构造函数实现对实例属性的继承"><a href="#3-ES5继承之组合继承-核心：结合构造函数和原型链，即使用原型链实现对原型属性和方法的继承，通过构造函数实现对实例属性的继承" class="headerlink" title="3. ES5继承之组合继承[ 核心：结合构造函数和原型链，即使用原型链实现对原型属性和方法的继承，通过构造函数实现对实例属性的继承 ]"></a>3. ES5继承之组合继承[ 核心：结合构造函数和原型链，即使用原型链实现对原型属性和方法的继承，通过构造函数实现对实例属性的继承 ]</h4><p><em>以最典型的AJAX为例</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">function Ajax(obj) &#123;</span><br><span class="line">    this.url = obj.url;</span><br><span class="line">    this.async = obj.async;</span><br><span class="line">    this.data = obj.data || &apos;&apos;;</span><br><span class="line">    this.method = obj.method || &apos;GET&apos;;</span><br><span class="line">    this.dataType = obj.dataTpye;</span><br><span class="line">    this.success = obj.success;</span><br><span class="line">    this.error = obj.error;</span><br><span class="line">    this.timeout = obj.timeout || 0;</span><br><span class="line">    this.xml = null;</span><br><span class="line">    this.init();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Ajax.prototype = &#123;</span><br><span class="line">    constructor: Ajax,</span><br><span class="line">    init: function() &#123;</span><br><span class="line">        this.createXml();</span><br><span class="line">    &#125;,</span><br><span class="line">    createXml: function() &#123;</span><br><span class="line">        ······</span><br><span class="line">        this.spliceParams();</span><br><span class="line">        this.dataType();</span><br><span class="line">    &#125;,</span><br><span class="line">    spliceParams: function() &#123;</span><br><span class="line">        ······</span><br><span class="line">        this.data = arr;</span><br><span class="line">    &#125;,</span><br><span class="line">    dataType: function() &#123;</span><br><span class="line">        ······</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">window.Ajax = function(data) &#123;</span><br><span class="line">    return new Ajax(data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>组合继承的优点：酱紫结合的结果就是所有实例都共享原型对象上的方法，但是又拥有自己独有的属性~</p>
+</blockquote>
+<h4 id="4-ES5继承之原型式继承-核心：借助原型基于已有的对象创建新对象"><a href="#4-ES5继承之原型式继承-核心：借助原型基于已有的对象创建新对象" class="headerlink" title="4. ES5继承之原型式继承[ 核心：借助原型基于已有的对象创建新对象 ]"></a>4. ES5继承之原型式继承[ 核心：借助原型基于已有的对象创建新对象 ]</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">function createObj(o) &#123;</span><br><span class="line">    function F() &#123;&#125;</span><br><span class="line">    F.prototype = o;</span><br><span class="line">    return new F();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var person = &#123;</span><br><span class="line">    name: &apos;zyy&apos;,</span><br><span class="line">    friends: [&apos;miao&apos;, &apos;pm&apos;]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var person1 = createObj(person);</span><br><span class="line">var person2 = createObj(person);</span><br><span class="line"></span><br><span class="line">person1.name = &apos;person1&apos;;</span><br><span class="line">console.log(person1.name); // person1</span><br><span class="line">console.log(person2.name); // zyy</span><br><span class="line"></span><br><span class="line">person1.friends.push(&apos;tuo&apos;);</span><br><span class="line">console.log(person2.friends); // [&quot;miao&quot;, &quot;pm&quot;, &quot;tuo&quot;]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>原型继承的问题：</p>
+<ol>
+<li>包含引用类型的属性值始终都会共享相应的值，这点跟原型链继承一样。</li>
+<li>上例代码中的person2的friends和person1的一样，而name不同就是因为，包含引用类型的属性值会共享。</li>
+</ol>
+</blockquote>
+<h4 id="5-ES5继承之寄生式继承-仅用于封装继承过程的函数，该函数在内部以某种形式来做增强对象，最后返回对象"><a href="#5-ES5继承之寄生式继承-仅用于封装继承过程的函数，该函数在内部以某种形式来做增强对象，最后返回对象" class="headerlink" title="5. ES5继承之寄生式继承[ 仅用于封装继承过程的函数，该函数在内部以某种形式来做增强对象，最后返回对象 ]"></a>5. ES5继承之寄生式继承[ 仅用于封装继承过程的函数，该函数在内部以某种形式来做增强对象，最后返回对象 ]</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function createObj (o) &#123;</span><br><span class="line">    var clone = Object.create(o);</span><br><span class="line">    clone.sayHi = function () &#123;</span><br><span class="line">        console.log(&apos;hi&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">    return clone;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var person = &#123;</span><br><span class="line">    name: &apos;zyy&apos;,</span><br><span class="line">    friends: [&apos;miao&apos;, &apos;pm&apos;, &apos;tuo&apos;]</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">var anotherPerson = createObj(person);</span><br><span class="line">anotherPerson.sayHi(); // hi</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>寄生式继承的问题：跟借用构造函数模式一样，每次创建对象都会创建一遍方法</p>
+</blockquote>
+<h4 id="6-ES5继承之寄生组合式继承"><a href="#6-ES5继承之寄生组合式继承" class="headerlink" title="6. ES5继承之寄生组合式继承[  ]"></a>6. ES5继承之寄生组合式继承[  ]</h4><blockquote>
+<p>组合继承最大的缺点是会调用两次父构造函数。<br>一次是设置子类型实例的原型的时候，一次在创建子类型实例的时候。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function object(o) &#123;</span><br><span class="line">    function F() &#123;&#125;</span><br><span class="line">    F.prototype = o;</span><br><span class="line">    return new F();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function prototype(child, parent) &#123;</span><br><span class="line">    var prototype = object(parent.prototype);</span><br><span class="line">    prototype.constructor = child;</span><br><span class="line">    child.prototype = prototype;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 当我们使用的时候：</span><br><span class="line">prototype(Child, Parent);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这种方式的高效率体现它只调用了一次 Parent 构造函数，并且因此避免了在 Parent.prototype 上面创建不必要的、多余的属性。与此同时，原型链还能保持不变；因此，还能够正常使用 instanceof 和 isPrototypeOf。</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/原型/" rel="tag"># 原型</a>
+          
+            <a href="/tags/继承/" rel="tag"># 继承</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/09/初试ES6之Class/" rel="next" title="初试ES6之Class">
+                <i class="fa fa-chevron-left"></i> 初试ES6之Class
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">YoungZhang</p>
+              <p class="site-description motion-element" itemprop="description">越努力越幸运~</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/YoungZhang08" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zhangyangyang@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/zhangyangyang" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/youngzhang1001" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#腾讯now直播一面笔试题第二题"><span class="nav-number">1.</span> <span class="nav-text">腾讯now直播一面笔试题第二题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#原型和继承，是学习JS过程中相当重要并且难懂的点，第一次过这块的时候，完全是十脸懵逼的。之后因为准备春招，把这块的整个体系重新拜读了不下三次，才得以勉强面试。最近，也在学习ES6相关，看到Class的extend继承，就想对ES5的继承和ES6的继承做一比对和整理。好啦-正文开始······"><span class="nav-number">1.0.1.</span> <span class="nav-text">原型和继承，是学习JS过程中相当重要并且难懂的点，第一次过这块的时候，完全是十脸懵逼的。之后因为准备春招，把这块的整个体系重新拜读了不下三次，才得以勉强面试。最近，也在学习ES6相关，看到Class的extend继承，就想对ES5的继承和ES6的继承做一比对和整理。好啦~正文开始······</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首先，ES5继承"><span class="nav-number">2.</span> <span class="nav-text">首先，ES5继承</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-ES5继承之原型链-核心：将父类的实例作为子类的原型，即重写子类的原型"><span class="nav-number">2.1.</span> <span class="nav-text">1. ES5继承之原型链[ 核心：将父类的实例作为子类的原型，即重写子类的原型 ]</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#！！！敲黑板啦-——默认原型，前面的原型链还少一环，就是Father-Prototype的-prototype-指向Object-Prototype，而Object-Prototype的-prototype-指向null。"><span class="nav-number">2.2.</span> <span class="nav-text">！！！敲黑板啦~——默认原型，前面的原型链还少一环，就是Father Prototype的[[prototype]]指向Object Prototype，而Object Prototype的[[prototype]]指向null。</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#确定原型和实例的关系"><span class="nav-number">2.2.1.</span> <span class="nav-text">确定原型和实例的关系</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-ES5继承之借用构造函数-核心：子类的构造函数中调用父类的构造函数"><span class="nav-number">2.3.</span> <span class="nav-text">2. ES5继承之借用构造函数[ 核心：子类的构造函数中调用父类的构造函数 ]</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-ES5继承之组合继承-核心：结合构造函数和原型链，即使用原型链实现对原型属性和方法的继承，通过构造函数实现对实例属性的继承"><span class="nav-number">2.4.</span> <span class="nav-text">3. ES5继承之组合继承[ 核心：结合构造函数和原型链，即使用原型链实现对原型属性和方法的继承，通过构造函数实现对实例属性的继承 ]</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-ES5继承之原型式继承-核心：借助原型基于已有的对象创建新对象"><span class="nav-number">2.5.</span> <span class="nav-text">4. ES5继承之原型式继承[ 核心：借助原型基于已有的对象创建新对象 ]</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-ES5继承之寄生式继承-仅用于封装继承过程的函数，该函数在内部以某种形式来做增强对象，最后返回对象"><span class="nav-number">2.6.</span> <span class="nav-text">5. ES5继承之寄生式继承[ 仅用于封装继承过程的函数，该函数在内部以某种形式来做增强对象，最后返回对象 ]</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-ES5继承之寄生组合式继承"><span class="nav-number">2.7.</span> <span class="nav-text">6. ES5继承之寄生组合式继承[  ]</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YoungZhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://YoungZhang08.github.io/2018/05/10/从腾讯面试题看ES5&ES6的继承(一)/';
+          this.page.identifier = '2018/05/10/从腾讯面试题看ES5&ES6的继承(一)/';
+          this.page.title = '初试ES6之Class';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+  
+</body>
+</html>
