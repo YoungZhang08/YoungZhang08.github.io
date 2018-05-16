@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="代码回滚," />
 
 
 
@@ -79,17 +79,26 @@
 
 
 
-<meta name="description" content="emmmmm······小编前端白白兔^~^欢迎来纺YoungZhang’s github">
-<meta property="og:type" content="website">
-<meta property="og:title" content="about">
-<meta property="og:url" content="https://YoungZhang08.github.io/about/index.html">
+<meta name="description" content="好了，记录一下今日的壮举。。。坐标：百度大厦C座      时间：2018-05-16事件起因：上次的需求提交多提交了一个不必要的包导师缺陷检测有6个问题不能merge，所以今日在本地删除包之后提交代码，又因为对git操作的不熟悉，对untracked的deleted的文件执行了”git rm -r .”，然后就很尴尬了。。。我就看着我的VSCode的资源管理器那一栏噌噌噌地没了。。。但是还有部分">
+<meta name="keywords" content="代码回滚">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git代码回滚">
+<meta property="og:url" content="https://YoungZhang08.github.io/2018/05/16/git代码回滚/index.html">
 <meta property="og:site_name" content="YoungZhang&#39;s Blog">
-<meta property="og:description" content="emmmmm······小编前端白白兔^~^欢迎来纺YoungZhang’s github">
+<meta property="og:description" content="好了，记录一下今日的壮举。。。坐标：百度大厦C座      时间：2018-05-16事件起因：上次的需求提交多提交了一个不必要的包导师缺陷检测有6个问题不能merge，所以今日在本地删除包之后提交代码，又因为对git操作的不熟悉，对untracked的deleted的文件执行了”git rm -r .”，然后就很尴尬了。。。我就看着我的VSCode的资源管理器那一栏噌噌噌地没了。。。但是还有部分">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-05-08T13:12:25.000Z">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCE2affa77461fd6eee11c2b4e2c0d25ced/3232">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCEeddda71d5ba6de35beebbcc09374979f/3238">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCE2fe57c806552e3fc48bf856682d7c1f1/3245">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCE6e6cb09e30a1465150a6f11f5d707ddb/3251">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCEf83a997190a7c97779b7ec8bccde668c/3257">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCE1f4ae4ddf5fe7c60e0e8e6d9bdc30e86/3263">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCEabc235dfe557b048f5f728fefe7fb0cb/3276">
+<meta property="og:updated_time" content="2018-05-16T13:16:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="about">
-<meta name="twitter:description" content="emmmmm······小编前端白白兔^~^欢迎来纺YoungZhang’s github">
+<meta name="twitter:title" content="git代码回滚">
+<meta name="twitter:description" content="好了，记录一下今日的壮举。。。坐标：百度大厦C座      时间：2018-05-16事件起因：上次的需求提交多提交了一个不必要的包导师缺陷检测有6个问题不能merge，所以今日在本地删除包之后提交代码，又因为对git操作的不熟悉，对untracked的deleted的文件执行了”git rm -r .”，然后就很尴尬了。。。我就看着我的VSCode的资源管理器那一栏噌噌噌地没了。。。但是还有部分">
+<meta name="twitter:image" content="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCE2affa77461fd6eee11c2b4e2c0d25ced/3232">
 
 
 
@@ -119,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="https://YoungZhang08.github.io/about/"/>
+  <link rel="canonical" href="https://YoungZhang08.github.io/2018/05/16/git代码回滚/"/>
 
 
 
 
 
-  <title>about | YoungZhang's Blog</title>
+  <title>git代码回滚 | YoungZhang's Blog</title>
   
 
 
@@ -250,33 +259,192 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/05/16/git代码回滚/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YoungZhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YoungZhang's Blog">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">about</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <h3 id="emmmmm······小编前端白白兔-欢迎来纺YoungZhang’s-github"><a href="#emmmmm······小编前端白白兔-欢迎来纺YoungZhang’s-github" class="headerlink" title="emmmmm······小编前端白白兔^~^欢迎来纺YoungZhang’s github"></a>emmmmm······小编前端白白兔^~^欢迎来纺<a href="https://github.com/youngzhang08" target="_blank" rel="noopener">YoungZhang’s github</a></h3>
+          <h1 class="post-title" itemprop="name headline">git代码回滚</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-16T21:09:31+08:00">
+                2018-05-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/git管理/" itemprop="url" rel="index">
+                    <span itemprop="name">git管理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/16/git代码回滚/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/05/16/git代码回滚/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+      
       </div>
+    </header>
+  
+
+          
+
+          
+
+        
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h3 id="好了，记录一下今日的壮举。。。"><a href="#好了，记录一下今日的壮举。。。" class="headerlink" title="好了，记录一下今日的壮举。。。"></a>好了，记录一下今日的壮举。。。</h3><p>坐标：百度大厦C座      时间：2018-05-16<br>事件起因：上次的需求提交多提交了一个不必要的包导师缺陷检测有6个问题不能merge，所以今日在本地删除包之后提交代码，又因为对git操作的不熟悉，对untracked的deleted的文件执行了”git rm -r .”，然后就很尴尬了。。。我就看着我的VSCode的资源管理器那一栏噌噌噌地没了。。。但是还有部分没有删除。emmmmm，立即想到git代码回滚。嗯，解决的过程中，导师问我“你是想报复社会嘛”，emmmmm，其实，，，没想报复社会。。。也没想删库跑路。。。哭唧唧········回归正题——</p>
+<ol>
+<li>首先，你需要打印出你之前所有的commit-id，选择你要回滚到哪一个版本，命令：git log</li>
+<li>接下来，执行git reset –soft commit-id，如果出现如下图所示的fatal，那就继续接着搞吧<br><img src="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCE2affa77461fd6eee11c2b4e2c0d25ced/3232" alt="image"><ol start="3">
+<li>上一步的结果说明你还在合并,所以需要把当前目录所有修改的文件从HEAD中迁出并且把它回复称未修改时的样子<br><img src="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCEeddda71d5ba6de35beebbcc09374979f/3238" alt="image"><br>4.在查看状态git status，可以看到提示你执行下面红框中的命令<br><img src="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCE2fe57c806552e3fc48bf856682d7c1f1/3245" alt="image"></li>
+<li>执行git revert –abort之后查看状态，没有问题之后就可以回滚了</li>
+<li>执行git reset –soft commit-id，再去查看状态就可以看到自己刚刚都删了哪些内容<br><img src="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCE6e6cb09e30a1465150a6f11f5d707ddb/3251" alt="image"></li>
+<li>根据提示再执行git reset HEAD .，这一步的意思是可以把暂存区的修改撤销掉（unstage），重新放回工作区<br><img src="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCEf83a997190a7c97779b7ec8bccde668c/3257" alt="image"></li>
+<li>继续使用git status查看这些文件处于什么状态，可以看到是not staged，提示我们执行git checkout<br>恢复原态<br><img src="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCE1f4ae4ddf5fe7c60e0e8e6d9bdc30e86/3263" alt="image"></li>
+<li>完了git add将工作区的提到暂存区并且提交commit<br><img src="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCEabc235dfe557b048f5f728fefe7fb0cb/3276" alt="image"></li>
+<li>再执行git pull，git push到远程分支，就ok啦~</li>
+</ol>
+</li>
+</ol>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/代码回滚/" rel="tag"># 代码回滚</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/10/从腾讯面试题看ES5&ES6的继承(一)/" rel="next" title="从腾讯面试题看ES5&ES6的继承(一)">
+                <i class="fa fa-chevron-left"></i> 从腾讯面试题看ES5&ES6的继承(一)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -427,7 +595,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#emmmmm······小编前端白白兔-欢迎来纺YoungZhang’s-github"><span class="nav-number">1.</span> <span class="nav-text">emmmmm······小编前端白白兔^~^欢迎来纺YoungZhang’s github</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#好了，记录一下今日的壮举。。。"><span class="nav-number">1.</span> <span class="nav-text">好了，记录一下今日的壮举。。。</span></a></li></ol></div>
             
 
           </div>
@@ -597,9 +765,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://YoungZhang08.github.io/about/index.html';
-          this.page.identifier = 'about/index.html';
-          this.page.title = 'about';
+          this.page.url = 'https://YoungZhang08.github.io/2018/05/16/git代码回滚/';
+          this.page.identifier = '2018/05/16/git代码回滚/';
+          this.page.title = 'git代码回滚';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';
