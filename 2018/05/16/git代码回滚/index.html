@@ -94,7 +94,7 @@
 <meta property="og:image" content="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCEf83a997190a7c97779b7ec8bccde668c/3257">
 <meta property="og:image" content="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCE1f4ae4ddf5fe7c60e0e8e6d9bdc30e86/3263">
 <meta property="og:image" content="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCEabc235dfe557b048f5f728fefe7fb0cb/3276">
-<meta property="og:updated_time" content="2018-05-16T13:16:39.000Z">
+<meta property="og:updated_time" content="2018-05-16T13:18:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git代码回滚">
 <meta name="twitter:description" content="好了，记录一下今日的壮举。。。坐标：百度大厦C座      时间：2018-05-16事件起因：上次的需求提交多提交了一个不必要的包导师缺陷检测有6个问题不能merge，所以今日在本地删除包之后提交代码，又因为对git操作的不熟悉，对untracked的deleted的文件执行了”git rm -r .”，然后就很尴尬了。。。我就看着我的VSCode的资源管理器那一栏噌噌噌地没了。。。但是还有部分">
@@ -374,6 +374,7 @@
 
       
         <h3 id="好了，记录一下今日的壮举。。。"><a href="#好了，记录一下今日的壮举。。。" class="headerlink" title="好了，记录一下今日的壮举。。。"></a>好了，记录一下今日的壮举。。。</h3><p>坐标：百度大厦C座      时间：2018-05-16<br>事件起因：上次的需求提交多提交了一个不必要的包导师缺陷检测有6个问题不能merge，所以今日在本地删除包之后提交代码，又因为对git操作的不熟悉，对untracked的deleted的文件执行了”git rm -r .”，然后就很尴尬了。。。我就看着我的VSCode的资源管理器那一栏噌噌噌地没了。。。但是还有部分没有删除。emmmmm，立即想到git代码回滚。嗯，解决的过程中，导师问我“你是想报复社会嘛”，emmmmm，其实，，，没想报复社会。。。也没想删库跑路。。。哭唧唧········回归正题——</p>
+<a id="more"></a>
 <ol>
 <li>首先，你需要打印出你之前所有的commit-id，选择你要回滚到哪一个版本，命令：git log</li>
 <li>接下来，执行git reset –soft commit-id，如果出现如下图所示的fatal，那就继续接着搞吧<br><img src="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCE2affa77461fd6eee11c2b4e2c0d25ced/3232" alt="image"><ol start="3">
