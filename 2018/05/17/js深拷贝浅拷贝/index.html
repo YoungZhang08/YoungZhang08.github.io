@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="对象拷贝," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="深拷贝和浅拷贝主要区别是在内存中存储类型（堆栈）不同。 但其实js中没有严格意义上区分堆栈内存，因此可以粗暴的认为所有的数据类型都存储在堆内存，但是有些场景下还是需要利用栈数据结构的思维来实现一些思维，比如，js的执行上下文就采用了栈结构实现环境栈（又名函数调用栈）。  堆栈的区别 栈，先进后出(FILO)的存储方式，按值存放可直接访问。堆，树状结构，按引用访问。">
+<meta name="keywords" content="对象拷贝">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS深拷贝浅拷贝">
+<meta property="og:url" content="https://YoungZhang08.github.io/2018/05/17/js深拷贝浅拷贝/index.html">
+<meta property="og:site_name" content="YoungZhang&#39;s Blog">
+<meta property="og:description" content="深拷贝和浅拷贝主要区别是在内存中存储类型（堆栈）不同。 但其实js中没有严格意义上区分堆栈内存，因此可以粗暴的认为所有的数据类型都存储在堆内存，但是有些场景下还是需要利用栈数据结构的思维来实现一些思维，比如，js的执行上下文就采用了栈结构实现环境栈（又名函数调用栈）。  堆栈的区别 栈，先进后出(FILO)的存储方式，按值存放可直接访问。堆，树状结构，按引用访问。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/9274007941c429664226c48c2ba441e5/xmlnote/WEBRESOURCEe9e63c24c049cb8c31d381f59aafc906/2976">
+<meta property="og:updated_time" content="2018-05-17T05:53:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS深拷贝浅拷贝">
+<meta name="twitter:description" content="深拷贝和浅拷贝主要区别是在内存中存储类型（堆栈）不同。 但其实js中没有严格意义上区分堆栈内存，因此可以粗暴的认为所有的数据类型都存储在堆内存，但是有些场景下还是需要利用栈数据结构的思维来实现一些思维，比如，js的执行上下文就采用了栈结构实现环境栈（又名函数调用栈）。  堆栈的区别 栈，先进后出(FILO)的存储方式，按值存放可直接访问。堆，树状结构，按引用访问。">
+<meta name="twitter:image" content="https://note.youdao.com/yws/public/resource/9274007941c429664226c48c2ba441e5/xmlnote/WEBRESOURCEe9e63c24c049cb8c31d381f59aafc906/2976">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://YoungZhang08.github.io/2018/05/17/js深拷贝浅拷贝/"/>
+
+
+
+
+
+  <title>JS深拷贝浅拷贝 | YoungZhang's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">YoungZhang's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/05/17/js深拷贝浅拷贝/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YoungZhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YoungZhang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JS深拷贝浅拷贝</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-17T13:51:43+08:00">
+                2018-05-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ES5-ES6/" itemprop="url" rel="index">
+                    <span itemprop="name">ES5 ES6</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/17/js深拷贝浅拷贝/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/05/17/js深拷贝浅拷贝/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+      
+      </div>
+    </header>
+  
+
+          
+
+          
+
+        
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="深拷贝和浅拷贝主要区别是在内存中存储类型（堆栈）不同。"><a href="#深拷贝和浅拷贝主要区别是在内存中存储类型（堆栈）不同。" class="headerlink" title="深拷贝和浅拷贝主要区别是在内存中存储类型（堆栈）不同。"></a>深拷贝和浅拷贝主要区别是在内存中存储类型（堆栈）不同。</h3><blockquote>
+<p>但其实js中没有严格意义上区分堆栈内存，因此可以粗暴的认为所有的数据类型都存储在堆内存，但是有些场景下还是需要利用栈数据结构的思维来实现一些思维，比如，js的执行上下文就采用了栈结构实现环境栈（又名函数调用栈）。</p>
+</blockquote>
+<h2 id="堆栈的区别"><a href="#堆栈的区别" class="headerlink" title="堆栈的区别"></a>堆栈的区别</h2><blockquote>
+<p>栈，先进后出(FILO)的存储方式，按值存放可直接访问。堆，树状结构，按引用访问。<br><a id="more"></a></p>
+</blockquote>
+<h2 id="js中的数据类型"><a href="#js中的数据类型" class="headerlink" title="js中的数据类型"></a>js中的数据类型</h2><ol>
+<li>基本数据类型：String，Number，Null，Undefined，Boolean。五中基本数据类型的变量直接按值存放，存在栈内存中，可直接访问。</li>
+<li>引用类型：Object，Array，Function。值大小不固定，栈内存中的变量值存的是地址，指向堆内存中的对象。访问引用类型的值时，首先从栈中获得该对象的地址指针，然后再从堆内存中取得数据。</li>
+</ol>
+<ul>
+<li>见下图理解：</li>
+</ul>
+<p><img src="https://note.youdao.com/yws/public/resource/9274007941c429664226c48c2ba441e5/xmlnote/WEBRESOURCEe9e63c24c049cb8c31d381f59aafc906/2976" alt="image"></p>
+<h3 id="说拷贝之前还想再说一下js中的按值传递和按引用传递"><a href="#说拷贝之前还想再说一下js中的按值传递和按引用传递" class="headerlink" title="说拷贝之前还想再说一下js中的按值传递和按引用传递"></a>说拷贝之前还想再说一下js中的按值传递和按引用传递</h3><h4 id="按值传递"><a href="#按值传递" class="headerlink" title="按值传递"></a>按值传递</h4><blockquote>
+<p>高程书中写道：ECMAScript中所有函数的参数都是按值传递的。也就是说，把函数外部的值复制给函数内部的参数，就和把值从一个变量复制到另一个变量一样。可以把ECMAScript函数的参数想象成局部变量。</p>
+</blockquote>
+<p>举个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function foo(v) &#123;</span><br><span class="line">    v = 2;</span><br><span class="line">    return v;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var value = 1;</span><br><span class="line">foo(value); // 2</span><br><span class="line">console.log(value) // 1</span><br></pre></td></tr></table></figure>
+<p>可以看到，value被传递到foo函数中的时候，相当于把实参变量value的值拷贝给形参变量v，函数内部修改的都是形参变量v的值，不会影响原来的变量value的值。</p>
+<h4 id="按引用传递"><a href="#按引用传递" class="headerlink" title="按引用传递"></a>按引用传递</h4><blockquote>
+<p>像上述的基本数据类型的值的拷贝还是很好理解的，但是当值的数据类型变得复杂，上面的拷贝方式就会产生性能上的影响，所以出现了另外一种传递方式——按引用传递。所谓引用传递，就是传递对象的引用，函数内部对参数的修改会反映在函数外部，因为两者引用的是同一个对象。</p>
+</blockquote>
+<p>举个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function change(person) &#123;</span><br><span class="line">    person.age = 25;</span><br><span class="line">    </span><br><span class="line">    return person;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var obj1 = &#123;</span><br><span class="line">    name: &apos;young&apos;,</span><br><span class="line">    age: 21</span><br><span class="line">&#125;;</span><br><span class="line">var obj2 = change(obj1);</span><br><span class="line">console.log(obj1); // &#123;name: &apos;young&apos;, age: 25&#125;</span><br><span class="line">console.log(obj2); // &#123;name: &apos;young&apos;, age: 25&#125;</span><br></pre></td></tr></table></figure>
+<p>等一下，和高程书说的好像有点不一样，这样子的话看着像是按引用传递了······稍安勿躁~</p>
+<h4 id="共享传递"><a href="#共享传递" class="headerlink" title="共享传递"></a>共享传递</h4><blockquote>
+<p>共享传递是指，在传递对象的时候，传递对象的引用的副本。注意！！！按引用传递是指传递对象的引用，按共享传递是指传递对象的引用的副本。</p>
+</blockquote>
+<p>再看个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function change(person) &#123;</span><br><span class="line">    person.age = 25;</span><br><span class="line">    person = &#123;</span><br><span class="line">        name: &apos;miaorenjie&apos;,</span><br><span class="line">        age: 20</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    return person;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var obj1 = &#123;</span><br><span class="line">    name: &apos;young&apos;,</span><br><span class="line">    age: 21</span><br><span class="line">&#125;;</span><br><span class="line">var obj2 = change(obj1);</span><br><span class="line">console.log(obj1); // &#123;name: &apos;young&apos;, age: 25&#125;</span><br><span class="line">console.log(obj2); // &#123;name: &apos;miaorenjie&apos;, age: 20&#125;</span><br></pre></td></tr></table></figure>
+<p>所以修改person.age是通过引用找到原值，并且影响原值的，并不是通过person，后面直接修改person，是更改了person的指向，也就是重新拷贝了指向内存的地址，原本指向obj1的指针就变为了指向新的对象，所以，可以看到的是obj1的属性改变是通过引用修改的，而如果说是按引用传递的话，person的修改也是会反映在obj1上的。所以，总结一下，我们可以这么理解：</p>
+<blockquote>
+<p>参数如果是基本数据类型，就是按值传递，如果是引用类型，就是按共享传递。因为不论拷贝值副本还是地址副本始终也是拷贝的值，所以红宝书告诉你说参数都是按值传递~</p>
+</blockquote>
+<h3 id="浅拷贝-amp-深拷贝"><a href="#浅拷贝-amp-深拷贝" class="headerlink" title="浅拷贝&amp;深拷贝"></a>浅拷贝&amp;深拷贝</h3><p>首先，深拷贝和浅拷贝在js中是对引用类型而言的。</p>
+<blockquote>
+<p>浅拷贝：指新拷贝的对象和原对象指向同一个地址，改变其中一个变量的内容都会反映在另外一个变量身上，也就是拷贝的原对象的内存地址。<br>深拷贝：指重新分配内存给新拷贝的对象，将原对象的各个属性复制进去，对拷贝对象和原对象各自的操作互不影响。</p>
+</blockquote>
+<p>接下来看具体实现吧，终于切入正题了~</p>
+<ol>
+<li>赋值：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var obj = &#123;</span><br><span class="line">    name : &apos;miaorenjie&apos;,</span><br><span class="line">    age: 20,</span><br><span class="line">    like: [&apos;black&apos;, &apos;white&apos;]</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">var obj1 = obj;</span><br><span class="line">obj1.name = &apos;young&apos;;</span><br><span class="line">obj1.like[0] = &apos;pink&apos;;</span><br><span class="line"></span><br><span class="line">console.log(obj); // &#123; name: &apos;young&apos;, age: 20, like: [ &apos;pink&apos;, &apos;blue&apos; ] &#125;</span><br><span class="line">console.log(obj1); // &#123; name: &apos;young&apos;, age: 20, like: [ &apos;pink&apos;, &apos;blue&apos; ] &#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到的是，赋值操作是纯粹的复制原对象的引用，所以在修改新对象的原始数据类型和引用类型的值之后的变化也都反映在了原对象上。</p>
+<ol start="2">
+<li>浅拷贝（简单的复制引用）</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">function shallowCopy(src) &#123;</span><br><span class="line">    var result = &#123;&#125;;</span><br><span class="line">    for(var i in src) &#123;</span><br><span class="line">        if(src.hasOwnProperty(i)) &#123;</span><br><span class="line">            result[i] = src[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var obj = &#123;</span><br><span class="line">    name : &apos;miaorenjie&apos;,</span><br><span class="line">    age: 20,</span><br><span class="line">    like: [&apos;black&apos;, &apos;white&apos;]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var obj2 = shallowCopy(obj);</span><br><span class="line">obj2.age = 21;</span><br><span class="line">obj2.like[1] = &apos;blue&apos;;</span><br><span class="line">console.log(obj); // &#123; name: &apos;miaorenjie&apos;, age: 20, like: [ &apos;black&apos;, &apos;blue&apos; ] &#125;</span><br><span class="line">console.log(obj2); // &#123; name: &apos;miaorenjie&apos;, age: 21, like: [ &apos;black&apos;, &apos;blue&apos; ] &#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到，新复制的对象好像并没有和原对象共用内存呀，要不然怎么基本数据类型没有随之修改。如果你也产生了这个疑问，那么恭喜，你和小编走入了同一个误区。此处所实现的浅复制，指的是循环复制原对象的属性时，进行的一层浅复制，也就是在循环赋值到某个具体的属性的时候，对这个具体的属性进行复制，如果是原始数据类型就复制的属性值，如果是引用类型就复制引用类型的属性值——对象的引用，所以基本数据类型是没有共用内存的，只有原对象中的对象才是共用内存的，所以只有引用类型的值在互相影响。</p>
+<ol start="2">
+<li>Object.assign()<blockquote>
+<p>Object.assign(target, …sources)方法用于将所有可枚举属性的值从一个或多个源对象复制到目标对象。它将返回目标对象。[target:目标对象，sources:源对象] </p>
+</blockquote>
+</li>
+</ol>
+<ul>
+<li>浅拷贝<blockquote>
+<p>因为 Object.assign()拷贝的是属性值。。假如源对象的属性值是一个指向对象的引用，它就拷贝那个引用值，也就是源对象中的引用属性会和目标对象的该属性共用内存，两者的后续修改都会影响到对方，这时候获得的就是源对象的浅复制。</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 第一种假如</span><br><span class="line">let obj1 = &#123; a: 0 , b: &#123; c: 0&#125;&#125;;</span><br><span class="line">let obj2 = Object.assign(&#123;&#125;, obj1);</span><br><span class="line">obj1.a = 1;</span><br><span class="line">console.log(JSON.stringify(obj1)); // &#123; a: 1, b: &#123; c: 0&#125;&#125;</span><br><span class="line">console.log(JSON.stringify(obj2)); // &#123; a: 0, b: &#123; c: 0&#125;&#125;</span><br><span class="line">obj2.a = 2;</span><br><span class="line">console.log(JSON.stringify(obj1)); // &#123; a: 1, b: &#123; c: 0&#125;&#125;</span><br><span class="line">console.log(JSON.stringify(obj2)); // &#123; a: 2, b: &#123; c: 0&#125;&#125;</span><br><span class="line"></span><br><span class="line">// 第二种假如</span><br><span class="line">obj2.b.c = 3;</span><br><span class="line">console.log(JSON.stringify(obj1)); // &#123; a: 1, b: &#123; c: 3&#125;&#125;</span><br><span class="line">console.log(JSON.stringify(obj2)); // &#123; a: 2, b: &#123; c: 3&#125;&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>拷贝Symbol类型的属性</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var o1 = &#123; a: 1 &#125;;</span><br><span class="line">var o2 = &#123; [Symbol(&apos;foo&apos;)]: 2 &#125;;</span><br><span class="line"></span><br><span class="line">var obj = Object.assign(&#123;&#125;, o1, o2);</span><br><span class="line">console.log(obj); // &#123; a : 1, [Symbol(&quot;foo&quot;)]: 2 &#125; (cf. bug 1207182 on Firefox)</span><br><span class="line">Object.getOwnPropertySymbols(obj); // [Symbol(foo)]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>原始类型会被包装为对象<blockquote>
+<p>Object.assign()会忽略null或undefined的源值，因为原始类型会被包装成对象，但是null和undefined无法转成对象，只有字符串的包装对象才可能有自身可枚举属性。包装后的对象属性值对应的键是它在源对象中的索引。</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var v1 = &quot;abc&quot;;</span><br><span class="line">var v2 = true;</span><br><span class="line">var v3 = 10;</span><br><span class="line">var v4 = Symbol(&quot;foo&quot;)</span><br><span class="line"></span><br><span class="line">var obj = Object.assign(&#123;&#125;, v1, null, v2, undefined, v3, v4); </span><br><span class="line">// 原始类型会被包装，null 和 undefined 会被忽略。</span><br><span class="line">// 注意，只有字符串的包装对象才可能有自身可枚举属性。</span><br><span class="line">console.log(obj); // &#123; &quot;0&quot;: &quot;a&quot;, &quot;1&quot;: &quot;b&quot;, &quot;2&quot;: &quot;c&quot; &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>继承属性和不可枚举属性不可拷贝<blockquote>
+<p>Object.assign 方法只会拷贝源对象自身的并且可枚举的属性到目标对象。该方法使用源对象的[[Get]]和目标对象的[[Set]]，所以它会调用相关 getter 和 setter。因此，它是分配属性，而不仅仅是复制或定义新的属性。如果合并源包含getter，这可能使其不适合将新属性合并到原型中。为了将属性定义（包括其可枚举性）复制到原型，应使用Object.getOwnPropertyDescriptor()和Object.defineProperty() 。</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var obj = Object.create(&#123;foo: 1&#125;, &#123; // foo 是个继承属性。</span><br><span class="line">    bar: &#123;</span><br><span class="line">        value: 2  // bar 是个不可枚举属性。</span><br><span class="line">    &#125;,</span><br><span class="line">    baz: &#123;</span><br><span class="line">        value: 3,</span><br><span class="line">        enumerable: true  // baz 是个自身可枚举属性。</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">var copy = Object.assign(&#123;&#125;, obj);</span><br><span class="line">console.log(copy); // &#123; baz: 3 &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>属性覆盖（可用来合并对象）<blockquote>
+<p>如果目标对象中的属性具有相同的键，则属性将被源中的属性覆盖。后来的源的属性将类似地覆盖早先的属性。</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var o1 = &#123; a: 1, b: 1, c: 1 &#125;;</span><br><span class="line">var o2 = &#123; b: 2, c: 2 &#125;;</span><br><span class="line">var o3 = &#123; c: 3 &#125;;</span><br><span class="line"></span><br><span class="line">var obj = Object.assign(&#123;&#125;, o1, o2, o3);</span><br><span class="line">console.log(obj); // &#123; a: 1, b: 2, c: 3 &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>异常会打断后续拷贝任务<blockquote>
+<p>在出现错误的情况下，例如，如果属性不可写，会引发TypeError，如果在引发错误之前添加了任何属性，则可以更改target对象。</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var target = Object.defineProperty(&#123;&#125;, &quot;foo&quot;, &#123;</span><br><span class="line">    value: 1,</span><br><span class="line">    writable: false</span><br><span class="line">&#125;); // target 的 foo 属性是个只读属性。</span><br><span class="line"></span><br><span class="line">Object.assign(target, &#123;bar: 2&#125;, &#123;foo2: 3, foo: 3, foo3: 3&#125;, &#123;baz: 4&#125;);</span><br><span class="line">// TypeError: &quot;foo&quot; is read-only</span><br><span class="line">// 注意这个异常是在拷贝第二个源对象的第二个属性时发生的。</span><br><span class="line"></span><br><span class="line">console.log(target.bar);  // 2，说明第一个源对象拷贝成功了。</span><br><span class="line">console.log(target.foo2); // 3，说明第二个源对象的第一个属性也拷贝成功了。</span><br><span class="line">console.log(target.foo);  // 1，只读属性不能被覆盖，所以第二个源对象的第二个属性拷贝失败了。</span><br><span class="line">console.log(target.foo3); // undefined，异常之后 assign 方法就退出了，第三个属性是不会被拷贝到的。</span><br><span class="line">console.log(target.baz);  // undefined，第三个源对象更是不会被拷贝到的。</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>深拷贝<blockquote>
+<p>上面也说了，浅复制复制的是引用类型的地址，并没有开辟新的内存空间，而深复制是开辟新的内存来存放新对象，源对象和新对象对应的是两个不同的地址，修改其中一个对象的属性，不会改变另外一个对象的属性。深复制的几种实现：</p>
+</blockquote>
+</li>
+</ol>
+<ul>
+<li><p>递归解析</p>
+<blockquote>
+<p>因为使用递归，性能会不如浅拷贝</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">function deepCopy(src, res) &#123;</span><br><span class="line">    var res = res || &#123;&#125;;</span><br><span class="line">    for(var i in src) &#123;</span><br><span class="line">        if(src.hasOwnProperty(i)) &#123;</span><br><span class="line">            if(typeof src[i] === &apos;object&apos;) &#123;</span><br><span class="line">                res[i] = (src[i].constructor === Array) ? [] : &#123;&#125;;</span><br><span class="line">                deepCopy(src[i], res[i]);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                res[i] = src[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var obj1 = &#123;&#125;;</span><br><span class="line">deepCopy(obj, obj1);</span><br><span class="line">obj1.age = 21;</span><br><span class="line">obj1.like[1] = &apos;blue&apos;;</span><br><span class="line"></span><br><span class="line">console.log(obj); // &#123; name: &apos;miaorenjie&apos;, age: 20, like: [ &apos;black&apos;, &apos;white&apos; ] &#125;</span><br><span class="line">console.log(obj1); // &#123; name: &apos;miaorenjie&apos;, age: 21, like: [ &apos;black&apos;, &apos;blue&apos; ] &#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>JSON解析</p>
+<blockquote>
+<p>局限性：如果被拷贝的对象中有function，则拷贝之后的对象就会丢失这个function，原型链就没了；如果被拷贝的对象中有正则表达式，则拷贝之后的对象正则表达式会变成Object</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var obj = &#123;</span><br><span class="line">    name : &apos;miaorenjie&apos;,</span><br><span class="line">    age: 20,</span><br><span class="line">    like: [&apos;black&apos;, &apos;white&apos;]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var result = JSON.parse(JSON.stringify(obj));</span><br><span class="line">result.age = 21;</span><br><span class="line">result.name = &apos;young&apos;;</span><br><span class="line">result.like.push(&apos;pink&apos;);</span><br><span class="line">console.log(obj); // &#123; name: &apos;miaorenjie&apos;, age: 20, like: [ &apos;black&apos;, &apos;white&apos; ] &#125;</span><br><span class="line">console.log(result); // &#123; name: &apos;young&apos;, age: 21, like: [ &apos;black&apos;, &apos;white&apos;, &apos;pink&apos; ] &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Object.assign()（当对象只有一层的时候使用）<blockquote>
+<p>假如源对象的属性值不包含引用类型，那该方法返回的值就是一个与源对象相同但不在同一块内存的另一个对象，源对象和新对象的后续修改是互不影响的，也就是返回了源对象的深拷贝。</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">obj1 = &#123; a: 0 , b: &#123; c: 0&#125;&#125;;</span><br><span class="line">let obj3 = JSON.parse(JSON.stringify(obj1));</span><br><span class="line">obj1.a = 4;</span><br><span class="line">obj1.b.c = 4;</span><br><span class="line">console.log(JSON.stringify(obj3)); // &#123; a: 0, b: &#123; c: 0&#125;&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/对象拷贝/" rel="tag"># 对象拷贝</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/16/git代码回滚/" rel="next" title="git代码回滚">
+                <i class="fa fa-chevron-left"></i> git代码回滚
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">YoungZhang</p>
+              <p class="site-description motion-element" itemprop="description">越努力越幸运~</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/YoungZhang08" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zhangyangyang@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/zhangyangyang" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/youngzhang1001" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#深拷贝和浅拷贝主要区别是在内存中存储类型（堆栈）不同。"><span class="nav-number">1.</span> <span class="nav-text">深拷贝和浅拷贝主要区别是在内存中存储类型（堆栈）不同。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#堆栈的区别"><span class="nav-number"></span> <span class="nav-text">堆栈的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#js中的数据类型"><span class="nav-number"></span> <span class="nav-text">js中的数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#说拷贝之前还想再说一下js中的按值传递和按引用传递"><span class="nav-number">1.</span> <span class="nav-text">说拷贝之前还想再说一下js中的按值传递和按引用传递</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#按值传递"><span class="nav-number">1.1.</span> <span class="nav-text">按值传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#按引用传递"><span class="nav-number">1.2.</span> <span class="nav-text">按引用传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#共享传递"><span class="nav-number">1.3.</span> <span class="nav-text">共享传递</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浅拷贝-amp-深拷贝"><span class="nav-number">2.</span> <span class="nav-text">浅拷贝&amp;深拷贝</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YoungZhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://YoungZhang08.github.io/2018/05/17/js深拷贝浅拷贝/';
+          this.page.identifier = '2018/05/17/js深拷贝浅拷贝/';
+          this.page.title = 'JS深拷贝浅拷贝';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+  
+</body>
+</html>
