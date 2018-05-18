@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="代码回滚," />
+  <meta name="keywords" content="对象 - 继承," />
 
 
 
@@ -79,26 +79,18 @@
 
 
 
-<meta name="description" content="好了，记录一下今日的壮举。。。坐标：百度大厦C座      时间：2018-05-16事件起因：上次的需求提交多提交了一个不必要的包导师缺陷检测有6个问题不能merge，所以今日在本地删除包之后提交代码，又因为对git操作的不熟悉，对untracked的deleted的文件执行了”git rm -r .”，然后就很尴尬了。。。我就看着我的VSCode的资源管理器那一栏噌噌噌地没了。。。但是还有部分">
-<meta name="keywords" content="代码回滚">
+<meta name="description" content="接着上文，看ES6继承之Class &amp;amp; extends1.基本语法1234567891011121314class Point &amp;#123;&amp;#125;// ColorPoint class ColorPoint extends Point &amp;#123;    constructor(x, y, color) &amp;#123;        super(x, y); // 调用父类的const">
+<meta name="keywords" content="对象 - 继承">
 <meta property="og:type" content="article">
-<meta property="og:title" content="git代码回滚">
-<meta property="og:url" content="https://YoungZhang08.github.io/2018/05/16/git代码回滚/index.html">
+<meta property="og:title" content="从ES5&amp;ES6两方看继承(二)">
+<meta property="og:url" content="https://YoungZhang08.github.io/2018/05/18/从ES5&ES6两方看继承(二)/index.html">
 <meta property="og:site_name" content="YoungZhang&#39;s Blog">
-<meta property="og:description" content="好了，记录一下今日的壮举。。。坐标：百度大厦C座      时间：2018-05-16事件起因：上次的需求提交多提交了一个不必要的包导师缺陷检测有6个问题不能merge，所以今日在本地删除包之后提交代码，又因为对git操作的不熟悉，对untracked的deleted的文件执行了”git rm -r .”，然后就很尴尬了。。。我就看着我的VSCode的资源管理器那一栏噌噌噌地没了。。。但是还有部分">
+<meta property="og:description" content="接着上文，看ES6继承之Class &amp;amp; extends1.基本语法1234567891011121314class Point &amp;#123;&amp;#125;// ColorPoint class ColorPoint extends Point &amp;#123;    constructor(x, y, color) &amp;#123;        super(x, y); // 调用父类的const">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCE2affa77461fd6eee11c2b4e2c0d25ced/3232">
-<meta property="og:image" content="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCEeddda71d5ba6de35beebbcc09374979f/3238">
-<meta property="og:image" content="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCE2fe57c806552e3fc48bf856682d7c1f1/3245">
-<meta property="og:image" content="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCE6e6cb09e30a1465150a6f11f5d707ddb/3251">
-<meta property="og:image" content="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCEf83a997190a7c97779b7ec8bccde668c/3257">
-<meta property="og:image" content="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCE1f4ae4ddf5fe7c60e0e8e6d9bdc30e86/3263">
-<meta property="og:image" content="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCEabc235dfe557b048f5f728fefe7fb0cb/3276">
-<meta property="og:updated_time" content="2018-05-16T13:18:33.000Z">
+<meta property="og:updated_time" content="2018-05-18T07:15:51.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="git代码回滚">
-<meta name="twitter:description" content="好了，记录一下今日的壮举。。。坐标：百度大厦C座      时间：2018-05-16事件起因：上次的需求提交多提交了一个不必要的包导师缺陷检测有6个问题不能merge，所以今日在本地删除包之后提交代码，又因为对git操作的不熟悉，对untracked的deleted的文件执行了”git rm -r .”，然后就很尴尬了。。。我就看着我的VSCode的资源管理器那一栏噌噌噌地没了。。。但是还有部分">
-<meta name="twitter:image" content="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCE2affa77461fd6eee11c2b4e2c0d25ced/3232">
+<meta name="twitter:title" content="从ES5&amp;ES6两方看继承(二)">
+<meta name="twitter:description" content="接着上文，看ES6继承之Class &amp;amp; extends1.基本语法1234567891011121314class Point &amp;#123;&amp;#125;// ColorPoint class ColorPoint extends Point &amp;#123;    constructor(x, y, color) &amp;#123;        super(x, y); // 调用父类的const">
 
 
 
@@ -128,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://YoungZhang08.github.io/2018/05/16/git代码回滚/"/>
+  <link rel="canonical" href="https://YoungZhang08.github.io/2018/05/18/从ES5&ES6两方看继承(二)/"/>
 
 
 
 
 
-  <title>git代码回滚 | YoungZhang's Blog</title>
+  <title>从ES5&ES6两方看继承(二) | YoungZhang's Blog</title>
   
 
 
@@ -271,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/05/16/git代码回滚/">
+    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/05/18/从ES5&ES6两方看继承(二)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YoungZhang">
@@ -288,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">git代码回滚</h1>
+          <h1 class="post-title" itemprop="name headline">从ES5&ES6两方看继承(二)</h1>
         
 
         <div class="post-meta">
@@ -300,8 +292,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-16T21:09:31+08:00">
-                2018-05-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-18T15:13:58+08:00">
+                2018-05-18
               </time>
             
 
@@ -323,8 +315,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/git管理/" itemprop="url" rel="index">
-                    <span itemprop="name">git管理</span>
+                  <a href="/categories/ES6/" itemprop="url" rel="index">
+                    <span itemprop="name">ES6</span>
                   </a>
                 </span>
 
@@ -341,9 +333,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/05/16/git代码回滚/#comments" itemprop="discussionUrl">
+                <a href="/2018/05/18/从ES5&ES6两方看继承(二)/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/05/16/git代码回滚/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/05/18/从ES5&ES6两方看继承(二)/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -373,22 +365,39 @@
       
 
       
-        <h3 id="好了，记录一下今日的壮举。。。"><a href="#好了，记录一下今日的壮举。。。" class="headerlink" title="好了，记录一下今日的壮举。。。"></a>好了，记录一下今日的壮举。。。</h3><p>坐标：百度大厦C座      时间：2018-05-16<br>事件起因：上次的需求提交多提交了一个不必要的包导师缺陷检测有6个问题不能merge，所以今日在本地删除包之后提交代码，又因为对git操作的不熟悉，对untracked的deleted的文件执行了”git rm -r .”，然后就很尴尬了。。。我就看着我的VSCode的资源管理器那一栏噌噌噌地没了。。。但是还有部分没有删除。emmmmm，立即想到git代码回滚。嗯，解决的过程中，导师问我“你是想报复社会嘛”，emmmmm，其实，，，没想报复社会。。。也没想删库跑路。。。哭唧唧········回归正题——</p>
+        <h2 id="接着上文，看ES6继承之Class-amp-extends"><a href="#接着上文，看ES6继承之Class-amp-extends" class="headerlink" title="接着上文，看ES6继承之Class &amp; extends"></a>接着上文，看ES6继承之Class &amp; extends</h2><h3 id="1-基本语法"><a href="#1-基本语法" class="headerlink" title="1.基本语法"></a>1.基本语法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Point &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// ColorPoint </span><br><span class="line">class ColorPoint extends Point &#123;</span><br><span class="line">    constructor(x, y, color) &#123;</span><br><span class="line">        super(x, y); // 调用父类的constructor(x, y)</span><br><span class="line">        this.color = color;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    toString() &#123;</span><br><span class="line">        return this.color + &apos; &apos; + super.toString(); // 调用父类的toString()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>super方法表示父类构造函数，调用时会新建父类的this对象。只有super方法才可以返回父类实例，所以调用super之后子类才可以使用this关键字。</p>
 <a id="more"></a>
-<ol>
-<li>首先，你需要打印出你之前所有的commit-id，选择你要回滚到哪一个版本，命令：git log</li>
-<li>接下来，执行git reset –soft commit-id，如果出现如下图所示的fatal，那就继续接着搞吧<br><img src="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCE2affa77461fd6eee11c2b4e2c0d25ced/3232" alt="image"><ol start="3">
-<li>上一步的结果说明你还在合并,所以需要把当前目录所有修改的文件从HEAD中迁出并且把它回复称未修改时的样子<br><img src="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCEeddda71d5ba6de35beebbcc09374979f/3238" alt="image"><br>4.在查看状态git status，可以看到提示你执行下面红框中的命令<br><img src="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCE2fe57c806552e3fc48bf856682d7c1f1/3245" alt="image"></li>
-<li>执行git revert –abort之后查看状态，没有问题之后就可以回滚了</li>
-<li>执行git reset –soft commit-id，再去查看状态就可以看到自己刚刚都删了哪些内容<br><img src="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCE6e6cb09e30a1465150a6f11f5d707ddb/3251" alt="image"></li>
-<li>根据提示再执行git reset HEAD .，这一步的意思是可以把暂存区的修改撤销掉（unstage），重新放回工作区<br><img src="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCEf83a997190a7c97779b7ec8bccde668c/3257" alt="image"></li>
-<li>继续使用git status查看这些文件处于什么状态，可以看到是not staged，提示我们执行git checkout<br>恢复原态<br><img src="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCE1f4ae4ddf5fe7c60e0e8e6d9bdc30e86/3263" alt="image"></li>
-<li>完了git add将工作区的提到暂存区并且提交commit<br><img src="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCEabc235dfe557b048f5f728fefe7fb0cb/3276" alt="image"></li>
-<li>再执行git pull，git push到远程分支，就ok啦~</li>
-</ol>
-</li>
-</ol>
-
+<blockquote>
+<p>注意：子类必须在constructor方法中调用super方法，否则新建实例的时候会报错。这是因为ES6的继承机制是酱紫的：先创建父类的实例对象this（所以必须先调用super方法），然后再用子类的构造函数修改this。也就是说子类自己的this对象，必须先通过父类的构造函数完成塑造，得到与父类同样的实例属性和方法，然后再对其加工，加上子类自己的实例属性和方法。如果不调用super方法子类就得不到this对象。最后，父类的静态方法也会被子类继承。</p>
+</blockquote>
+<p>扯一扯ES5的继承机制：先创建子类的实例对象this，然后将父类的方法添加到子类的实例对象this上面（Parent.apply(this)）。</p>
+<h3 id="2-Object-getPrototypeOf"><a href="#2-Object-getPrototypeOf" class="headerlink" title="2. Object.getPrototypeOf()"></a>2. Object.getPrototypeOf()</h3><blockquote>
+<p>用来从子类上获取父类，因此可以用来判断一个类是否继承了另一个类。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Object.getPrototypeOf(ColorPoint) === Point; // true</span><br></pre></td></tr></table></figure>
+<h3 id="3-super关键字"><a href="#3-super关键字" class="headerlink" title="3. super关键字"></a>3. super关键字</h3><ul>
+<li>作为函数调用时，代表父类的构造函数且只能在子类的构造函数中。即使super代表了父类的构造函数，但是返回的是子类的实例，也就是其内部的this指的是子类，所以super相当于是 ++<strong>父类.prototype.constructor.call(this)</strong>++</li>
+<li>作为对象时，++在普通方法中，指向父类的原型对象++，所以定义在父类实例上的属性和方法无法通过super调用。规定在子类普通方法中通过super调用父类方法时，内部的this指向当前的子类实例。因为this指向子类实例，所以++如果在子类的constructor方法中通过super对某个属性赋值，这时super就是this，赋值的属性会变成子类实例的属性；在静态方法中，指向父类，而不是父类的原型对象++。</li>
+</ul>
+<h3 id="4-类的prototype和proto"><a href="#4-类的prototype和proto" class="headerlink" title="4.类的prototype和proto"></a>4.类的prototype和<strong>proto</strong></h3><blockquote>
+<p>作为一个对象，子类的原型（<strong>proto</strong>属性）是父类。</p>
+</blockquote>
+<blockquote>
+<p>作为一个构造函数，子类的原型对象（prototype属性）是父类的原型对象（prototype属性）的实例。</p>
+</blockquote>
+<h3 id="5-实例的proto属性"><a href="#5-实例的proto属性" class="headerlink" title="5.实例的proto属性"></a>5.实例的<strong>proto</strong>属性</h3><blockquote>
+<p>子类实例的<strong>proto</strong>属性的<strong>proto</strong>属性，指向父类实例的<strong>proto</strong>属性。也就是说，子类的原型的原型，是父类的原型。因此，通过子类实例的<strong>proto</strong>.<strong>proto</strong>属性，可以修改父类实例的行为。</p>
+</blockquote>
+<h3 id="6-原生构造函数的继承"><a href="#6-原生构造函数的继承" class="headerlink" title="6.原生构造函数的继承"></a>6.原生构造函数的继承</h3><blockquote>
+<p>Boolean()、Number()、String()、Array()、Date()、Function()、RegExp()、Error()、Object()以上这些原生构造函数是无法继承的。<br>原生构造函数的this无法绑定，导致拿不到内部属性。因为ES5中是先新建子类的实例对象this，再将父类的属性添加到子类上，由于父类的内部属性无法获取，导致无法继承原生的构造函数。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">function MyArray() &#123;</span><br><span class="line">  Array.apply(this, arguments);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">MyArray.prototype = Object.create(Array.prototype, &#123;</span><br><span class="line">  constructor: &#123;</span><br><span class="line">    value: MyArray,</span><br><span class="line">    writable: true,</span><br><span class="line">    configurable: true,</span><br><span class="line">    enumerable: true</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">var colors = new MyArray();</span><br><span class="line">colors[0] = &quot;red&quot;;</span><br><span class="line">colors.length  // 0</span><br><span class="line"></span><br><span class="line">colors.length = 0;</span><br><span class="line">colors[0]  // &quot;red&quot;</span><br></pre></td></tr></table></figure>
+<p>之所以会发生这种情况，是因为子类无法获得原生构造函数的内部属性，通过Array.apply()或者分配给原型对象都不行。原生构造函数会忽略apply方法传入的this，也就是说，原生构造函数的this无法绑定，导致拿不到内部属性。</p>
+<blockquote>
+<p>ES6允许继承原生构造函数定义子类，因为ES6是先新建父类的实例对象this，然后再用子类的构造函数修饰this，使得父类的所有行为都可以继承。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class MyArray extends Array &#123;</span><br><span class="line">  constructor(...args) &#123;</span><br><span class="line">    super(...args);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var arr = new MyArray();</span><br><span class="line">arr[0] = 12;</span><br><span class="line">arr.length // 1</span><br><span class="line"></span><br><span class="line">arr.length = 0;</span><br><span class="line">arr[0] // undefined</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -405,7 +414,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/代码回滚/" rel="tag"># 代码回滚</a>
+            <a href="/tags/对象-继承/" rel="tag"># 对象 - 继承</a>
           
         </div>
       
@@ -418,8 +427,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/10/从ES5&ES6两方看继承(一)/" rel="next" title="从ES5&ES6两方看继承(二)">
-                <i class="fa fa-chevron-left"></i> 从ES5&ES6两方看继承(二)
+              <a href="/2018/05/17/js深拷贝浅拷贝/" rel="next" title="JS深拷贝浅拷贝">
+                <i class="fa fa-chevron-left"></i> JS深拷贝浅拷贝
               </a>
             
           </div>
@@ -427,10 +436,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/17/js深拷贝浅拷贝/" rel="prev" title="JS深拷贝浅拷贝">
-                JS深拷贝浅拷贝 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -600,7 +605,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#好了，记录一下今日的壮举。。。"><span class="nav-number">1.</span> <span class="nav-text">好了，记录一下今日的壮举。。。</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#接着上文，看ES6继承之Class-amp-extends"><span class="nav-number">1.</span> <span class="nav-text">接着上文，看ES6继承之Class &amp; extends</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-基本语法"><span class="nav-number">1.1.</span> <span class="nav-text">1.基本语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Object-getPrototypeOf"><span class="nav-number">1.2.</span> <span class="nav-text">2. Object.getPrototypeOf()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-super关键字"><span class="nav-number">1.3.</span> <span class="nav-text">3. super关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-类的prototype和proto"><span class="nav-number">1.4.</span> <span class="nav-text">4.类的prototype和proto</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-实例的proto属性"><span class="nav-number">1.5.</span> <span class="nav-text">5.实例的proto属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-原生构造函数的继承"><span class="nav-number">1.6.</span> <span class="nav-text">6.原生构造函数的继承</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -770,9 +775,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://YoungZhang08.github.io/2018/05/16/git代码回滚/';
-          this.page.identifier = '2018/05/16/git代码回滚/';
-          this.page.title = 'git代码回滚';
+          this.page.url = 'https://YoungZhang08.github.io/2018/05/18/从ES5&ES6两方看继承(二)/';
+          this.page.identifier = '2018/05/18/从ES5&ES6两方看继承(二)/';
+          this.page.title = '从ES5&ES6两方看继承(二)';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';
