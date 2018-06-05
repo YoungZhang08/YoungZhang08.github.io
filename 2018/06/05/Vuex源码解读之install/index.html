@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="webpack,fis3," />
+  <meta name="keywords" content="Vuex," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="webpack 从 entry 出发，调用loader对模块的原始代码进行编译，接着调用acorn对js进行语法分析、收集其中的依赖关系，每个模块都会记录自己的依赖关系从而形成一颗关系树，最后调用compilation.seal进入render阶段根绝之前收集的依赖决定生成多少文件，每个文件的内容是什么。fis3 扫描项目目录拿到文件并初始化出一个文件对象列表，接着对文件对象中的每一个文件进行单">
-<meta name="keywords" content="webpack,fis3">
+<meta name="description" content="解读目标 在根实例中注册store选项，该store实例会注入到格努组件下面的所有子组件中，并且子组件都能通过this.$store访问，那为啥它们都可以通过this.$store就能访问到store选项？从入口文件开始——">
+<meta name="keywords" content="Vuex">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Webpack VS fis3">
-<meta property="og:url" content="https://YoungZhang08.github.io/2018/05/30/Webpack VS fis3/index.html">
+<meta property="og:title" content="Vuex源码解读之install">
+<meta property="og:url" content="https://YoungZhang08.github.io/2018/06/05/Vuex源码解读之install/index.html">
 <meta property="og:site_name" content="YoungZhang&#39;s Blog">
-<meta property="og:description" content="webpack 从 entry 出发，调用loader对模块的原始代码进行编译，接着调用acorn对js进行语法分析、收集其中的依赖关系，每个模块都会记录自己的依赖关系从而形成一颗关系树，最后调用compilation.seal进入render阶段根绝之前收集的依赖决定生成多少文件，每个文件的内容是什么。fis3 扫描项目目录拿到文件并初始化出一个文件对象列表，接着对文件对象中的每一个文件进行单">
+<meta property="og:description" content="解读目标 在根实例中注册store选项，该store实例会注入到格努组件下面的所有子组件中，并且子组件都能通过this.$store访问，那为啥它们都可以通过this.$store就能访问到store选项？从入口文件开始——">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-05-30T11:31:41.000Z">
+<meta property="og:updated_time" content="2018-06-05T13:06:40.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Webpack VS fis3">
-<meta name="twitter:description" content="webpack 从 entry 出发，调用loader对模块的原始代码进行编译，接着调用acorn对js进行语法分析、收集其中的依赖关系，每个模块都会记录自己的依赖关系从而形成一颗关系树，最后调用compilation.seal进入render阶段根绝之前收集的依赖决定生成多少文件，每个文件的内容是什么。fis3 扫描项目目录拿到文件并初始化出一个文件对象列表，接着对文件对象中的每一个文件进行单">
+<meta name="twitter:title" content="Vuex源码解读之install">
+<meta name="twitter:description" content="解读目标 在根实例中注册store选项，该store实例会注入到格努组件下面的所有子组件中，并且子组件都能通过this.$store访问，那为啥它们都可以通过this.$store就能访问到store选项？从入口文件开始——">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://YoungZhang08.github.io/2018/05/30/Webpack VS fis3/"/>
+  <link rel="canonical" href="https://YoungZhang08.github.io/2018/06/05/Vuex源码解读之install/"/>
 
 
 
 
 
-  <title>Webpack VS fis3 | YoungZhang's Blog</title>
+  <title>Vuex源码解读之install | YoungZhang's Blog</title>
   
 
 
@@ -263,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/05/30/Webpack VS fis3/">
+    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/06/05/Vuex源码解读之install/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YoungZhang">
@@ -280,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Webpack VS fis3</h1>
+          <h1 class="post-title" itemprop="name headline">Vuex源码解读之install</h1>
         
 
         <div class="post-meta">
@@ -292,8 +292,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-30T19:29:42+08:00">
-                2018-05-30
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-05T21:04:10+08:00">
+                2018-06-05
               </time>
             
 
@@ -315,8 +315,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端构建工具/" itemprop="url" rel="index">
-                    <span itemprop="name">前端构建工具</span>
+                  <a href="/categories/前端框架/" itemprop="url" rel="index">
+                    <span itemprop="name">前端框架</span>
                   </a>
                 </span>
 
@@ -333,9 +333,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/05/30/Webpack VS fis3/#comments" itemprop="discussionUrl">
+                <a href="/2018/06/05/Vuex源码解读之install/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/05/30/Webpack VS fis3/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/06/05/Vuex源码解读之install/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -365,13 +365,18 @@
       
 
       
-        <ol>
-<li>webpack 从 entry 出发，调用loader对模块的原始代码进行编译，接着调用acorn对js进行语法分析、收集其中的依赖关系，每个模块都会记录自己的依赖关系从而形成一颗关系树，最后调用compilation.seal进入render阶段根绝之前收集的依赖决定生成多少文件，每个文件的内容是什么。fis3 扫描项目目录拿到文件并初始化出一个文件对象列表，接着对文件对象中的每一个文件进行单文件编译，然后获取用户设置的package插件，进行打包处理。<a id="more"></a></li>
-<li>webpack 以js文件为入口，处理依赖的各种资源。fis3没有所谓的入口文件，所有文件（html，css，js等等）同等对待，自定义输出策略。</li>
-<li>webpack 文件产出一般以entry文件为基准。fis3 任何文件可以发布到任何位置，相关引用的路径也自动更新。</li>
-<li>webpack 适合类库打包和单页应用。fis3 适合多页应用的按需加载。</li>
-<li>webpack 有hot reload功能，fis3内置的server目前不支持。</li>
-</ol>
+        <h4 id="解读目标"><a href="#解读目标" class="headerlink" title="解读目标"></a>解读目标</h4><blockquote>
+<p>在根实例中注册store选项，该store实例会注入到格努组件下面的所有子组件中，并且子组件都能通过this.$store访问，那为啥它们都可以通过this.$store就能访问到store选项？从入口文件开始——</p>
+</blockquote>
+<a id="more"></a>
+<h4 id="入口文件，在src-index-js目录下"><a href="#入口文件，在src-index-js目录下" class="headerlink" title="入口文件，在src/index.js目录下"></a>入口文件，在src/index.js目录下</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Store, install &#125; from &apos;./store&apos;</span><br><span class="line">import &#123; mapState, mapMutations, mapGetters, mapActions, createNamespacedHelpers &#125; from &apos;./helpers&apos;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  Store,</span><br><span class="line">  install,</span><br><span class="line">  version: &apos;__VERSION__&apos;,</span><br><span class="line">  mapState,</span><br><span class="line">  mapMutations,</span><br><span class="line">  mapGetters,</span><br><span class="line">  mapActions,</span><br><span class="line">  createNamespacedHelpers</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到这里就是vuex暴露出来的API，首先来看看install这个公开方法，当在vue中使用插件时，必须使用install方法。所以我们一般都是这样使用vuex的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &apos;vue&apos;</span><br><span class="line">import Vuex from &apos;vuex&apos;</span><br><span class="line">...</span><br><span class="line">Vue.use(Vuex)</span><br></pre></td></tr></table></figure>
+<p>因为vuex也可以看成是一个插件，所以在调用vue.use(Vuex)的时候，实际上调用了install的方法并传入了Vue的引用。</p>
+<h4 id="install方法，在src-store-js目录下"><a href="#install方法，在src-store-js目录下" class="headerlink" title="install方法，在src/store.js目录下"></a>install方法，在src/store.js目录下</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">export function install (_Vue) &#123;</span><br><span class="line">  if (Vue &amp;&amp; _Vue === Vue) &#123;</span><br><span class="line">    if (process.env.NODE_ENV !== &apos;production&apos;) &#123;</span><br><span class="line">      console.error(</span><br><span class="line">        &apos;[vuex] already installed. Vue.use(Vuex) should be called only once.&apos;</span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">    return</span><br><span class="line">  &#125;</span><br><span class="line">  Vue = _Vue</span><br><span class="line">  applyMixin(Vue)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对Vue的判断主要是保证install方法只执行一次，这里把install方法的参数在最后赋值给了Vue变量，这样的话在index.js文件的其他地方也可以使用Vue这个变量。install方法的最后调用了applyMixin方法：</p>
+<h4 id="applyMixin方法，在src-mixin-js目录下："><a href="#applyMixin方法，在src-mixin-js目录下：" class="headerlink" title="applyMixin方法，在src/mixin.js目录下："></a>applyMixin方法，在src/mixin.js目录下：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">export default function (Vue) &#123;</span><br><span class="line">  const version = Number(Vue.version.split(&apos;.&apos;)[0])</span><br><span class="line"></span><br><span class="line">  if (version &gt;= 2) &#123;</span><br><span class="line">    Vue.mixin(&#123; beforeCreate: vuexInit &#125;)</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    // override init and inject vuex init procedure</span><br><span class="line">    // for 1.x backwards compatibility.</span><br><span class="line">    const _init = Vue.prototype._init</span><br><span class="line">    Vue.prototype._init = function (options = &#123;&#125;) &#123;</span><br><span class="line">      options.init = options.init</span><br><span class="line">        ? [vuexInit].concat(options.init)</span><br><span class="line">        : vuexInit</span><br><span class="line">      _init.call(this, options)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * Vuex init hook, injected into each instances init hooks list.</span><br><span class="line">   */</span><br><span class="line"></span><br><span class="line">  function vuexInit () &#123;</span><br><span class="line">    const options = this.$options</span><br><span class="line">    // store injection</span><br><span class="line">    if (options.store) &#123;</span><br><span class="line">      this.$store = typeof options.store === &apos;function&apos;</span><br><span class="line">        ? options.store()</span><br><span class="line">        : options.store</span><br><span class="line">    &#125; else if (options.parent &amp;&amp; options.parent.$store) &#123;</span><br><span class="line">      this.$store = options.parent.$store</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这段代码实现了全局注册混合对象。先读取了Vue的版本对其做判断，如果版本是2.x，则在beforeCreate这个生命周期中调用vuexInit方法进行初始化，如果版本是2.x一下，则在init这个生命周期中调用vuexInit方法进行初始化。vuexInit方法中，实际做的事情就是组件取得Vue对象的$options，把$options里的store赋值给$store。如果$options没有store，则向其parent向上查找并赋值。这也就是为什么我们在Vue组件中可以通过this.$store.xxx访问到Vuex的各种数据和状态。</p>
 
       
     </div>
@@ -389,9 +394,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/webpack/" rel="tag"># webpack</a>
-          
-            <a href="/tags/fis3/" rel="tag"># fis3</a>
+            <a href="/tags/Vuex/" rel="tag"># Vuex</a>
           
         </div>
       
@@ -404,8 +407,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/30/浅谈Webpack工作流程/" rel="next" title="浅谈Webpack工作流程">
-                <i class="fa fa-chevron-left"></i> 浅谈Webpack工作流程
+              <a href="/2018/06/01/解锁js数组去重的多种方法/" rel="next" title="解锁js数组去重的多种方法">
+                <i class="fa fa-chevron-left"></i> 解锁js数组去重的多种方法
               </a>
             
           </div>
@@ -414,8 +417,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/06/01/解锁js数组去重的多种方法/" rel="prev" title="解锁js数组去重的多种方法">
-                解锁js数组去重的多种方法 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/06/05/Vuex源码解读之store/" rel="prev" title="Vuex源码解读之store">
+                Vuex源码解读之store <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -478,8 +481,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -567,6 +579,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#解读目标"><span class="nav-number">1.</span> <span class="nav-text">解读目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#入口文件，在src-index-js目录下"><span class="nav-number">2.</span> <span class="nav-text">入口文件，在src/index.js目录下</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#install方法，在src-store-js目录下"><span class="nav-number">3.</span> <span class="nav-text">install方法，在src/store.js目录下</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#applyMixin方法，在src-mixin-js目录下："><span class="nav-number">4.</span> <span class="nav-text">applyMixin方法，在src/mixin.js目录下：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -731,9 +759,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://YoungZhang08.github.io/2018/05/30/Webpack VS fis3/';
-          this.page.identifier = '2018/05/30/Webpack VS fis3/';
-          this.page.title = 'Webpack VS fis3';
+          this.page.url = 'https://YoungZhang08.github.io/2018/06/05/Vuex源码解读之install/';
+          this.page.identifier = '2018/06/05/Vuex源码解读之install/';
+          this.page.title = 'Vuex源码解读之install';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';
