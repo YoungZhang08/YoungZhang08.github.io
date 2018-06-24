@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="代码回滚," />
+  <meta name="keywords" content="执行上下文,作用域链," />
 
 
 
@@ -79,26 +79,18 @@
 
 
 
-<meta name="description" content="好了，记录一下今日的壮举。。。坐标：百度大厦C座      时间：2018-05-16事件起因：上次的需求提交多提交了一个不必要的包导师缺陷检测有6个问题不能merge，所以今日在本地删除包之后提交代码，又因为对git操作的不熟悉，对untracked的deleted的文件执行了”git rm -r .”，然后就很尴尬了。。。我就看着我的VSCode的资源管理器那一栏噌噌噌地没了。。。但是还有部分">
-<meta name="keywords" content="代码回滚">
+<meta name="description" content="作用域链 当查找变量的时候，会先从当前上下文的变量对象中查找，如果没有找到，就会从父级(词法层面上的父级)执行上下文的变量对象中查找，一直找到全局上下文的变量对象，也就是全局对象。这样由多个执行上下文的变量对象构成的链表就叫做作用域链。  接下来以一个函数的创建和激活两个时期来看作用域链式如何创建和变化的~ 函数创建 函数的作用域在函数定义的时候就决定了，因为函数有一个内部属性[[scope]]，">
+<meta name="keywords" content="执行上下文,作用域链">
 <meta property="og:type" content="article">
-<meta property="og:title" content="git代码回滚">
-<meta property="og:url" content="https://YoungZhang08.github.io/2018/05/16/git代码回滚/index.html">
+<meta property="og:title" content="深入作用域链">
+<meta property="og:url" content="https://YoungZhang08.github.io/2018/06/24/深入作用域链/index.html">
 <meta property="og:site_name" content="YoungZhang&#39;s Blog">
-<meta property="og:description" content="好了，记录一下今日的壮举。。。坐标：百度大厦C座      时间：2018-05-16事件起因：上次的需求提交多提交了一个不必要的包导师缺陷检测有6个问题不能merge，所以今日在本地删除包之后提交代码，又因为对git操作的不熟悉，对untracked的deleted的文件执行了”git rm -r .”，然后就很尴尬了。。。我就看着我的VSCode的资源管理器那一栏噌噌噌地没了。。。但是还有部分">
+<meta property="og:description" content="作用域链 当查找变量的时候，会先从当前上下文的变量对象中查找，如果没有找到，就会从父级(词法层面上的父级)执行上下文的变量对象中查找，一直找到全局上下文的变量对象，也就是全局对象。这样由多个执行上下文的变量对象构成的链表就叫做作用域链。  接下来以一个函数的创建和激活两个时期来看作用域链式如何创建和变化的~ 函数创建 函数的作用域在函数定义的时候就决定了，因为函数有一个内部属性[[scope]]，">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCE2affa77461fd6eee11c2b4e2c0d25ced/3232">
-<meta property="og:image" content="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCEeddda71d5ba6de35beebbcc09374979f/3238">
-<meta property="og:image" content="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCE2fe57c806552e3fc48bf856682d7c1f1/3245">
-<meta property="og:image" content="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCE6e6cb09e30a1465150a6f11f5d707ddb/3251">
-<meta property="og:image" content="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCEf83a997190a7c97779b7ec8bccde668c/3257">
-<meta property="og:image" content="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCE1f4ae4ddf5fe7c60e0e8e6d9bdc30e86/3263">
-<meta property="og:image" content="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCEabc235dfe557b048f5f728fefe7fb0cb/3276">
-<meta property="og:updated_time" content="2018-05-30T09:44:04.000Z">
+<meta property="og:updated_time" content="2018-06-24T08:06:39.673Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="git代码回滚">
-<meta name="twitter:description" content="好了，记录一下今日的壮举。。。坐标：百度大厦C座      时间：2018-05-16事件起因：上次的需求提交多提交了一个不必要的包导师缺陷检测有6个问题不能merge，所以今日在本地删除包之后提交代码，又因为对git操作的不熟悉，对untracked的deleted的文件执行了”git rm -r .”，然后就很尴尬了。。。我就看着我的VSCode的资源管理器那一栏噌噌噌地没了。。。但是还有部分">
-<meta name="twitter:image" content="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCE2affa77461fd6eee11c2b4e2c0d25ced/3232">
+<meta name="twitter:title" content="深入作用域链">
+<meta name="twitter:description" content="作用域链 当查找变量的时候，会先从当前上下文的变量对象中查找，如果没有找到，就会从父级(词法层面上的父级)执行上下文的变量对象中查找，一直找到全局上下文的变量对象，也就是全局对象。这样由多个执行上下文的变量对象构成的链表就叫做作用域链。  接下来以一个函数的创建和激活两个时期来看作用域链式如何创建和变化的~ 函数创建 函数的作用域在函数定义的时候就决定了，因为函数有一个内部属性[[scope]]，">
 
 
 
@@ -128,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://YoungZhang08.github.io/2018/05/16/git代码回滚/"/>
+  <link rel="canonical" href="https://YoungZhang08.github.io/2018/06/24/深入作用域链/"/>
 
 
 
 
 
-  <title>git代码回滚 | YoungZhang's Blog</title>
+  <title>深入作用域链 | YoungZhang's Blog</title>
   
 
 
@@ -271,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/05/16/git代码回滚/">
+    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/06/24/深入作用域链/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YoungZhang">
@@ -288,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">git代码回滚</h1>
+          <h1 class="post-title" itemprop="name headline">深入作用域链</h1>
         
 
         <div class="post-meta">
@@ -300,8 +292,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-16T21:09:31+08:00">
-                2018-05-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-24T16:05:19+08:00">
+                2018-06-24
               </time>
             
 
@@ -323,8 +315,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/git管理/" itemprop="url" rel="index">
-                    <span itemprop="name">git管理</span>
+                  <a href="/categories/ES5/" itemprop="url" rel="index">
+                    <span itemprop="name">ES5</span>
                   </a>
                 </span>
 
@@ -341,9 +333,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/05/16/git代码回滚/#comments" itemprop="discussionUrl">
+                <a href="/2018/06/24/深入作用域链/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/05/16/git代码回滚/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/06/24/深入作用域链/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -373,21 +365,23 @@
       
 
       
-        <h3 id="好了，记录一下今日的壮举。。。"><a href="#好了，记录一下今日的壮举。。。" class="headerlink" title="好了，记录一下今日的壮举。。。"></a>好了，记录一下今日的壮举。。。</h3><p>坐标：百度大厦C座      时间：2018-05-16<br>事件起因：上次的需求提交多提交了一个不必要的包导师缺陷检测有6个问题不能merge，所以今日在本地删除包之后提交代码，又因为对git操作的不熟悉，对untracked的deleted的文件执行了”git rm -r .”，然后就很尴尬了。。。我就看着我的VSCode的资源管理器那一栏噌噌噌地没了。。。但是还有部分没有删除。emmmmm，立即想到git代码回滚。嗯，解决的过程中，导师问我“你是想报复社会嘛”，emmmmm，其实，，，没想报复社会。。。也没想删库跑路。。。哭唧唧········回归正题——</p>
+        <h4 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h4><blockquote>
+<p>当查找变量的时候，会先从当前上下文的变量对象中查找，如果没有找到，就会从父级(词法层面上的父级)执行上下文的变量对象中查找，一直找到全局上下文的变量对象，也就是全局对象。这样由多个执行上下文的变量对象构成的链表就叫做作用域链。</p>
+</blockquote>
+<p>接下来以一个函数的创建和激活两个时期来看作用域链式如何创建和变化的~</p>
+<h4 id="函数创建"><a href="#函数创建" class="headerlink" title="函数创建"></a>函数创建</h4><blockquote>
+<p>函数的作用域在函数定义的时候就决定了，因为函数有一个内部属性[[scope]]，当函数创建的时候，就会保存所有父变量到其中，可以理解为父变量对象的层级链，但是[[scope]]并不代表完整的作用域链。</p>
+</blockquote>
 <a id="more"></a>
-<ol>
-<li>首先，你需要打印出你之前所有的commit-id，选择你要回滚到哪一个版本，命令：git log</li>
-<li>接下来，执行git reset –soft commit-id，如果出现如下图所示的fatal，那就继续接着搞吧<br><img src="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCE2affa77461fd6eee11c2b4e2c0d25ced/3232" alt=""><ol start="3">
-<li>上一步的结果说明你还在合并,所以需要把当前目录所有修改的文件从HEAD中迁出并且把它回复称未修改时的样子<br><img src="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCEeddda71d5ba6de35beebbcc09374979f/3238" alt=""><br>4.在查看状态git status，可以看到提示你执行下面红框中的命令<br><img src="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCE2fe57c806552e3fc48bf856682d7c1f1/3245" alt=""></li>
-<li>执行git revert –abort之后查看状态，没有问题之后就可以回滚了</li>
-<li>执行git reset –soft commit-id，再去查看状态就可以看到自己刚刚都删了哪些内容<br><img src="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCE6e6cb09e30a1465150a6f11f5d707ddb/3251" alt=""></li>
-<li>根据提示再执行git reset HEAD .，这一步的意思是可以把暂存区的修改撤销掉（unstage），重新放回工作区<br><img src="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCEf83a997190a7c97779b7ec8bccde668c/3257" alt=""></li>
-<li>继续使用git status查看这些文件处于什么状态，可以看到是not staged，提示我们执行git checkout<br>恢复原态<br><img src="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCE1f4ae4ddf5fe7c60e0e8e6d9bdc30e86/3263" alt=""></li>
-<li>完了git add将工作区的提到暂存区并且提交commit<br><img src="https://note.youdao.com/yws/public/resource/3960d39c9b71e504ffd66863a26cdcc9/xmlnote/WEBRESOURCEabc235dfe557b048f5f728fefe7fb0cb/3276" alt=""></li>
-<li>再执行git pull，git push到远程分支，就ok啦~</li>
-</ol>
-</li>
-</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">    function bar() &#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 函数创建时，各自的[[scope]]为：</span><br><span class="line">foo.[[scope]] = [</span><br><span class="line">    globalContext.VO</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">bar.[[scope]] = [</span><br><span class="line">    fooContext.AO,</span><br><span class="line">    globalContext.VO</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+<h4 id="函数激活"><a href="#函数激活" class="headerlink" title="函数激活"></a>函数激活</h4><blockquote>
+<p>函数激活时，进入函数上下文，创建VO/AO之后，就会将活动对象添加到作用域链的前端。这个时候执行上下文的作用域链，我们命名为Scope:</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Scope = [AO].concat([[scope]]);</span><br></pre></td></tr></table></figure>
+<p>结合上文讲的执行上下文和变量对象，总结一下函数执行上下文中作用域链和变量对象的创建过程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var scope = &quot;global scope&quot;;</span><br><span class="line">function checkscope()&#123;</span><br><span class="line">    var scope2 = &apos;local scope&apos;;</span><br><span class="line">    return scope2;</span><br><span class="line">&#125;</span><br><span class="line">checkscope();</span><br></pre></td></tr></table></figure>
+<p>执行过程如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">// 1.checkscope 函数被创建，保存作用域链到内部属性[[scope]]</span><br><span class="line">checkscope.[[scope]] = [</span><br><span class="line">    globalContext.VO</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">// 2.激活 checkscope 函数，创建 checkscope 函数执行上下文，checkscope 函数执行上下文被压入执行上下文栈</span><br><span class="line">ECStack = [</span><br><span class="line">    checkscopeContext,</span><br><span class="line">    globalContext</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">// 3.checkscope 函数并不立刻执行，开始做准备工作，第一步：复制函数[[scope]]属性创建作用域链</span><br><span class="line">checkscopeContext = &#123;</span><br><span class="line">    Scope: checkscope.[[scope]],</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 4.第二步：用 arguments 创建变量对象，随后初始化活动对象，加入形参、函数声明、变量声明</span><br><span class="line">checkscopeContext = &#123;</span><br><span class="line">    VO: &#123;</span><br><span class="line">        arguments: &#123;</span><br><span class="line">            length: 0</span><br><span class="line">        &#125;,</span><br><span class="line">        scope2: undefined</span><br><span class="line">    &#125;，</span><br><span class="line">    Scope: checkscope.[[scope]],</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 5.准备工作做完，开始执行函数，随着函数的执行，VO变成AO被压入 checkscope 作用域链顶端，这个时候修改 AO 的属性值（也就是函数引用和变量赋值）</span><br><span class="line">checkscopeContext = &#123;</span><br><span class="line">    AO: &#123;</span><br><span class="line">        arguments: &#123;</span><br><span class="line">            length: 0</span><br><span class="line">        &#125;,</span><br><span class="line">        scope2: &apos;local scope&apos;</span><br><span class="line">    &#125;,</span><br><span class="line">    Scope: [AO, [[Scope]]]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 7.查找到 scope2 的值，返回后函数执行完毕，函数上下文从执行上下文栈中弹出</span><br><span class="line">ECStack = [</span><br><span class="line">    globalContext</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -405,7 +399,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/代码回滚/" rel="tag"># 代码回滚</a>
+            <a href="/tags/执行上下文/" rel="tag"># 执行上下文</a>
+          
+            <a href="/tags/作用域链/" rel="tag"># 作用域链</a>
           
         </div>
       
@@ -418,8 +414,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/10/从ES5&ES6两方看继承(一)/" rel="next" title="从ES5&ES6两方看继承(一)">
-                <i class="fa fa-chevron-left"></i> 从ES5&ES6两方看继承(一)
+              <a href="/2018/06/24/深入JS中的作用域和执行上下文/" rel="next" title="深入JS中的作用域和执行上下文">
+                <i class="fa fa-chevron-left"></i> 深入JS中的作用域和执行上下文
               </a>
             
           </div>
@@ -428,8 +424,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/05/17/js深拷贝浅拷贝/" rel="prev" title="JS深拷贝浅拷贝">
-                JS深拷贝浅拷贝 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/06/24/深入闭包/" rel="prev" title="深入闭包">
+                深入闭包 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -600,7 +596,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#好了，记录一下今日的壮举。。。"><span class="nav-number">1.</span> <span class="nav-text">好了，记录一下今日的壮举。。。</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#作用域链"><span class="nav-number">1.</span> <span class="nav-text">作用域链</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数创建"><span class="nav-number">2.</span> <span class="nav-text">函数创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数激活"><span class="nav-number">3.</span> <span class="nav-text">函数激活</span></a></li></ol></div>
             
 
           </div>
@@ -770,9 +766,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://YoungZhang08.github.io/2018/05/16/git代码回滚/';
-          this.page.identifier = '2018/05/16/git代码回滚/';
-          this.page.title = 'git代码回滚';
+          this.page.url = 'https://YoungZhang08.github.io/2018/06/24/深入作用域链/';
+          this.page.identifier = '2018/06/24/深入作用域链/';
+          this.page.title = '深入作用域链';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';

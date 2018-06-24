@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="作用域,闭包," />
 
 
 
@@ -79,16 +79,18 @@
 
 
 
-<meta name="description" content="越努力越幸运~">
-<meta property="og:type" content="website">
-<meta property="og:title" content="YoungZhang&#39;s Blog">
-<meta property="og:url" content="https://YoungZhang08.github.io/archives/2018/06/index.html">
+<meta name="description" content="定义《JS忍者秘籍》中对闭包的定义为：  闭包实际上是一个作用域，在创建时允许其自身的变量和函数访问其自身之外的变量时的作用域。  所以，闭包是由两部分组成的:  闭包 = 函数 + 函数能够访问的自有变量  看个例子：1234567var outerValue = 1; // 全局作用域声明一个变量function outerFunction() &amp;#123; // 在全局作用域中声明一个函数">
+<meta name="keywords" content="作用域,闭包">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入闭包">
+<meta property="og:url" content="https://YoungZhang08.github.io/2018/06/24/深入闭包/index.html">
 <meta property="og:site_name" content="YoungZhang&#39;s Blog">
-<meta property="og:description" content="越努力越幸运~">
+<meta property="og:description" content="定义《JS忍者秘籍》中对闭包的定义为：  闭包实际上是一个作用域，在创建时允许其自身的变量和函数访问其自身之外的变量时的作用域。  所以，闭包是由两部分组成的:  闭包 = 函数 + 函数能够访问的自有变量  看个例子：1234567var outerValue = 1; // 全局作用域声明一个变量function outerFunction() &amp;#123; // 在全局作用域中声明一个函数">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-06-24T08:07:09.381Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="YoungZhang&#39;s Blog">
-<meta name="twitter:description" content="越努力越幸运~">
+<meta name="twitter:title" content="深入闭包">
+<meta name="twitter:description" content="定义《JS忍者秘籍》中对闭包的定义为：  闭包实际上是一个作用域，在创建时允许其自身的变量和函数访问其自身之外的变量时的作用域。  所以，闭包是由两部分组成的:  闭包 = 函数 + 函数能够访问的自有变量  看个例子：1234567var outerValue = 1; // 全局作用域声明一个变量function outerFunction() &amp;#123; // 在全局作用域中声明一个函数">
 
 
 
@@ -118,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://YoungZhang08.github.io/archives/2018/06/"/>
+  <link rel="canonical" href="https://YoungZhang08.github.io/2018/06/24/深入闭包/"/>
 
 
 
 
 
-  <title>Archive | YoungZhang's Blog</title>
+  <title>深入闭包 | YoungZhang's Blog</title>
   
 
 
@@ -143,7 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -247,333 +249,206 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/06/24/深入闭包/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YoungZhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YoungZhang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">深入闭包</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-24T16:05:29+08:00">
+                2018-06-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        Um..! 20 posts in total. Keep on posting.
-      </span>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ES5/" itemprop="url" rel="index">
+                    <span itemprop="name">ES5</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
 
-        
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/24/深入闭包/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/06/24/深入闭包/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/06/24/xiyoumobileAdmin面试总结/" itemprop="url">
-              
-                <span itemprop="name">xiyoumobileAdmin面试总结</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-24T16:09:07+08:00"
-              content="2018-06-24" >
-          06-24
-        </time>
+          
+      
       </div>
-
     </header>
-  </article>
+  
 
+          
 
+          
+
+        
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/06/24/面试怎么讲闭包/" itemprop="url">
-              
-                <span itemprop="name">面试怎么讲闭包</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-24T16:05:44+08:00"
-              content="2018-06-24" >
-          06-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/06/24/深入闭包/" itemprop="url">
-              
-                <span itemprop="name">深入闭包</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-24T16:05:29+08:00"
-              content="2018-06-24" >
-          06-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>《JS忍者秘籍》中对闭包的定义为：</p>
+<blockquote>
+<p>闭包实际上是一个作用域，在创建时允许其自身的变量和函数访问其自身之外的变量时的作用域。</p>
+</blockquote>
+<p>所以，闭包是由两部分组成的:</p>
+<blockquote>
+<p>闭包 = 函数 + 函数能够访问的自有变量</p>
+</blockquote>
+<p>看个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var outerValue = 1; // 全局作用域声明一个变量</span><br><span class="line"></span><br><span class="line">function outerFunction() &#123; // 在全局作用域中声明一个函数</span><br><span class="line">    console.log(outerValue); // 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">outerFunction(); // 执行该函数</span><br></pre></td></tr></table></figure></p>
+<p>该函数是能够访问到自身之外的变量outerValue的，这个时候我们其实已经创建了一个闭包！只不过，这只是理论上的闭包，还有一个实践上的闭包。</p>
+<ol>
+<li><p>从理论上：所有的函数，因为它们在创建的时候就将上层上下文的数据保存起来了，哪怕是简单的全局变量也是如此，因为函数中访问自由变量就相当于是在访问自由变量，这个时候使用最外层的作用域。</p>
+</li>
+<li><p>从实际上，以下函数才算是闭包：</p>
+<p> i. 即使创建它的上下文已经销毁，他仍然存在（比如，内部函数从父函数中返回）</p>
+<p> ii. 在代码中引用了自有变量</p>
+</li>
+</ol>
+<h4 id="必刷题"><a href="#必刷题" class="headerlink" title="必刷题"></a>必刷题</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var divs = document.getElementsByTagName(&quot;div&quot;);</span><br><span class="line"></span><br><span class="line">for(var i = 0; i &lt; divs.length; i++) &#123;</span><br><span class="line">    div[i].addEventListener(&quot;click&quot;, function() &#123;</span><br><span class="line">        alert(&quot;第&quot; + i + &quot;个被点击&quot;);</span><br><span class="line">    &#125;, false);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/06/24/深入作用域链/" itemprop="url">
-              
-                <span itemprop="name">深入作用域链</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-24T16:05:19+08:00"
-              content="2018-06-24" >
-          06-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/06/24/深入JS中的作用域和执行上下文/" itemprop="url">
-              
-                <span itemprop="name">深入JS中的作用域和执行上下文</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-24T15:58:03+08:00"
-              content="2018-06-24" >
-          06-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/06/05/Vuex源码解读之store/" itemprop="url">
-              
-                <span itemprop="name">Vuex源码解读之store</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-05T21:05:37+08:00"
-              content="2018-06-05" >
-          06-05
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/06/05/Vuex源码解读之install/" itemprop="url">
-              
-                <span itemprop="name">Vuex源码解读之install</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-05T21:04:10+08:00"
-              content="2018-06-05" >
-          06-05
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/06/01/解锁js数组去重的多种方法/" itemprop="url">
-              
-                <span itemprop="name">解锁js数组去重的多种方法</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-01T14:54:08+08:00"
-              content="2018-06-01" >
-          06-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/作用域/" rel="tag"># 作用域</a>
+          
+            <a href="/tags/闭包/" rel="tag"># 闭包</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/24/深入作用域链/" rel="next" title="深入作用域链">
+                <i class="fa fa-chevron-left"></i> 深入作用域链
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/24/面试怎么讲闭包/" rel="prev" title="面试怎么讲闭包">
+                面试怎么讲闭包 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -581,6 +456,20 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -601,8 +490,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -690,6 +588,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义"><span class="nav-number">1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#必刷题"><span class="nav-number">2.</span> <span class="nav-text">必刷题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -830,6 +744,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -847,6 +765,18 @@
       <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://YoungZhang08.github.io/2018/06/24/深入闭包/';
+          this.page.identifier = '2018/06/24/深入闭包/';
+          this.page.title = '深入闭包';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   
