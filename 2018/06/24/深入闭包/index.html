@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="定义《JS忍者秘籍》中对闭包的定义为：  闭包实际上是一个作用域，在创建时允许其自身的变量和函数访问其自身之外的变量时的作用域。  所以，闭包是由两部分组成的:  闭包 = 函数 + 函数能够访问的自有变量  看个例子：1234567var outerValue = 1; // 全局作用域声明一个变量function outerFunction() &amp;#123; // 在全局作用域中声明一个函数">
+<meta name="description" content="定义《JS忍者秘籍》中对闭包的定义为：  闭包实际上是一个作用域，在创建时允许其自身的变量和函数访问其自身之外的变量时的作用域。  所以，闭包是由两部分组成的:  闭包 = 函数 + 函数能够访问的自有变量  看个例子：">
 <meta name="keywords" content="作用域,闭包">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入闭包">
 <meta property="og:url" content="https://YoungZhang08.github.io/2018/06/24/深入闭包/index.html">
 <meta property="og:site_name" content="YoungZhang&#39;s Blog">
-<meta property="og:description" content="定义《JS忍者秘籍》中对闭包的定义为：  闭包实际上是一个作用域，在创建时允许其自身的变量和函数访问其自身之外的变量时的作用域。  所以，闭包是由两部分组成的:  闭包 = 函数 + 函数能够访问的自有变量  看个例子：1234567var outerValue = 1; // 全局作用域声明一个变量function outerFunction() &amp;#123; // 在全局作用域中声明一个函数">
+<meta property="og:description" content="定义《JS忍者秘籍》中对闭包的定义为：  闭包实际上是一个作用域，在创建时允许其自身的变量和函数访问其自身之外的变量时的作用域。  所以，闭包是由两部分组成的:  闭包 = 函数 + 函数能够访问的自有变量  看个例子：">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-06-24T08:07:09.381Z">
+<meta property="og:updated_time" content="2018-06-24T08:13:49.937Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入闭包">
-<meta name="twitter:description" content="定义《JS忍者秘籍》中对闭包的定义为：  闭包实际上是一个作用域，在创建时允许其自身的变量和函数访问其自身之外的变量时的作用域。  所以，闭包是由两部分组成的:  闭包 = 函数 + 函数能够访问的自有变量  看个例子：1234567var outerValue = 1; // 全局作用域声明一个变量function outerFunction() &amp;#123; // 在全局作用域中声明一个函数">
+<meta name="twitter:description" content="定义《JS忍者秘籍》中对闭包的定义为：  闭包实际上是一个作用域，在创建时允许其自身的变量和函数访问其自身之外的变量时的作用域。  所以，闭包是由两部分组成的:  闭包 = 函数 + 函数能够访问的自有变量  看个例子：">
 
 
 
@@ -373,7 +373,9 @@
 <blockquote>
 <p>闭包 = 函数 + 函数能够访问的自有变量</p>
 </blockquote>
-<p>看个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var outerValue = 1; // 全局作用域声明一个变量</span><br><span class="line"></span><br><span class="line">function outerFunction() &#123; // 在全局作用域中声明一个函数</span><br><span class="line">    console.log(outerValue); // 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">outerFunction(); // 执行该函数</span><br></pre></td></tr></table></figure></p>
+<p>看个例子：</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var outerValue = 1; // 全局作用域声明一个变量</span><br><span class="line"></span><br><span class="line">function outerFunction() &#123; // 在全局作用域中声明一个函数</span><br><span class="line">    console.log(outerValue); // 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">outerFunction(); // 执行该函数</span><br></pre></td></tr></table></figure>
 <p>该函数是能够访问到自身之外的变量outerValue的，这个时候我们其实已经创建了一个闭包！只不过，这只是理论上的闭包，还有一个实践上的闭包。</p>
 <ol>
 <li><p>从理论上：所有的函数，因为它们在创建的时候就将上层上下文的数据保存起来了，哪怕是简单的全局变量也是如此，因为函数中访问自由变量就相当于是在访问自由变量，这个时候使用最外层的作用域。</p>
