@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="this,apply,bind," />
 
 
 
@@ -79,16 +79,18 @@
 
 
 
-<meta name="description" content="越努力越幸运~">
-<meta property="og:type" content="website">
-<meta property="og:title" content="YoungZhang&#39;s Blog">
-<meta property="og:url" content="https://YoungZhang08.github.io/archives/page/2/index.html">
+<meta name="description" content="bind（）方法创建一个新函数，在调用时，将其this关键字设置为提供的值，并在调用新函数时提供任何前面提供的给定参数序列。语法：fun.bind(thisArg[, arg1[, arg2[, …]]])">
+<meta name="keywords" content="this,apply,bind">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入JS之bind的实现">
+<meta property="og:url" content="https://YoungZhang08.github.io/2018/07/21/深入JS之bind的实现/index.html">
 <meta property="og:site_name" content="YoungZhang&#39;s Blog">
-<meta property="og:description" content="越努力越幸运~">
+<meta property="og:description" content="bind（）方法创建一个新函数，在调用时，将其this关键字设置为提供的值，并在调用新函数时提供任何前面提供的给定参数序列。语法：fun.bind(thisArg[, arg1[, arg2[, …]]])">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-07-21T13:42:20.870Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="YoungZhang&#39;s Blog">
-<meta name="twitter:description" content="越努力越幸运~">
+<meta name="twitter:title" content="深入JS之bind的实现">
+<meta name="twitter:description" content="bind（）方法创建一个新函数，在调用时，将其this关键字设置为提供的值，并在调用新函数时提供任何前面提供的给定参数序列。语法：fun.bind(thisArg[, arg1[, arg2[, …]]])">
 
 
 
@@ -118,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://YoungZhang08.github.io/archives/page/2/"/>
+  <link rel="canonical" href="https://YoungZhang08.github.io/2018/07/21/深入JS之bind的实现/"/>
 
 
 
 
 
-  <title>Archive | YoungZhang's Blog</title>
+  <title>深入JS之bind的实现 | YoungZhang's Blog</title>
   
 
 
@@ -143,7 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -247,411 +249,190 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/07/21/深入JS之bind的实现/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YoungZhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YoungZhang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">深入JS之bind的实现</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-21T20:02:15+08:00">
+                2018-07-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        Um..! 22 posts in total. Keep on posting.
-      </span>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ES5/" itemprop="url" rel="index">
+                    <span itemprop="name">ES5</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
 
-        
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/21/深入JS之bind的实现/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/07/21/深入JS之bind的实现/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/30/Webpack VS fis3/" itemprop="url">
-              
-                <span itemprop="name">Webpack VS fis3</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-30T19:29:42+08:00"
-              content="2018-05-30" >
-          05-30
-        </time>
+          
+      
       </div>
-
     </header>
-  </article>
+  
 
+          
 
+          
+
+        
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/30/浅谈Webpack工作流程/" itemprop="url">
-              
-                <span itemprop="name">浅谈Webpack工作流程</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-30T17:17:57+08:00"
-              content="2018-05-30" >
-          05-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/28/fis3前端工程化工具整理/" itemprop="url">
-              
-                <span itemprop="name">fis3前端工程化工具整理</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-28T21:12:46+08:00"
-              content="2018-05-28" >
-          05-28
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <blockquote>
+<p>bind（）方法创建一个新函数，在调用时，将其this关键字设置为提供的值，并在调用新函数时提供任何前面提供的给定参数序列。语法：fun.bind(thisArg[, arg1[, arg2[, …]]])</p>
+</blockquote>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 实现思路：1. 返回一个函数 2. 可以传入参数</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">Function.prototype.myBind = function(context) &#123;</span><br><span class="line">    if(typeof this !== &apos;function&apos;) &#123;</span><br><span class="line">        throw new Error(&quot;Function.prototype.bind - what is trying to be bound is not callable&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var that = this;</span><br><span class="line"></span><br><span class="line">    // 获取bind函数从第二个到最后一个参数</span><br><span class="line">    var args = Array.prototype.slice.call(arguments, 1); // 相当于arguments对象调用数组的slice方法截取函数的第二个到最后一个参数</span><br><span class="line"></span><br><span class="line">    var fNOP = function() &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    var fBound = function() &#123;</span><br><span class="line">        // 这个时候的arguments是指bind返回的函数传入的参数</span><br><span class="line">        var bindArgs = Array.prototype.slice.call(arguments);</span><br><span class="line"></span><br><span class="line">        // this instanceof fNOP === true时,说明返回的fBound被当做new的构造函数调用</span><br><span class="line">        // 将绑定函数的 this 指向该实例，可以让实例获得来自绑定函数的值</span><br><span class="line">        return that.apply(this instanceof fNOP</span><br><span class="line">                          ? this</span><br><span class="line">                          : context, </span><br><span class="line">                          args.concat(bindArgs));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    // 修改返回函数的 prototype 为绑定函数的 prototype，实例就可以继承绑定函数的原型中的值</span><br><span class="line">    fNOP.prototype = this.prototype; </span><br><span class="line">    </span><br><span class="line">    // 下面的代码使fBound.prototype是fNOP的实例,因此</span><br><span class="line">    // 返回的fBound若作为new的构造函数,new生成的新对象</span><br><span class="line">    // 作为this传入fBound,新对象的__proto__就是fNOP的实例</span><br><span class="line">    fBound.prototype = new fNOP();</span><br><span class="line">    return fBound;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/24/webpack和gulp的区别/" itemprop="url">
-              
-                <span itemprop="name">webpack和gulp的区别</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-24T15:18:49+08:00"
-              content="2018-05-24" >
-          05-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/23/浅谈Webpack模块化实现原理/" itemprop="url">
-              
-                <span itemprop="name">浅谈Webpack模块化实现原理</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-23T19:06:12+08:00"
-              content="2018-05-23" >
-          05-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/18/腾讯now直播一面笔试题再探/" itemprop="url">
-              
-                <span itemprop="name">腾讯now直播一面笔试题再探</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-18T16:36:01+08:00"
-              content="2018-05-18" >
-          05-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/18/从ES5&ES6两方看继承(二)/" itemprop="url">
-              
-                <span itemprop="name">从ES5&ES6两方看继承(二)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-18T15:13:58+08:00"
-              content="2018-05-18" >
-          05-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/17/js深拷贝浅拷贝/" itemprop="url">
-              
-                <span itemprop="name">JS深拷贝浅拷贝</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-17T13:51:43+08:00"
-              content="2018-05-17" >
-          05-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/16/git代码回滚/" itemprop="url">
-              
-                <span itemprop="name">git代码回滚</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-16T21:09:31+08:00"
-              content="2018-05-16" >
-          05-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/10/从ES5&ES6两方看继承(一)/" itemprop="url">
-              
-                <span itemprop="name">从ES5&ES6两方看继承(一)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-10T21:56:36+08:00"
-              content="2018-05-10" >
-          05-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/this/" rel="tag"># this</a>
+          
+            <a href="/tags/apply/" rel="tag"># apply</a>
+          
+            <a href="/tags/bind/" rel="tag"># bind</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/21/深入JS之call和apply的实现/" rel="next" title="深入JS之call和apply的实现">
+                <i class="fa fa-chevron-left"></i> 深入JS之call和apply的实现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/page/3/">3</a><a class="extend next" rel="next" href="/archives/page/3/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -659,6 +440,20 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -908,6 +703,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -925,6 +724,18 @@
       <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://YoungZhang08.github.io/2018/07/21/深入JS之bind的实现/';
+          this.page.identifier = '2018/07/21/深入JS之bind的实现/';
+          this.page.title = '深入JS之bind的实现';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   
