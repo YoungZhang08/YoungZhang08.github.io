@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="CommonJS,AMD,CMD," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="首先，为什么会有模块化的概念？ 前端最开始的时候，所有的JS文件都写在一个文件里面，只要加载这一个文件就可以。但是随着JS的迅猛发展，网页中嵌入的JS代码越来越多，一个文件很难管理和维护，必须分成多个文件一次加载。但是一次加载多个JS文件的时候，浏览器会停止网页的渲染，加载文件越多，网页失去响应的时间就会越长。至此，出现了模块化的概念，根据依赖保证加载顺序。  模块的定义 一个模块就是实现一个特定">
+<meta name="keywords" content="CommonJS,AMD,CMD">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈前端模块化">
+<meta property="og:url" content="https://YoungZhang08.github.io/2018/07/22/浅谈前端模块化/index.html">
+<meta property="og:site_name" content="YoungZhang&#39;s Blog">
+<meta property="og:description" content="首先，为什么会有模块化的概念？ 前端最开始的时候，所有的JS文件都写在一个文件里面，只要加载这一个文件就可以。但是随着JS的迅猛发展，网页中嵌入的JS代码越来越多，一个文件很难管理和维护，必须分成多个文件一次加载。但是一次加载多个JS文件的时候，浏览器会停止网页的渲染，加载文件越多，网页失去响应的时间就会越长。至此，出现了模块化的概念，根据依赖保证加载顺序。  模块的定义 一个模块就是实现一个特定">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-07-25T14:17:11.668Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅谈前端模块化">
+<meta name="twitter:description" content="首先，为什么会有模块化的概念？ 前端最开始的时候，所有的JS文件都写在一个文件里面，只要加载这一个文件就可以。但是随着JS的迅猛发展，网页中嵌入的JS代码越来越多，一个文件很难管理和维护，必须分成多个文件一次加载。但是一次加载多个JS文件的时候，浏览器会停止网页的渲染，加载文件越多，网页失去响应的时间就会越长。至此，出现了模块化的概念，根据依赖保证加载顺序。  模块的定义 一个模块就是实现一个特定">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://YoungZhang08.github.io/2018/07/22/浅谈前端模块化/"/>
+
+
+
+
+
+  <title>浅谈前端模块化 | YoungZhang's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">YoungZhang's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/07/22/浅谈前端模块化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YoungZhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YoungZhang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">浅谈前端模块化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-22T09:37:37+08:00">
+                2018-07-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/模块化方案/" itemprop="url" rel="index">
+                    <span itemprop="name">模块化方案</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/22/浅谈前端模块化/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/07/22/浅谈前端模块化/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+      
+      </div>
+    </header>
+  
+
+          
+
+          
+
+        
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="首先，为什么会有模块化的概念？"><a href="#首先，为什么会有模块化的概念？" class="headerlink" title="首先，为什么会有模块化的概念？"></a>首先，为什么会有模块化的概念？</h3><blockquote>
+<p>前端最开始的时候，所有的JS文件都写在一个文件里面，只要加载这一个文件就可以。但是随着JS的迅猛发展，网页中嵌入的JS代码越来越多，一个文件很难管理和维护，必须分成多个文件一次加载。但是一次加载多个JS文件的时候，浏览器会停止网页的渲染，加载文件越多，网页失去响应的时间就会越长。至此，出现了模块化的概念，根据依赖保证加载顺序。</p>
+</blockquote>
+<h3 id="模块的定义"><a href="#模块的定义" class="headerlink" title="模块的定义"></a>模块的定义</h3><blockquote>
+<p>一个模块就是实现一个特定功能的文件。</p>
+</blockquote>
+<h3 id="模块化的好处"><a href="#模块化的好处" class="headerlink" title="模块化的好处"></a>模块化的好处</h3><blockquote>
+<p>1.避免变量污染，命名冲突 2.提高代码复用率 3.提高维护性 4.依赖模块间的管理更方便</p>
+</blockquote>
+<h3 id="模块的分类"><a href="#模块的分类" class="headerlink" title="模块的分类"></a>模块的分类</h3><ol>
+<li>Common.js规范<blockquote>
+<p>由于Node.js的诞生，js也可用于服务端编程，而服务端开发的复杂性，模块化是个必须的理念。而Node.js的模块系统就是参照Common.js实现的。</p>
+</blockquote>
+</li>
+</ol>
+<h4 id="Common-js规范中，一个单独的文件就是一个模块，一个模块有自己的作用域，只向外暴露特定的变量和函数。也就是说在这个模块内定义的变量，无法被其他模块读取。"><a href="#Common-js规范中，一个单独的文件就是一个模块，一个模块有自己的作用域，只向外暴露特定的变量和函数。也就是说在这个模块内定义的变量，无法被其他模块读取。" class="headerlink" title="Common.js规范中，一个单独的文件就是一个模块，一个模块有自己的作用域，只向外暴露特定的变量和函数。也就是说在这个模块内定义的变量，无法被其他模块读取。"></a>Common.js规范中，一个单独的文件就是一个模块，一个模块有自己的作用域，只向外暴露特定的变量和函数。也就是说在这个模块内定义的变量，无法被其他模块读取。</h4><p>Common.js规范有四个重要的环境变量：module、exports、require、global。用module.exports定义当前模块对外输出的接口，用require加载模块。</p>
+<p>比如下面就是一个简单的模块文件example.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var message = &apos;hi&apos;;</span><br><span class="line"></span><br><span class="line">var sayHi = function sayHi() &#123;</span><br><span class="line">    return this.message;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports = sayHi;</span><br></pre></td></tr></table></figure></p>
+<p>下面是一个引入模块的代码块：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var example = require(&apos;./example.js&apos;);</span><br><span class="line"></span><br><span class="line">// 引入核心模块时，不需要带路径</span><br><span class="line">var http = require(&apos;http);</span><br></pre></td></tr></table></figure></p>
+<h4 id="Common-js用同步的方式加载模块，也就是说，只有加载完成，才能执行后面的操作。Node-js主要用于服务端，模块文件都存在本地磁盘，读取速度非常快，加载起来也非常快，不用考虑异步加载的方式；但是在浏览器端，要从服务器端加载模块，这时更合理的方案是使用异步加载。"><a href="#Common-js用同步的方式加载模块，也就是说，只有加载完成，才能执行后面的操作。Node-js主要用于服务端，模块文件都存在本地磁盘，读取速度非常快，加载起来也非常快，不用考虑异步加载的方式；但是在浏览器端，要从服务器端加载模块，这时更合理的方案是使用异步加载。" class="headerlink" title="Common.js用同步的方式加载模块，也就是说，只有加载完成，才能执行后面的操作。Node.js主要用于服务端，模块文件都存在本地磁盘，读取速度非常快，加载起来也非常快，不用考虑异步加载的方式；但是在浏览器端，要从服务器端加载模块，这时更合理的方案是使用异步加载。"></a>Common.js用同步的方式加载模块，也就是说，只有加载完成，才能执行后面的操作。Node.js主要用于服务端，模块文件都存在本地磁盘，读取速度非常快，加载起来也非常快，不用考虑异步加载的方式；但是在浏览器端，要从服务器端加载模块，这时更合理的方案是使用异步加载。</h4><ol start="2">
+<li>AMD规范</li>
+</ol>
+<blockquote>
+<p>AMD规范采用异步加载模块的方式，模块的加载不影响它后面语句的的运行。所有依赖这个模块的语句，都定义在一个回调函数中，等到加载完成之后，这个回调函数才会运行。require.js用来实现AMD规范的模块化。</p>
+</blockquote>
+<p>AMD规范用require.config()指定一用路径，用define()定义模块，用require()加载模块。define()第一个参数表示依赖的模块数组，第二个表示加载完依赖的模块数组后要执行的函数。require()第一个参数是一个参数数组，里面的成员是要加载的模块，第二个参数是callback，就是加载成功后的回调函数。</p>
+<p>下面是用define定义模块的例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">define([&apos;lib/dependency&apos;], function(dependency) &#123;</span><br><span class="line">    function sayHi() &#123;</span><br><span class="line">        console.log(&apos;hello world&apos;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return &#123;</span><br><span class="line">        sayHi: sayHi</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>下面是用require加载模块的例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">require([&apos;modules/moduleA&apos;], function(moduleA) &#123;</span><br><span class="line">    moduleA.sayHi();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>AMD运行时的核心思想是提前执行依赖，换句话说，在解析和执行当前模块之前，模块作者必须指明当前模块所依赖的模块，表现在require函数的调用结构上</p>
+</blockquote>
+<h4 id="AMD的优缺点："><a href="#AMD的优缺点：" class="headerlink" title="AMD的优缺点："></a>AMD的优缺点：</h4><blockquote>
+<p>尽早执行依赖可以今早发现错误，上例中，假如dependency模块中抛出异常，那么main.js在调用function sayHi方法之前一定会收到错误，sayHi不会执行；今早执行依赖可以让用户的等待时间更短，但是如果依赖的模块最后没被用到，就会浪费带宽和内存。</p>
+</blockquote>
+<ol start="3">
+<li>CMD规范</li>
+</ol>
+<blockquote>
+<p>CMD推崇依赖就近、延迟执行，CMD规范是在sea.js推广的过程中产生的。</p>
+</blockquote>
+<p>下面是CMD的定义模块的写法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">define(function(require, exports, module) &#123;</span><br><span class="line">    var a = require(&apos;./a&apos;);</span><br><span class="line">    a.doSomething();</span><br><span class="line"></span><br><span class="line">    if(false) &#123;</span><br><span class="line">        var b = require(&apos;./b&apos;);</span><br><span class="line">        b.doSomething();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>CMD规范可以把依赖写进代码中的任意一行，如上例所示，代码在运行的时候，首先是不知道依赖的，需要遍历所有的require关键字，找出后面的依赖。具体的做法是将function toString之后，用正则匹配出require关键字后面的依赖。</p>
+<ol start="4">
+<li>ES6 Module（Webpack中使用）</li>
+</ol>
+<blockquote>
+<p>每一个ES6模块都是一个包含JS代码的文件，模块本质上就是一段脚本，而不是用module关键字定义一个模块</p>
+</blockquote>
+<ul>
+<li>在ES6模块中，无论你是否加入’use strict;’语句，默认情况下模块都是在严格模式下运行。</li>
+<li>在模块中可以使用import和export关键字，import用来引入模块，export用来导出模块，可以导出所有的最外层函数、类以及var、let或const声明的变量。</li>
+<li>所有的声明都被限定在模块的作用域中，对所有脚本和模块全局不可见。</li>
+</ul>
+<p>运行的模块中如果包含一条import声明时，首先会加载被导入的模块，然后依赖图的深度优先遍历按顺序执行每一个模块的主体代码，并且所有已执行的模块都会被忽略。</p>
+<p>下面是定义一个模块的例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function sayHi() &#123;console.log(&apos;hello&apos;);&#125;</span><br><span class="line"></span><br><span class="line">class setNum &#123;...&#125;</span><br><span class="line"></span><br><span class="line">export &#123;sayHi, setNum&#125;</span><br></pre></td></tr></table></figure></p>
+<p>下面是引入模块的代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &#123;sayHi, setNum&#125; from &apos;example&apos;;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CommonJS/" rel="tag"># CommonJS</a>
+          
+            <a href="/tags/AMD/" rel="tag"># AMD</a>
+          
+            <a href="/tags/CMD/" rel="tag"># CMD</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/21/深入JS之bind的实现/" rel="next" title="深入JS之bind的实现">
+                <i class="fa fa-chevron-left"></i> 深入JS之bind的实现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">YoungZhang</p>
+              <p class="site-description motion-element" itemprop="description">越努力越幸运~</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/YoungZhang08" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zhangyangyang@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/zhangyangyang" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/youngzhang1001" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#首先，为什么会有模块化的概念？"><span class="nav-number">1.</span> <span class="nav-text">首先，为什么会有模块化的概念？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块的定义"><span class="nav-number">2.</span> <span class="nav-text">模块的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块化的好处"><span class="nav-number">3.</span> <span class="nav-text">模块化的好处</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块的分类"><span class="nav-number">4.</span> <span class="nav-text">模块的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Common-js规范中，一个单独的文件就是一个模块，一个模块有自己的作用域，只向外暴露特定的变量和函数。也就是说在这个模块内定义的变量，无法被其他模块读取。"><span class="nav-number">4.1.</span> <span class="nav-text">Common.js规范中，一个单独的文件就是一个模块，一个模块有自己的作用域，只向外暴露特定的变量和函数。也就是说在这个模块内定义的变量，无法被其他模块读取。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Common-js用同步的方式加载模块，也就是说，只有加载完成，才能执行后面的操作。Node-js主要用于服务端，模块文件都存在本地磁盘，读取速度非常快，加载起来也非常快，不用考虑异步加载的方式；但是在浏览器端，要从服务器端加载模块，这时更合理的方案是使用异步加载。"><span class="nav-number">4.2.</span> <span class="nav-text">Common.js用同步的方式加载模块，也就是说，只有加载完成，才能执行后面的操作。Node.js主要用于服务端，模块文件都存在本地磁盘，读取速度非常快，加载起来也非常快，不用考虑异步加载的方式；但是在浏览器端，要从服务器端加载模块，这时更合理的方案是使用异步加载。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AMD的优缺点："><span class="nav-number">4.3.</span> <span class="nav-text">AMD的优缺点：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YoungZhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://YoungZhang08.github.io/2018/07/22/浅谈前端模块化/';
+          this.page.identifier = '2018/07/22/浅谈前端模块化/';
+          this.page.title = '浅谈前端模块化';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+  
+</body>
+</html>
