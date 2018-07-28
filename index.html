@@ -367,64 +367,15 @@
 
       
         
-          
-            <h3 id="首先，为什么会有模块化的概念？"><a href="#首先，为什么会有模块化的概念？" class="headerlink" title="首先，为什么会有模块化的概念？"></a>首先，为什么会有模块化的概念？</h3><blockquote>
-<p>前端最开始的时候，所有的JS文件都写在一个文件里面，只要加载这一个文件就可以。但是随着JS的迅猛发展，网页中嵌入的JS代码越来越多，一个文件很难管理和维护，必须分成多个文件一次加载。但是一次加载多个JS文件的时候，浏览器会停止网页的渲染，加载文件越多，网页失去响应的时间就会越长。至此，出现了模块化的概念，根据依赖保证加载顺序。</p>
-</blockquote>
-<h3 id="模块的定义"><a href="#模块的定义" class="headerlink" title="模块的定义"></a>模块的定义</h3><blockquote>
-<p>一个模块就是实现一个特定功能的文件。</p>
-</blockquote>
-<h3 id="模块化的好处"><a href="#模块化的好处" class="headerlink" title="模块化的好处"></a>模块化的好处</h3><blockquote>
-<p>1.避免变量污染，命名冲突 2.提高代码复用率 3.提高维护性 4.依赖模块间的管理更方便</p>
-</blockquote>
-<h3 id="模块的分类"><a href="#模块的分类" class="headerlink" title="模块的分类"></a>模块的分类</h3><ol>
-<li>Common.js规范<blockquote>
-<p>由于Node.js的诞生，js也可用于服务端编程，而服务端开发的复杂性，模块化是个必须的理念。而Node.js的模块系统就是参照Common.js实现的。</p>
-</blockquote>
-</li>
-</ol>
-<h4 id="Common-js规范中，一个单独的文件就是一个模块，一个模块有自己的作用域，只向外暴露特定的变量和函数。也就是说在这个模块内定义的变量，无法被其他模块读取。"><a href="#Common-js规范中，一个单独的文件就是一个模块，一个模块有自己的作用域，只向外暴露特定的变量和函数。也就是说在这个模块内定义的变量，无法被其他模块读取。" class="headerlink" title="Common.js规范中，一个单独的文件就是一个模块，一个模块有自己的作用域，只向外暴露特定的变量和函数。也就是说在这个模块内定义的变量，无法被其他模块读取。"></a>Common.js规范中，一个单独的文件就是一个模块，一个模块有自己的作用域，只向外暴露特定的变量和函数。也就是说在这个模块内定义的变量，无法被其他模块读取。</h4><p>Common.js规范有四个重要的环境变量：module、exports、require、global。用module.exports定义当前模块对外输出的接口，用require加载模块。</p>
-<p>比如下面就是一个简单的模块文件example.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var message = &apos;hi&apos;;</span><br><span class="line"></span><br><span class="line">var sayHi = function sayHi() &#123;</span><br><span class="line">    return this.message;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports = sayHi;</span><br></pre></td></tr></table></figure></p>
-<p>下面是一个引入模块的代码块：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var example = require(&apos;./example.js&apos;);</span><br><span class="line"></span><br><span class="line">// 引入核心模块时，不需要带路径</span><br><span class="line">var http = require(&apos;http);</span><br></pre></td></tr></table></figure></p>
-<h4 id="Common-js用同步的方式加载模块，也就是说，只有加载完成，才能执行后面的操作。Node-js主要用于服务端，模块文件都存在本地磁盘，读取速度非常快，加载起来也非常快，不用考虑异步加载的方式；但是在浏览器端，要从服务器端加载模块，这时更合理的方案是使用异步加载。"><a href="#Common-js用同步的方式加载模块，也就是说，只有加载完成，才能执行后面的操作。Node-js主要用于服务端，模块文件都存在本地磁盘，读取速度非常快，加载起来也非常快，不用考虑异步加载的方式；但是在浏览器端，要从服务器端加载模块，这时更合理的方案是使用异步加载。" class="headerlink" title="Common.js用同步的方式加载模块，也就是说，只有加载完成，才能执行后面的操作。Node.js主要用于服务端，模块文件都存在本地磁盘，读取速度非常快，加载起来也非常快，不用考虑异步加载的方式；但是在浏览器端，要从服务器端加载模块，这时更合理的方案是使用异步加载。"></a>Common.js用同步的方式加载模块，也就是说，只有加载完成，才能执行后面的操作。Node.js主要用于服务端，模块文件都存在本地磁盘，读取速度非常快，加载起来也非常快，不用考虑异步加载的方式；但是在浏览器端，要从服务器端加载模块，这时更合理的方案是使用异步加载。</h4><ol start="2">
-<li>AMD规范</li>
-</ol>
-<blockquote>
-<p>AMD规范采用异步加载模块的方式，模块的加载不影响它后面语句的的运行。所有依赖这个模块的语句，都定义在一个回调函数中，等到加载完成之后，这个回调函数才会运行。require.js用来实现AMD规范的模块化。</p>
-</blockquote>
-<p>AMD规范用require.config()指定一用路径，用define()定义模块，用require()加载模块。define()第一个参数表示依赖的模块数组，第二个表示加载完依赖的模块数组后要执行的函数。require()第一个参数是一个参数数组，里面的成员是要加载的模块，第二个参数是callback，就是加载成功后的回调函数。</p>
-<p>下面是用define定义模块的例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">define([&apos;lib/dependency&apos;], function(dependency) &#123;</span><br><span class="line">    function sayHi() &#123;</span><br><span class="line">        console.log(&apos;hello world&apos;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return &#123;</span><br><span class="line">        sayHi: sayHi</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>下面是用require加载模块的例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">require([&apos;modules/moduleA&apos;], function(moduleA) &#123;</span><br><span class="line">    moduleA.sayHi();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>AMD运行时的核心思想是提前执行依赖，换句话说，在解析和执行当前模块之前，模块作者必须指明当前模块所依赖的模块，表现在require函数的调用结构上</p>
-</blockquote>
-<h4 id="AMD的优缺点："><a href="#AMD的优缺点：" class="headerlink" title="AMD的优缺点："></a>AMD的优缺点：</h4><blockquote>
-<p>尽早执行依赖可以今早发现错误，上例中，假如dependency模块中抛出异常，那么main.js在调用function sayHi方法之前一定会收到错误，sayHi不会执行；今早执行依赖可以让用户的等待时间更短，但是如果依赖的模块最后没被用到，就会浪费带宽和内存。</p>
-</blockquote>
-<ol start="3">
-<li>CMD规范</li>
-</ol>
-<blockquote>
-<p>CMD推崇依赖就近、延迟执行，CMD规范是在sea.js推广的过程中产生的。</p>
-</blockquote>
-<p>下面是CMD的定义模块的写法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">define(function(require, exports, module) &#123;</span><br><span class="line">    var a = require(&apos;./a&apos;);</span><br><span class="line">    a.doSomething();</span><br><span class="line"></span><br><span class="line">    if(false) &#123;</span><br><span class="line">        var b = require(&apos;./b&apos;);</span><br><span class="line">        b.doSomething();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>CMD规范可以把依赖写进代码中的任意一行，如上例所示，代码在运行的时候，首先是不知道依赖的，需要遍历所有的require关键字，找出后面的依赖。具体的做法是将function toString之后，用正则匹配出require关键字后面的依赖。</p>
-<ol start="4">
-<li>ES6 Module（Webpack中使用）</li>
-</ol>
-<blockquote>
-<p>每一个ES6模块都是一个包含JS代码的文件，模块本质上就是一段脚本，而不是用module关键字定义一个模块</p>
-</blockquote>
-<ul>
-<li>在ES6模块中，无论你是否加入’use strict;’语句，默认情况下模块都是在严格模式下运行。</li>
-<li>在模块中可以使用import和export关键字，import用来引入模块，export用来导出模块，可以导出所有的最外层函数、类以及var、let或const声明的变量。</li>
-<li>所有的声明都被限定在模块的作用域中，对所有脚本和模块全局不可见。</li>
-</ul>
-<p>运行的模块中如果包含一条import声明时，首先会加载被导入的模块，然后依赖图的深度优先遍历按顺序执行每一个模块的主体代码，并且所有已执行的模块都会被忽略。</p>
-<p>下面是定义一个模块的例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function sayHi() &#123;console.log(&apos;hello&apos;);&#125;</span><br><span class="line"></span><br><span class="line">class setNum &#123;...&#125;</span><br><span class="line"></span><br><span class="line">export &#123;sayHi, setNum&#125;</span><br></pre></td></tr></table></figure></p>
-<p>下面是引入模块的代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &#123;sayHi, setNum&#125; from &apos;example&apos;;</span><br></pre></td></tr></table></figure></p>
-
-          
+          <h3 id="首先，为什么会有模块化的概念？"><a href="#首先，为什么会有模块化的概念？" class="headerlink" title="首先，为什么会有模块化的概念？"></a>首先，为什么会有模块化的概念？</h3><blockquote>
+<p>前端最开始的时候，所有的JS文件都写在一个文件里面，只要加载这一个文件就可以。但是随着JS的迅猛发展，网页中嵌入的JS代码越来越多，一个文件很难管理和维护，必须分成多个文件一次加载。但是一次加载多个JS文件的时候，浏览器会停止网页的渲染，加载文件越多，网页失去响应的时间就会越长。至此，出现了模块化的概念，根据依赖保证加载顺序。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/07/22/浅谈前端模块化/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
