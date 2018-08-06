@@ -87,17 +87,17 @@
 <meta property="og:site_name" content="YoungZhang&#39;s Blog">
 <meta property="og:description" content="首先，Vue在1.0的时代还没有虚拟dom这个概念，1.0时候频繁操作dom使用的是fragment来做修改，当然和vdom是无法媲美了，但是和innerHTML来比它还是提高了很大程度的性能的，毕竟fragment是可以比innerHTML减少很多次重排的。而Vue的virtual-dom（后文简称vdom吧~打字好累的哦~_~）是借鉴了React的，因为virtual-dom是React中的一">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://youngzhang08.github.io/source/_posts/聊聊Vue的virtual-dom实现原理/0.png">
-<meta property="og:image" content="https://youngzhang08.github.io/source/_posts/聊聊Vue的virtual-dom实现原理/1.png">
-<meta property="og:image" content="https://youngzhang08.github.io/source/_posts/聊聊Vue的virtual-dom实现原理/2.png">
-<meta property="og:image" content="https://youngzhang08.github.io/source/_posts/聊聊Vue的virtual-dom实现原理/3.png">
-<meta property="og:image" content="https://youngzhang08.github.io/source/_posts/聊聊Vue的virtual-dom实现原理/4.png">
-<meta property="og:image" content="https://youngzhang08.github.io/source/_posts/聊聊Vue的virtual-dom实现原理/5.png">
-<meta property="og:updated_time" content="2018-08-06T10:36:12.006Z">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/252de35d910c3ba82bef77972680a670/xmlnote/WEBRESOURCE4f4ca11ae33e43946bf11250c116b1d2/21">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/27b65e5b6040001c0aacc86931c2d1fb/xmlnote/WEBRESOURCE27ff932e4d6c98d1cccd5a294246eada/26">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/6fc2a92701517a71295c7e0c7fb46584/xmlnote/WEBRESOURCE3cc947fa9ef2efec872fd0b5825876dc/31">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/9e6aeb2ea3aec19e72df98761aef1ca5/xmlnote/WEBRESOURCE55003758993072d7998fde45be7097e9/36">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/a979d3d69a736e10bf53b870501da4ee/xmlnote/WEBRESOURCE603286c7435d8bd4d47b35dc7ce867e0/43">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/d5e44700ed0880338e307b95b714d01e/xmlnote/WEBRESOURCEea7945af6ecdb5e898023c86dae6d0c7/48">
+<meta property="og:updated_time" content="2018-08-06T10:47:52.741Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="聊聊Vue的virtual-dom实现原理">
 <meta name="twitter:description" content="首先，Vue在1.0的时代还没有虚拟dom这个概念，1.0时候频繁操作dom使用的是fragment来做修改，当然和vdom是无法媲美了，但是和innerHTML来比它还是提高了很大程度的性能的，毕竟fragment是可以比innerHTML减少很多次重排的。而Vue的virtual-dom（后文简称vdom吧~打字好累的哦~_~）是借鉴了React的，因为virtual-dom是React中的一">
-<meta name="twitter:image" content="https://youngzhang08.github.io/source/_posts/聊聊Vue的virtual-dom实现原理/0.png">
+<meta name="twitter:image" content="https://note.youdao.com/yws/public/resource/252de35d910c3ba82bef77972680a670/xmlnote/WEBRESOURCE4f4ca11ae33e43946bf11250c116b1d2/21">
 
 
 
@@ -416,17 +416,17 @@
 </ol>
 </li>
 </ul>
-<h3 id="我觉得上面的规则好多呀，有没有很头大，比刘智林的头还大的感觉？emmmm，那我来举几个图示的例子，你就懂了"><a href="#我觉得上面的规则好多呀，有没有很头大，比刘智林的头还大的感觉？emmmm，那我来举几个图示的例子，你就懂了" class="headerlink" title="我觉得上面的规则好多呀，有没有很头大，比刘智林的头还大的感觉？emmmm，那我来举几个图示的例子，你就懂了~"></a>我觉得上面的规则好多呀，有没有很头大，比刘智林的头还大的感觉？emmmm，那我来举几个图示的例子，你就懂了~</h3><p><img src="/source/_posts/聊聊Vue的virtual-dom实现原理/0.png" alt="image"></p>
+<h3 id="我觉得上面的规则好多呀，有没有很头大，比刘智林的头还大的感觉？emmmm，那我来举几个图示的例子，你就懂了"><a href="#我觉得上面的规则好多呀，有没有很头大，比刘智林的头还大的感觉？emmmm，那我来举几个图示的例子，你就懂了" class="headerlink" title="我觉得上面的规则好多呀，有没有很头大，比刘智林的头还大的感觉？emmmm，那我来举几个图示的例子，你就懂了~"></a>我觉得上面的规则好多呀，有没有很头大，比刘智林的头还大的感觉？emmmm，那我来举几个图示的例子，你就懂了~</h3><p><img src="https://note.youdao.com/yws/public/resource/252de35d910c3ba82bef77972680a670/xmlnote/WEBRESOURCE4f4ca11ae33e43946bf11250c116b1d2/21" alt="image"></p>
 <p>接下来开始第一次比较：</p>
-<p><img src="/source/_posts/聊聊Vue的virtual-dom实现原理/1.png" alt="image"></p>
+<p><img src="https://note.youdao.com/yws/public/resource/27b65e5b6040001c0aacc86931c2d1fb/xmlnote/WEBRESOURCE27ff932e4d6c98d1cccd5a294246eada/26" alt="image"></p>
 <p>第二次比较：</p>
-<p><img src="/source/_posts/聊聊Vue的virtual-dom实现原理/2.png" alt="image"></p>
+<p><img src="https://note.youdao.com/yws/public/resource/6fc2a92701517a71295c7e0c7fb46584/xmlnote/WEBRESOURCE3cc947fa9ef2efec872fd0b5825876dc/31" alt="image"></p>
 <p>第三次比较</p>
-<p><img src="/source/_posts/聊聊Vue的virtual-dom实现原理/3.png" alt="image"></p>
+<p><img src="https://note.youdao.com/yws/public/resource/9e6aeb2ea3aec19e72df98761aef1ca5/xmlnote/WEBRESOURCE55003758993072d7998fde45be7097e9/36" alt="image"></p>
 <p>第四次比较</p>
-<p><img src="/source/_posts/聊聊Vue的virtual-dom实现原理/4.png" alt="image"></p>
+<p><img src="https://note.youdao.com/yws/public/resource/a979d3d69a736e10bf53b870501da4ee/xmlnote/WEBRESOURCE603286c7435d8bd4d47b35dc7ce867e0/43" alt="image"></p>
 <p>最后一次比较！！！</p>
-<p><img src="/source/_posts/聊聊Vue的virtual-dom实现原理/5.png" alt="image"></p>
+<p><img src="https://note.youdao.com/yws/public/resource/d5e44700ed0880338e307b95b714d01e/xmlnote/WEBRESOURCEea7945af6ecdb5e898023c86dae6d0c7/48" alt="image"></p>
 <p>我觉得我懂了，你懂了没。。。</p>
 
       
