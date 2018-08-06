@@ -87,17 +87,17 @@
 <meta property="og:site_name" content="YoungZhang&#39;s Blog">
 <meta property="og:description" content="首先，Vue在1.0的时代还没有虚拟dom这个概念，1.0时候频繁操作dom使用的是fragment来做修改，当然和vdom是无法媲美了，但是和innerHTML来比它还是提高了很大程度的性能的，毕竟fragment是可以比innerHTML减少很多次重排的。而Vue的virtual-dom（后文简称vdom吧~打字好累的哦~_~）是借鉴了React的，因为virtual-dom是React中的一">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://youngzhang08.github.io/2018/07/31/聊聊Vue的virtual-dom实现原理/聊聊Vue的virtual-dom实现原理/0.png">
-<meta property="og:image" content="https://youngzhang08.github.io/2018/07/31/聊聊Vue的virtual-dom实现原理/聊聊Vue的virtual-dom实现原理/1.png">
-<meta property="og:image" content="https://youngzhang08.github.io/2018/07/31/聊聊Vue的virtual-dom实现原理/聊聊Vue的virtual-dom实现原理/2.png">
-<meta property="og:image" content="https://youngzhang08.github.io/2018/07/31/聊聊Vue的virtual-dom实现原理/聊聊Vue的virtual-dom实现原理/3.png">
-<meta property="og:image" content="https://youngzhang08.github.io/2018/07/31/聊聊Vue的virtual-dom实现原理/聊聊Vue的virtual-dom实现原理/4.png">
-<meta property="og:image" content="https://youngzhang08.github.io/2018/07/31/聊聊Vue的virtual-dom实现原理/聊聊Vue的virtual-dom实现原理/5.png">
-<meta property="og:updated_time" content="2018-08-06T10:14:07.723Z">
+<meta property="og:image" content="https://youngzhang08.github.io/source/_posts/聊聊Vue的virtual-dom实现原理/0.png">
+<meta property="og:image" content="https://youngzhang08.github.io/source/_posts/聊聊Vue的virtual-dom实现原理/1.png">
+<meta property="og:image" content="https://youngzhang08.github.io/source/_posts/聊聊Vue的virtual-dom实现原理/2.png">
+<meta property="og:image" content="https://youngzhang08.github.io/source/_posts/聊聊Vue的virtual-dom实现原理/3.png">
+<meta property="og:image" content="https://youngzhang08.github.io/source/_posts/聊聊Vue的virtual-dom实现原理/4.png">
+<meta property="og:image" content="https://youngzhang08.github.io/source/_posts/聊聊Vue的virtual-dom实现原理/5.png">
+<meta property="og:updated_time" content="2018-08-06T10:36:12.006Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="聊聊Vue的virtual-dom实现原理">
 <meta name="twitter:description" content="首先，Vue在1.0的时代还没有虚拟dom这个概念，1.0时候频繁操作dom使用的是fragment来做修改，当然和vdom是无法媲美了，但是和innerHTML来比它还是提高了很大程度的性能的，毕竟fragment是可以比innerHTML减少很多次重排的。而Vue的virtual-dom（后文简称vdom吧~打字好累的哦~_~）是借鉴了React的，因为virtual-dom是React中的一">
-<meta name="twitter:image" content="https://youngzhang08.github.io/2018/07/31/聊聊Vue的virtual-dom实现原理/聊聊Vue的virtual-dom实现原理/0.png">
+<meta name="twitter:image" content="https://youngzhang08.github.io/source/_posts/聊聊Vue的virtual-dom实现原理/0.png">
 
 
 
@@ -416,17 +416,17 @@
 </ol>
 </li>
 </ul>
-<h3 id="我觉得上面的规则好多呀，有没有很头大，比刘智林的头还大的感觉？emmmm，那我来举几个图示的例子，你就懂了"><a href="#我觉得上面的规则好多呀，有没有很头大，比刘智林的头还大的感觉？emmmm，那我来举几个图示的例子，你就懂了" class="headerlink" title="我觉得上面的规则好多呀，有没有很头大，比刘智林的头还大的感觉？emmmm，那我来举几个图示的例子，你就懂了~"></a>我觉得上面的规则好多呀，有没有很头大，比刘智林的头还大的感觉？emmmm，那我来举几个图示的例子，你就懂了~</h3><p><img src="./聊聊Vue的virtual-dom实现原理/0.png" alt="image"></p>
+<h3 id="我觉得上面的规则好多呀，有没有很头大，比刘智林的头还大的感觉？emmmm，那我来举几个图示的例子，你就懂了"><a href="#我觉得上面的规则好多呀，有没有很头大，比刘智林的头还大的感觉？emmmm，那我来举几个图示的例子，你就懂了" class="headerlink" title="我觉得上面的规则好多呀，有没有很头大，比刘智林的头还大的感觉？emmmm，那我来举几个图示的例子，你就懂了~"></a>我觉得上面的规则好多呀，有没有很头大，比刘智林的头还大的感觉？emmmm，那我来举几个图示的例子，你就懂了~</h3><p><img src="/source/_posts/聊聊Vue的virtual-dom实现原理/0.png" alt="image"></p>
 <p>接下来开始第一次比较：</p>
-<p><img src="./聊聊Vue的virtual-dom实现原理/1.png" alt="image"></p>
+<p><img src="/source/_posts/聊聊Vue的virtual-dom实现原理/1.png" alt="image"></p>
 <p>第二次比较：</p>
-<p><img src="./聊聊Vue的virtual-dom实现原理/2.png" alt="image"></p>
+<p><img src="/source/_posts/聊聊Vue的virtual-dom实现原理/2.png" alt="image"></p>
 <p>第三次比较</p>
-<p><img src="./聊聊Vue的virtual-dom实现原理/3.png" alt="image"></p>
+<p><img src="/source/_posts/聊聊Vue的virtual-dom实现原理/3.png" alt="image"></p>
 <p>第四次比较</p>
-<p><img src="./聊聊Vue的virtual-dom实现原理/4.png" alt="image"></p>
+<p><img src="/source/_posts/聊聊Vue的virtual-dom实现原理/4.png" alt="image"></p>
 <p>最后一次比较！！！</p>
-<p><img src="./聊聊Vue的virtual-dom实现原理/5.png" alt="image"></p>
+<p><img src="/source/_posts/聊聊Vue的virtual-dom实现原理/5.png" alt="image"></p>
 <p>我觉得我懂了，你懂了没。。。</p>
 
       
