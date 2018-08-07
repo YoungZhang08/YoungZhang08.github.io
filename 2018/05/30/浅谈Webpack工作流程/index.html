@@ -87,13 +87,13 @@
 <meta property="og:site_name" content="YoungZhang&#39;s Blog">
 <meta property="og:description" content="Webpack loader的设计原则 所有模块都是js模块，其他类型的模块比如图片、css等都需要通过对应的loader转成js模块。所以，webpack中所有资源本质上都被当成js模块处理。所有的loader都是一个管道，入口是一个字符串，出口是另一个字符串，多个loader像水管一样串联起来。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://img.alicdn.com/tps/TB1GVGFNXXXXXaTapXXXXXXXXXX-4436-4244.jpg">
-<meta property="og:image" content="https://note.youdao.com/yws/public/resource/5f715a67310521eccbb0c9b4f0b22331/xmlnote/2559AC36AF3042C09B212C1EFB06EC8A/4517">
-<meta property="og:updated_time" content="2018-05-30T09:37:16.000Z">
+<meta property="og:image" content="https://youngzhang08.github.io/2018/05/30/浅谈Webpack工作流程/0.jpg">
+<meta property="og:image" content="https://youngzhang08.github.io/2018/05/30/浅谈Webpack工作流程/1.png">
+<meta property="og:updated_time" content="2018-08-07T07:06:50.806Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈Webpack工作流程">
 <meta name="twitter:description" content="Webpack loader的设计原则 所有模块都是js模块，其他类型的模块比如图片、css等都需要通过对应的loader转成js模块。所以，webpack中所有资源本质上都被当成js模块处理。所有的loader都是一个管道，入口是一个字符串，出口是另一个字符串，多个loader像水管一样串联起来。">
-<meta name="twitter:image" content="https://img.alicdn.com/tps/TB1GVGFNXXXXXaTapXXXXXXXXXX-4436-4244.jpg">
+<meta name="twitter:image" content="https://youngzhang08.github.io/2018/05/30/浅谈Webpack工作流程/0.jpg">
 
 
 
@@ -371,7 +371,7 @@
         <h3 id="Webpack-loader的设计原则"><a href="#Webpack-loader的设计原则" class="headerlink" title="Webpack loader的设计原则"></a>Webpack loader的设计原则</h3><blockquote>
 <p>所有模块都是js模块，其他类型的模块比如图片、css等都需要通过对应的loader转成js模块。所以，webpack中所有资源本质上都被当成js模块处理。<br>所有的loader都是一个管道，入口是一个字符串，出口是另一个字符串，多个loader像水管一样串联起来。<br><a id="more"></a></p>
 </blockquote>
-<h3 id="webpack的工作流程"><a href="#webpack的工作流程" class="headerlink" title="webpack的工作流程"></a>webpack的工作流程</h3><p><img src="https://img.alicdn.com/tps/TB1GVGFNXXXXXaTapXXXXXXXXXX-4436-4244.jpg" alt="image"></p>
+<h3 id="webpack的工作流程"><a href="#webpack的工作流程" class="headerlink" title="webpack的工作流程"></a>webpack的工作流程</h3><p><img src="./0.jpg" alt="image"></p>
 <p>在webpack的源码里面，有两个webpack.js文件，一个在lib目录下，一个在bin目录下，bin目录下的是处理命令行相关的参数的，也就是我们通过命令行直接启动的入口，lib目录下的是webpack的逻辑入口。</p>
 <p>每次在命令行输入webpack后，操作系统都会去调用  ./node_modules/.bin/webpack 这个shell脚本。这个脚本会去调用 ./node_modules/webpack/bin/webpack.js  并追加输入的参数，如-p,-w。</p>
 <p>在webpack.js这个文件中webpack通过optimist将用户配置的webpack.config.js和shell脚本传过来的参数整合成options对象传到了下一个流程的控制对象中。</p>
@@ -424,7 +424,7 @@
 <blockquote>
 <p>封装过程中，webpack会调用Compilation中的createChunkAssets方法进行打包后代码的生成，流程如下： </p>
 </blockquote>
-<p><img src="https://note.youdao.com/yws/public/resource/5f715a67310521eccbb0c9b4f0b22331/xmlnote/2559AC36AF3042C09B212C1EFB06EC8A/4517" alt=""></p>
+<p><img src="./1.png" alt="image"></p>
 <p>从上图可以看到是通过判断是入口js还是需要异步加载js来选择不同的模板对象进行封装，入口js会采用webpack事件流的render事件来触发Template类中的renderChunkModules()（异步记载的js会调用chunkTemplate中的render方法）</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if(chunk.entry) &#123;</span><br><span class="line">    source = this.mainTemplate.render(this.hash, chunk, this.moduleTemplate, this.dependencyTemplates);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    source = this.chunkTemplate.render(chunk, this.moduleTemplate, this.dependencyTemplates);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>

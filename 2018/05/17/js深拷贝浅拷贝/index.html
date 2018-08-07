@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="YoungZhang&#39;s Blog">
 <meta property="og:description" content="深拷贝和浅拷贝主要区别是在内存中存储类型（堆栈）不同。 但其实js中没有严格意义上区分堆栈内存，因此可以粗暴的认为所有的数据类型都存储在堆内存，但是有些场景下还是需要利用栈数据结构的思维来实现一些思维，比如，js的执行上下文就采用了栈结构实现环境栈（又名函数调用栈）。  堆栈的区别 栈，先进后出(FILO)的存储方式，按值存放可直接访问。堆，树状结构，按引用访问。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://note.youdao.com/yws/public/resource/9274007941c429664226c48c2ba441e5/xmlnote/WEBRESOURCEe9e63c24c049cb8c31d381f59aafc906/2976">
-<meta property="og:updated_time" content="2018-05-30T09:44:24.000Z">
+<meta property="og:image" content="https://youngzhang08.github.io/2018/05/17/js深拷贝浅拷贝/obj.jpg">
+<meta property="og:updated_time" content="2018-08-07T07:17:13.783Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS深拷贝浅拷贝">
 <meta name="twitter:description" content="深拷贝和浅拷贝主要区别是在内存中存储类型（堆栈）不同。 但其实js中没有严格意义上区分堆栈内存，因此可以粗暴的认为所有的数据类型都存储在堆内存，但是有些场景下还是需要利用栈数据结构的思维来实现一些思维，比如，js的执行上下文就采用了栈结构实现环境栈（又名函数调用栈）。  堆栈的区别 栈，先进后出(FILO)的存储方式，按值存放可直接访问。堆，树状结构，按引用访问。">
-<meta name="twitter:image" content="https://note.youdao.com/yws/public/resource/9274007941c429664226c48c2ba441e5/xmlnote/WEBRESOURCEe9e63c24c049cb8c31d381f59aafc906/2976">
+<meta name="twitter:image" content="https://youngzhang08.github.io/2018/05/17/js深拷贝浅拷贝/obj.jpg">
 
 
 
@@ -380,7 +380,7 @@
 <ul>
 <li>见下图理解：</li>
 </ul>
-<p><img src="https://note.youdao.com/yws/public/resource/9274007941c429664226c48c2ba441e5/xmlnote/WEBRESOURCEe9e63c24c049cb8c31d381f59aafc906/2976" alt=""></p>
+<p><img src="./obj.jpg" alt="image"></p>
 <h3 id="说拷贝之前还想再说一下js中的按值传递和按引用传递"><a href="#说拷贝之前还想再说一下js中的按值传递和按引用传递" class="headerlink" title="说拷贝之前还想再说一下js中的按值传递和按引用传递"></a>说拷贝之前还想再说一下js中的按值传递和按引用传递</h3><h4 id="按值传递"><a href="#按值传递" class="headerlink" title="按值传递"></a>按值传递</h4><blockquote>
 <p>高程书中写道：ECMAScript中所有函数的参数都是按值传递的。也就是说，把函数外部的值复制给函数内部的参数，就和把值从一个变量复制到另一个变量一样。可以把ECMAScript函数的参数想象成局部变量。</p>
 </blockquote>
