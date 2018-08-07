@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="对象,继承," />
+  <meta name="keywords" content="webpack-loader,webpack-plugin," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="接着上文，看ES6继承之Class &amp;amp; extends1.基本语法1234567891011121314class Point &amp;#123;&amp;#125;// ColorPoint class ColorPoint extends Point &amp;#123;    constructor(x, y, color) &amp;#123;        super(x, y); // 调用父类的const">
-<meta name="keywords" content="对象,继承">
+<meta name="description" content="关于 loader loader 用于对模块的源代码进行转换。loader 可以让我们在 import 或“加载”模块时预处理文件。因此，loader 类似于 gulp 中的“任务”（task）。loader 可以将文件从不同的语言（TS或者ES6）转换为 JS，或者将内联图像转换为data URL。loader甚至允许你直接在JS模块中 import CSS文件！ ——引自webpack.doc">
+<meta name="keywords" content="webpack-loader,webpack-plugin">
 <meta property="og:type" content="article">
-<meta property="og:title" content="从ES5&amp;ES6两方看继承(二)">
-<meta property="og:url" content="https://YoungZhang08.github.io/2018/05/18/从ES5&ES6两方看继承(二)/index.html">
+<meta property="og:title" content="浅谈Webpack的loader和plugin">
+<meta property="og:url" content="https://YoungZhang08.github.io/2018/08/07/浅谈Webpack的loader和plugin/index.html">
 <meta property="og:site_name" content="YoungZhang&#39;s Blog">
-<meta property="og:description" content="接着上文，看ES6继承之Class &amp;amp; extends1.基本语法1234567891011121314class Point &amp;#123;&amp;#125;// ColorPoint class ColorPoint extends Point &amp;#123;    constructor(x, y, color) &amp;#123;        super(x, y); // 调用父类的const">
+<meta property="og:description" content="关于 loader loader 用于对模块的源代码进行转换。loader 可以让我们在 import 或“加载”模块时预处理文件。因此，loader 类似于 gulp 中的“任务”（task）。loader 可以将文件从不同的语言（TS或者ES6）转换为 JS，或者将内联图像转换为data URL。loader甚至允许你直接在JS模块中 import CSS文件！ ——引自webpack.doc">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-05-18T08:39:28.000Z">
+<meta property="og:updated_time" content="2018-08-07T13:25:29.755Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="从ES5&amp;ES6两方看继承(二)">
-<meta name="twitter:description" content="接着上文，看ES6继承之Class &amp;amp; extends1.基本语法1234567891011121314class Point &amp;#123;&amp;#125;// ColorPoint class ColorPoint extends Point &amp;#123;    constructor(x, y, color) &amp;#123;        super(x, y); // 调用父类的const">
+<meta name="twitter:title" content="浅谈Webpack的loader和plugin">
+<meta name="twitter:description" content="关于 loader loader 用于对模块的源代码进行转换。loader 可以让我们在 import 或“加载”模块时预处理文件。因此，loader 类似于 gulp 中的“任务”（task）。loader 可以将文件从不同的语言（TS或者ES6）转换为 JS，或者将内联图像转换为data URL。loader甚至允许你直接在JS模块中 import CSS文件！ ——引自webpack.doc">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://YoungZhang08.github.io/2018/05/18/从ES5&ES6两方看继承(二)/"/>
+  <link rel="canonical" href="https://YoungZhang08.github.io/2018/08/07/浅谈Webpack的loader和plugin/"/>
 
 
 
 
 
-  <title>从ES5&ES6两方看继承(二) | YoungZhang's Blog</title>
+  <title>浅谈Webpack的loader和plugin | YoungZhang's Blog</title>
   
 
 
@@ -263,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/05/18/从ES5&ES6两方看继承(二)/">
+    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/08/07/浅谈Webpack的loader和plugin/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YoungZhang">
@@ -280,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">从ES5&ES6两方看继承(二)</h1>
+          <h1 class="post-title" itemprop="name headline">浅谈Webpack的loader和plugin</h1>
         
 
         <div class="post-meta">
@@ -292,8 +292,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-18T15:13:58+08:00">
-                2018-05-18
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-07T20:20:40+08:00">
+                2018-08-07
               </time>
             
 
@@ -315,8 +315,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ES6/" itemprop="url" rel="index">
-                    <span itemprop="name">ES6</span>
+                  <a href="/categories/前端构建工具/" itemprop="url" rel="index">
+                    <span itemprop="name">前端构建工具</span>
                   </a>
                 </span>
 
@@ -333,9 +333,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/05/18/从ES5&ES6两方看继承(二)/#comments" itemprop="discussionUrl">
+                <a href="/2018/08/07/浅谈Webpack的loader和plugin/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/05/18/从ES5&ES6两方看继承(二)/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/08/07/浅谈Webpack的loader和plugin/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -365,39 +365,54 @@
       
 
       
-        <h2 id="接着上文，看ES6继承之Class-amp-extends"><a href="#接着上文，看ES6继承之Class-amp-extends" class="headerlink" title="接着上文，看ES6继承之Class &amp; extends"></a>接着上文，看ES6继承之Class &amp; extends</h2><h3 id="1-基本语法"><a href="#1-基本语法" class="headerlink" title="1.基本语法"></a>1.基本语法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Point &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// ColorPoint </span><br><span class="line">class ColorPoint extends Point &#123;</span><br><span class="line">    constructor(x, y, color) &#123;</span><br><span class="line">        super(x, y); // 调用父类的constructor(x, y)</span><br><span class="line">        this.color = color;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    toString() &#123;</span><br><span class="line">        return this.color + &apos; &apos; + super.toString(); // 调用父类的toString()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>super方法表示父类构造函数，调用时会新建父类的this对象。只有super方法才可以返回父类实例，所以调用super之后子类才可以使用this关键字。</p>
+        <h3 id="关于-loader"><a href="#关于-loader" class="headerlink" title="关于 loader"></a>关于 loader</h3><blockquote>
+<p>loader 用于对模块的源代码进行转换。loader 可以让我们在 import 或“加载”模块时预处理文件。因此，loader 类似于 gulp 中的“任务”（task）。loader 可以将文件从不同的语言（TS或者ES6）转换为 JS，或者将内联图像转换为data URL。loader甚至允许你直接在JS模块中 import CSS文件！ ——引自webpack.docschina.org</p>
+</blockquote>
 <a id="more"></a>
-<blockquote>
-<p>注意：子类必须在constructor方法中调用super方法，否则新建实例的时候会报错。这是因为ES6的继承机制是酱紫的：先创建父类的实例对象this（所以必须先调用super方法），然后再用子类的构造函数修改this。也就是说子类自己的this对象，必须先通过父类的构造函数完成塑造，得到与父类同样的实例属性和方法，然后再对其加工，加上子类自己的实例属性和方法。如果不调用super方法子类就得不到this对象。最后，父类的静态方法也会被子类继承。</p>
-</blockquote>
-<p>扯一扯ES5的继承机制：先创建子类的实例对象this，然后将父类的方法添加到子类的实例对象this上面（Parent.apply(this)）。</p>
-<h3 id="2-Object-getPrototypeOf"><a href="#2-Object-getPrototypeOf" class="headerlink" title="2. Object.getPrototypeOf()"></a>2. Object.getPrototypeOf()</h3><blockquote>
-<p>用来从子类上获取父类，因此可以用来判断一个类是否继承了另一个类。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Object.getPrototypeOf(ColorPoint) === Point; // true</span><br></pre></td></tr></table></figure>
-<h3 id="3-super关键字"><a href="#3-super关键字" class="headerlink" title="3. super关键字"></a>3. super关键字</h3><ul>
-<li>作为函数调用时，代表父类的构造函数且只能在子类的构造函数中。即使super代表了父类的构造函数，但是返回的是子类的实例，也就是其内部的this指的是子类，所以super相当于是 ++<strong>父类.prototype.constructor.call(this)</strong>++</li>
-<li>作为对象时，++在普通方法中，指向父类的原型对象++，所以定义在父类实例上的属性和方法无法通过super调用。规定在子类普通方法中通过super调用父类方法时，内部的this指向当前的子类实例。因为this指向子类实例，所以++如果在子类的constructor方法中通过super对某个属性赋值，这时super就是this，赋值的属性会变成子类实例的属性；在静态方法中，指向父类，而不是父类的原型对象++。</li>
-</ul>
-<h3 id="4-类的prototype和proto"><a href="#4-类的prototype和proto" class="headerlink" title="4.类的prototype和proto"></a>4.类的prototype和<strong>proto</strong></h3><blockquote>
-<p>作为一个对象，子类的原型（<strong>proto</strong>属性）是父类。</p>
-</blockquote>
-<blockquote>
-<p>作为一个构造函数，子类的原型对象（prototype属性）是父类的原型对象（prototype属性）的实例。</p>
-</blockquote>
-<h3 id="5-实例的proto属性"><a href="#5-实例的proto属性" class="headerlink" title="5.实例的proto属性"></a>5.实例的<strong>proto</strong>属性</h3><blockquote>
-<p>子类实例的<strong>proto</strong>属性的<strong>proto</strong>属性，指向父类实例的<strong>proto</strong>属性。也就是说，子类的原型的原型，是父类的原型。因此，通过子类实例的<strong>proto</strong>.<strong>proto</strong>属性，可以修改父类实例的行为。</p>
-</blockquote>
-<h3 id="6-原生构造函数的继承"><a href="#6-原生构造函数的继承" class="headerlink" title="6.原生构造函数的继承"></a>6.原生构造函数的继承</h3><blockquote>
-<p>Boolean()、Number()、String()、Array()、Date()、Function()、RegExp()、Error()、Object()以上这些原生构造函数是无法继承的。<br>原生构造函数的this无法绑定，导致拿不到内部属性。因为ES5中是先新建子类的实例对象this，再将父类的属性添加到子类上，由于父类的内部属性无法获取，导致无法继承原生的构造函数。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">function MyArray() &#123;</span><br><span class="line">  Array.apply(this, arguments);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">MyArray.prototype = Object.create(Array.prototype, &#123;</span><br><span class="line">  constructor: &#123;</span><br><span class="line">    value: MyArray,</span><br><span class="line">    writable: true,</span><br><span class="line">    configurable: true,</span><br><span class="line">    enumerable: true</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">var colors = new MyArray();</span><br><span class="line">colors[0] = &quot;red&quot;;</span><br><span class="line">colors.length  // 0</span><br><span class="line"></span><br><span class="line">colors.length = 0;</span><br><span class="line">colors[0]  // &quot;red&quot;</span><br></pre></td></tr></table></figure>
-<p>之所以会发生这种情况，是因为子类无法获得原生构造函数的内部属性，通过Array.apply()或者分配给原型对象都不行。原生构造函数会忽略apply方法传入的this，也就是说，原生构造函数的this无法绑定，导致拿不到内部属性。</p>
-<blockquote>
-<p>ES6允许继承原生构造函数定义子类，因为ES6是先新建父类的实例对象this，然后再用子类的构造函数修饰this，使得父类的所有行为都可以继承。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class MyArray extends Array &#123;</span><br><span class="line">  constructor(...args) &#123;</span><br><span class="line">    super(...args);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var arr = new MyArray();</span><br><span class="line">arr[0] = 12;</span><br><span class="line">arr.length // 1</span><br><span class="line"></span><br><span class="line">arr.length = 0;</span><br><span class="line">arr[0] // undefined</span><br></pre></td></tr></table></figure>
+<h4 id="loader-的使用方式"><a href="#loader-的使用方式" class="headerlink" title="loader 的使用方式"></a>loader 的使用方式</h4><pre><code>1. 配置（推荐）：在 webpack.config.js 文件中指定 loader。
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">webpack.config.js</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">module: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">    &#123;</span><br><span class="line">        test: /\.css$/,</span><br><span class="line">        use: [</span><br><span class="line">        &#123; loader: &apos;style-loader&apos; &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            loader: &apos;css-loader&apos;,</span><br><span class="line">            options: &#123;</span><br><span class="line">            modules: true</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line">&#125;;</span><br><span class="line">``` </span><br><span class="line">module.rules 允许你在 webpack 配置中指定多个 loader。建议在这里指明 loader，简洁明了，并且可以全局概览。减少源码中的代码量，并且可以在出错的时候，更快的调试和定位 loader 中的问题。</span><br><span class="line"></span><br><span class="line">2. 内联：在每个 import 语句中显式指定 loader。</span><br></pre></td></tr></table></figure>
+
+import Styles from &apos;style-loader!css-loader?modules!./styles.css&apos;;
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">    可以在 import 语句或者任何等效于“import”的方式中指定loader。使用 ! 将资源中的 loader分开。分开的每个部分都相对于当前目录解析。</span><br><span class="line"></span><br><span class="line">    3. CLI：在 shell 命令中指定它们。</span><br><span class="line"></span><br><span class="line">#### loader 特性</span><br><span class="line">    1. loader 支持链式传递。loader 链中的每个 loader 对前一个 loader 处理后的资源进行转换。当前 loader 的处理结果会传递给下一个 loader ，依次执行下去。在链中的最后一个 loader 返回webpack 所预期的 JS。</span><br><span class="line">    2. loader 运行在 Node.js 中，并且能够执行任何操作。</span><br><span class="line">    3. loader 可同步可异步。</span><br><span class="line">    4. loader 能够产生额外的任意文件。</span><br><span class="line">&gt; loader 通过预处理函数，为JS生态系统提供了更多能力。用户现在可以更加灵活地引入细粒度逻辑，例如压缩、打包、语言翻译和其他更多。</span><br><span class="line"></span><br><span class="line">#### 解析 loader</span><br><span class="line"></span><br><span class="line">&gt; loader 遵循标准的模块解析。多数情况下，loader 将从模块路径（通常将模块路径认为是 npm install，node_modules）解析。</span><br><span class="line"></span><br><span class="line">&gt; loader 是导出为一个函数的 node 模块。该函数在 loader 转换资源的时候调用。给定的函数将调用 loader API，并通过 this 上下文访问。</span><br><span class="line"></span><br><span class="line">### 关于 plugin</span><br><span class="line"></span><br><span class="line">&gt; plugin 是 webpack 的支柱功能。webpack 自身也是构建于在 webpack 配置中用到的相同的插件系统之上的！plugin 的目的在于解决 loader 无法实现的其他功能。</span><br><span class="line"></span><br><span class="line">#### 剖析 plugin</span><br><span class="line"></span><br><span class="line">&gt; webpack 插件是一个具有 apply 方法的 JS 对象。apply 属性会被 webpack compiler 调用，并且 compiler 对象可在整个编译生命周期访问。</span><br><span class="line"></span><br><span class="line">#### plugin 用法</span><br><span class="line"></span><br><span class="line">    由于 plugin 可以携带参数/选项，你必须在 webpack 配置中，向 plugins 属性传入 new 实例，根据 webpack 的用法，可以有很多种方式使用插件。</span><br><span class="line"></span><br><span class="line">    1. 配置</span><br></pre></td></tr></table></figure>
+
+webpack.config.js
+
+const HtmlWebpackPlugin = require(&apos;html-webpack-plugin&apos;); //通过 npm 安装
+const webpack = require(&apos;webpack&apos;); //访问内置的插件
+const path = require(&apos;path&apos;);
+
+module.exports = {
+    entry: &apos;./path/to/my/entry/file.js&apos;,
+    output: {
+        filename: &apos;my-first-webpack.bundle.js&apos;,
+        path: path.resolve(__dirname, &apos;dist&apos;)
+    },
+    module: {
+        rules: [
+        {
+            test: /\.(js|jsx)$/,
+            use: &apos;babel-loader&apos;
+        }
+        ]
+    },
+    plugins: [
+        new HtmlWebpackPlugin({template: &apos;./src/index.html&apos;})
+    ]
+};
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">2. Node API</span><br></pre></td></tr></table></figure>
+
+const webpack = require(&apos;webpack&apos;); //访问 webpack 运行时(runtime)
+const configuration = require(&apos;./webpack.config.js&apos;);
+
+let compiler = webpack(configuration);
+compiler.apply(new webpack.ProgressPlugin());
+
+compiler.run(function(err, stats) {
+    // ...
+});
+```
+</code></pre>
       
     </div>
     
@@ -414,9 +429,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/对象/" rel="tag"># 对象</a>
+            <a href="/tags/webpack-loader/" rel="tag"># webpack-loader</a>
           
-            <a href="/tags/继承/" rel="tag"># 继承</a>
+            <a href="/tags/webpack-plugin/" rel="tag"># webpack-plugin</a>
           
         </div>
       
@@ -429,8 +444,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/17/js深拷贝浅拷贝/" rel="next" title="JS深拷贝浅拷贝">
-                <i class="fa fa-chevron-left"></i> JS深拷贝浅拷贝
+              <a href="/2018/08/06/瞅瞅五个最新的CSS特性/" rel="next" title="瞅瞅五个最新的CSS特性">
+                <i class="fa fa-chevron-left"></i> 瞅瞅五个最新的CSS特性
               </a>
             
           </div>
@@ -438,10 +453,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/18/腾讯now直播一面笔试题再探/" rel="prev" title="腾讯now直播一面笔试题再探">
-                腾讯now直播一面笔试题再探 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -611,7 +622,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#接着上文，看ES6继承之Class-amp-extends"><span class="nav-number">1.</span> <span class="nav-text">接着上文，看ES6继承之Class &amp; extends</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-基本语法"><span class="nav-number">1.1.</span> <span class="nav-text">1.基本语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Object-getPrototypeOf"><span class="nav-number">1.2.</span> <span class="nav-text">2. Object.getPrototypeOf()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-super关键字"><span class="nav-number">1.3.</span> <span class="nav-text">3. super关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-类的prototype和proto"><span class="nav-number">1.4.</span> <span class="nav-text">4.类的prototype和proto</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-实例的proto属性"><span class="nav-number">1.5.</span> <span class="nav-text">5.实例的proto属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-原生构造函数的继承"><span class="nav-number">1.6.</span> <span class="nav-text">6.原生构造函数的继承</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于-loader"><span class="nav-number">1.</span> <span class="nav-text">关于 loader</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#loader-的使用方式"><span class="nav-number">1.1.</span> <span class="nav-text">loader 的使用方式</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -781,9 +792,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://YoungZhang08.github.io/2018/05/18/从ES5&ES6两方看继承(二)/';
-          this.page.identifier = '2018/05/18/从ES5&ES6两方看继承(二)/';
-          this.page.title = '从ES5&ES6两方看继承(二)';
+          this.page.url = 'https://YoungZhang08.github.io/2018/08/07/浅谈Webpack的loader和plugin/';
+          this.page.identifier = '2018/08/07/浅谈Webpack的loader和plugin/';
+          this.page.title = '浅谈Webpack的loader和plugin';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';
