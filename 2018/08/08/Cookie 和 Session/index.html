@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="代码回滚," />
+  <meta name="keywords" content="Cookie,Session," />
 
 
 
@@ -79,26 +79,18 @@
 
 
 
-<meta name="description" content="好了，记录一下今日的壮举。。。坐标：百度大厦C座      时间：2018-05-16事件起因：上次的需求提交多提交了一个不必要的包导师缺陷检测有6个问题不能merge，所以今日在本地删除包之后提交代码，又因为对git操作的不熟悉，对untracked的deleted的文件执行了”git rm -r .”，然后就很尴尬了。。。我就看着我的VSCode的资源管理器那一栏噌噌噌地没了。。。但是还有部分">
-<meta name="keywords" content="代码回滚">
+<meta name="description" content="Cookie Cookie机制   Cookie 是客户端保存用户信息的一种机制，用来记录用户的一些信息。Cookie 是小型文本文件，内容为一系列键值对。Cookie 是由 HTTP 服务器设置的，保存在浏览器中。  实现机制：  浏览器向某个 URL 发起 HTTP 请求（可以是任何请求，比如 GET 一个页面，或者 POST 一个登录表单）">
+<meta name="keywords" content="Cookie,Session">
 <meta property="og:type" content="article">
-<meta property="og:title" content="git代码回滚">
-<meta property="og:url" content="https://YoungZhang08.github.io/2018/05/16/git代码回滚/index.html">
+<meta property="og:title" content="Cookie 和 Session">
+<meta property="og:url" content="https://YoungZhang08.github.io/2018/08/08/Cookie 和 Session/index.html">
 <meta property="og:site_name" content="YoungZhang&#39;s Blog">
-<meta property="og:description" content="好了，记录一下今日的壮举。。。坐标：百度大厦C座      时间：2018-05-16事件起因：上次的需求提交多提交了一个不必要的包导师缺陷检测有6个问题不能merge，所以今日在本地删除包之后提交代码，又因为对git操作的不熟悉，对untracked的deleted的文件执行了”git rm -r .”，然后就很尴尬了。。。我就看着我的VSCode的资源管理器那一栏噌噌噌地没了。。。但是还有部分">
+<meta property="og:description" content="Cookie Cookie机制   Cookie 是客户端保存用户信息的一种机制，用来记录用户的一些信息。Cookie 是小型文本文件，内容为一系列键值对。Cookie 是由 HTTP 服务器设置的，保存在浏览器中。  实现机制：  浏览器向某个 URL 发起 HTTP 请求（可以是任何请求，比如 GET 一个页面，或者 POST 一个登录表单）">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://youngzhang08.github.io/2018/05/16/git代码回滚/0.png">
-<meta property="og:image" content="https://youngzhang08.github.io/2018/05/16/git代码回滚/1.png">
-<meta property="og:image" content="https://youngzhang08.github.io/2018/05/16/git代码回滚/2.png">
-<meta property="og:image" content="https://youngzhang08.github.io/2018/05/16/git代码回滚/3.png">
-<meta property="og:image" content="https://youngzhang08.github.io/2018/05/16/git代码回滚/4.png">
-<meta property="og:image" content="https://youngzhang08.github.io/2018/05/16/git代码回滚/5.png">
-<meta property="og:image" content="https://youngzhang08.github.io/2018/05/16/git代码回滚/6.png">
-<meta property="og:updated_time" content="2018-08-07T07:14:42.185Z">
+<meta property="og:updated_time" content="2018-08-08T13:16:23.669Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="git代码回滚">
-<meta name="twitter:description" content="好了，记录一下今日的壮举。。。坐标：百度大厦C座      时间：2018-05-16事件起因：上次的需求提交多提交了一个不必要的包导师缺陷检测有6个问题不能merge，所以今日在本地删除包之后提交代码，又因为对git操作的不熟悉，对untracked的deleted的文件执行了”git rm -r .”，然后就很尴尬了。。。我就看着我的VSCode的资源管理器那一栏噌噌噌地没了。。。但是还有部分">
-<meta name="twitter:image" content="https://youngzhang08.github.io/2018/05/16/git代码回滚/0.png">
+<meta name="twitter:title" content="Cookie 和 Session">
+<meta name="twitter:description" content="Cookie Cookie机制   Cookie 是客户端保存用户信息的一种机制，用来记录用户的一些信息。Cookie 是小型文本文件，内容为一系列键值对。Cookie 是由 HTTP 服务器设置的，保存在浏览器中。  实现机制：  浏览器向某个 URL 发起 HTTP 请求（可以是任何请求，比如 GET 一个页面，或者 POST 一个登录表单）">
 
 
 
@@ -128,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://YoungZhang08.github.io/2018/05/16/git代码回滚/"/>
+  <link rel="canonical" href="https://YoungZhang08.github.io/2018/08/08/Cookie 和 Session/"/>
 
 
 
 
 
-  <title>git代码回滚 | YoungZhang's Blog</title>
+  <title>Cookie 和 Session | YoungZhang's Blog</title>
   
 
 
@@ -271,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/05/16/git代码回滚/">
+    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/08/08/Cookie 和 Session/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YoungZhang">
@@ -288,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">git代码回滚</h1>
+          <h1 class="post-title" itemprop="name headline">Cookie 和 Session</h1>
         
 
         <div class="post-meta">
@@ -300,8 +292,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-16T21:09:31+08:00">
-                2018-05-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-08T16:50:04+08:00">
+                2018-08-08
               </time>
             
 
@@ -323,8 +315,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/git管理/" itemprop="url" rel="index">
-                    <span itemprop="name">git管理</span>
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
                   </a>
                 </span>
 
@@ -341,9 +333,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/05/16/git代码回滚/#comments" itemprop="discussionUrl">
+                <a href="/2018/08/08/Cookie 和 Session/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/05/16/git代码回滚/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/08/08/Cookie 和 Session/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -373,21 +365,70 @@
       
 
       
-        <h3 id="好了，记录一下今日的壮举。。。"><a href="#好了，记录一下今日的壮举。。。" class="headerlink" title="好了，记录一下今日的壮举。。。"></a>好了，记录一下今日的壮举。。。</h3><p>坐标：百度大厦C座      时间：2018-05-16<br>事件起因：上次的需求提交多提交了一个不必要的包导师缺陷检测有6个问题不能merge，所以今日在本地删除包之后提交代码，又因为对git操作的不熟悉，对untracked的deleted的文件执行了”git rm -r .”，然后就很尴尬了。。。我就看着我的VSCode的资源管理器那一栏噌噌噌地没了。。。但是还有部分没有删除。emmmmm，立即想到git代码回滚。嗯，解决的过程中，导师问我“你是想报复社会嘛”，emmmmm，其实，，，没想报复社会。。。也没想删库跑路。。。哭唧唧········回归正题——</p>
+        <h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><ol>
+<li><h3 id="Cookie机制"><a href="#Cookie机制" class="headerlink" title="Cookie机制"></a>Cookie机制</h3></li>
+</ol>
+<blockquote>
+<p>Cookie 是客户端保存用户信息的一种机制，用来记录用户的一些信息。Cookie 是小型文本文件，内容为一系列键值对。Cookie 是由 HTTP 服务器设置的，保存在浏览器中。</p>
+</blockquote>
+<p>实现机制：</p>
+<ul>
+<li>浏览器向某个 URL 发起 HTTP 请求（可以是任何请求，比如 GET 一个页面，或者 POST 一个登录表单）</li>
+</ul>
 <a id="more"></a>
-<ol>
-<li>首先，你需要打印出你之前所有的commit-id，选择你要回滚到哪一个版本，命令：git log</li>
-<li>接下来，执行git reset –soft commit-id，如果出现如下图所示的fatal，那就继续接着搞吧<br><img src="./0.png" alt="image"><ol start="3">
-<li>上一步的结果说明你还在合并,所以需要把当前目录所有修改的文件从HEAD中迁出并且把它回复称未修改时的样子<br><img src="./1.png" alt="image"><br>4.在查看状态git status，可以看到提示你执行下面红框中的命令<br><img src="./2.png" alt="image"></li>
-<li>执行git revert –abort之后查看状态，没有问题之后就可以回滚了</li>
-<li>执行git reset –soft commit-id，再去查看状态就可以看到自己刚刚都删了哪些内容<br><img src="./3.png" alt="image"></li>
-<li>根据提示再执行git reset HEAD .，这一步的意思是可以把暂存区的修改撤销掉（unstage），重新放回工作区<br><img src="./4.png" alt="image"></li>
-<li>继续使用git status查看这些文件处于什么状态，可以看到是not staged，提示我们执行git checkout<br>恢复原态<br><img src="./5.png" alt="image"></li>
-<li>完了git add将工作区的提到暂存区并且提交commit<br><img src="./6.png" alt="image"></li>
-<li>再执行git pull，git push到远程分支，就ok啦~</li>
+<ul>
+<li>对应的服务器收到该 HTTP 请求，并计算应当返回给浏览器的 HTTP 响应。在 HTTP 响应报文的响应头中添加 Set-Cookie 的字段，值为要设置的 Cookie（UA 至少要支持 300 项 Cookie，每一项 Cookie 至少要支持到 4096 字节，每个域名至少支持 20 项 Cookie）</li>
+<li>浏览器收到对应服务器的 HTTP 响应，在响应头中发现 Set-Cookie 字段，将该字段的值保存在内存或者硬盘中。（Set-Cookie 字段的值可以是很多项的 Cookie，每一项都可以指定过期时间 Expires，默认是用户关闭浏览器时。）</li>
+<li>浏览器下一次再给该服务器发送 HTTP 请求时，会将 Cookie 附加在 HTTP 的请求头字段 Cookie 中。（浏览器可以存储多个域名下的Cookie，但只发送当前请求的域名曾经指定的Cookie， 这个域名也可以在Set-Cookie字段中指定）</li>
+<li>服务器收到这个 HTTP 请求，发现请求头中有 Cookie 字段，和他自己那块的信息做匹配，就可以知道之前是不是和这个用户对话过。</li>
+<li>过期的 Cookie 会被浏览器自动删除。</li>
+</ul>
+<p>总之，服务器是通过 Set-Cookie 这个响应头字段来指示浏览器保存 Cookie，浏览器通过 Cookie 这个请求头字段来告诉服务器之前的状态的。</p>
+<ol start="2">
+<li><h3 id="Cookie的不可跨域性"><a href="#Cookie的不可跨域性" class="headerlink" title="Cookie的不可跨域性"></a>Cookie的不可跨域性</h3></li>
 </ol>
-</li>
+<blockquote>
+<p>根据 Cookie 规范，域名不一样，二者不能互相操作彼此的 Cookie，只能在同源的 HTTP 请求中携带。比如说：<a href="http://www.tmall.com" target="_blank" rel="noopener">www.tmall.com</a> 和 <a href="http://www.taobao.com" target="_blank" rel="noopener">www.taobao.com</a> 的域名不同，就不能互相操作，将文章开头的问题抛出来，那么阿里是怎么做到两个域之间共享 Cookie 的？</p>
+</blockquote>
+<ol start="3">
+<li><h3 id="Cookie的防篡改机制"><a href="#Cookie的防篡改机制" class="headerlink" title="Cookie的防篡改机制"></a>Cookie的防篡改机制</h3></li>
 </ol>
+<blockquote>
+<p>服务器可以为每个 Cookie 生成签名，由于用户篡改 Cookie 后无法生成对应的签名，服务器就可以得知用户对 Cookie 进行了篡改。校验过程如下：</p>
+</blockquote>
+<ul>
+<li>服务器配置一个字符串，叫Secret，签名通过 Hash(‘xxxxxxxx’ + ‘false’)生成，就是要设置的值和 Secret 相加再取哈希。</li>
+<li>在设置 Cookie 的时候，不仅设置 author 的值为 false，在值的后面设置一个签名，最终设置的 Cookie 是 author=false|xxxxxxxx。</li>
+<li>服务器发送给浏览器的响应报文中将 Cookie 放在 Set-Cookie: author=false|xxxxxxxx</li>
+<li>用户加入要篡改 Cookie ，设置 Cookie 字段为 Cookie: author=true|???????。</li>
+<li>服务器收到该 HTTP 请求，发现 Cookie: author=true|???????。服务器开始校验：Hash(‘true’ + ‘????????’)，就会发现用户提供的签名不正确，不会发送 HTTP 响应了。</li>
+</ul>
+<p>Cookie 是明文传输的，只要服务器设置过一次 author=true|xxxx 就可以知道 true 的签名为 xxxx，以后就可以用这个签名来欺骗服务器。所以，Cookie 中最好不要存放敏感数据。一般来讲，Cookie 中只会放一个 SessionId，而 Session 存储在服务端。</p>
+<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><ol>
+<li><h3 id="Session机制"><a href="#Session机制" class="headerlink" title="Session机制"></a>Session机制</h3></li>
+</ol>
+<blockquote>
+<p>Session 是服务端的保持状态的解决方案，存储在服务端，避免了在客户端 Cookie 中存储敏感数据。Session 可以存储在 HTTP 服务器的内存中，也可以存储在内存数据库中。以存储在数据库中的 Session 为例</p>
+</blockquote>
+<ul>
+<li>用户提交包含用户名和密码的表单，发送 HTTP 请求</li>
+<li>服务端验证用户名和密码的正确性，正确则把当前用户名（通常是用户对象）存储在数据库中，同时生成他在数据库中的唯一 ID（SessionId，通过SessionId 可以从数据库中取出对应的用户对象，敏感数据[比如author=true]都存储在这个用户对象中）</li>
+<li>服务端设置 Cookie 为 sessionId=xxxxxx|checksum 发送 HTTP 响应</li>
+<li>用户收到 HTTP 响应后，看不到任何敏感数据，在此后的请求中发送该 Cookie 给服务器</li>
+<li>服务器收到 HTTP 请求后，发现 Cookie 中有 SessionId，进行防篡改验证，通过验证，则根据此 ID 从数据库中取出对应的用户对象，查看该用户的状态并继续执行业务逻辑。</li>
+</ul>
+<ol start="2">
+<li><h3 id="Session的生命周期"><a href="#Session的生命周期" class="headerlink" title="Session的生命周期"></a>Session的生命周期</h3></li>
+</ol>
+<blockquote>
+<p>为了获得更高的存取速度，服务器一般会把 Session 存放在内存中。Session 在用户第一次访问服务器的时候自动创建，Session 生成之后，只要用户继续访问，服务器就会更新 Session 的最后访问时间，并维护该 Session。用户每访问服务器一次，无论是否读写 Session，服务器都认为用户的 Session active 了一次。</p>
+</blockquote>
+<ol start="3">
+<li><h3 id="Session的有效期"><a href="#Session的有效期" class="headerlink" title="Session的有效期"></a>Session的有效期</h3></li>
+</ol>
+<blockquote>
+<p>为了防止内存溢出，服务器会把长时间内没有 active 的 Session 从内存删除。这个时间就是 Session 的超时时间，如果过了超时时间没有访问过服务器，Session 就自动失效了。 </p>
+</blockquote>
 
       
     </div>
@@ -405,7 +446,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/代码回滚/" rel="tag"># 代码回滚</a>
+            <a href="/tags/Cookie/" rel="tag"># Cookie</a>
+          
+            <a href="/tags/Session/" rel="tag"># Session</a>
           
         </div>
       
@@ -418,8 +461,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/10/从ES5&ES6两方看继承(一)/" rel="next" title="从ES5&ES6两方看继承(一)">
-                <i class="fa fa-chevron-left"></i> 从ES5&ES6两方看继承(一)
+              <a href="/2018/08/07/浅谈Webpack的loader和plugin/" rel="next" title="浅谈Webpack的loader和plugin">
+                <i class="fa fa-chevron-left"></i> 浅谈Webpack的loader和plugin
               </a>
             
           </div>
@@ -427,10 +470,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/17/js深拷贝浅拷贝/" rel="prev" title="JS深拷贝浅拷贝">
-                JS深拷贝浅拷贝 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -600,7 +639,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#好了，记录一下今日的壮举。。。"><span class="nav-number">1.</span> <span class="nav-text">好了，记录一下今日的壮举。。。</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie"><span class="nav-number">1.</span> <span class="nav-text">Cookie</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cookie机制"><span class="nav-number">1.1.</span> <span class="nav-text">Cookie机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cookie的不可跨域性"><span class="nav-number">1.2.</span> <span class="nav-text">Cookie的不可跨域性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cookie的防篡改机制"><span class="nav-number">1.3.</span> <span class="nav-text">Cookie的防篡改机制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session"><span class="nav-number">2.</span> <span class="nav-text">Session</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Session机制"><span class="nav-number">2.1.</span> <span class="nav-text">Session机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Session的生命周期"><span class="nav-number">2.2.</span> <span class="nav-text">Session的生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Session的有效期"><span class="nav-number">2.3.</span> <span class="nav-text">Session的有效期</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -770,9 +809,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://YoungZhang08.github.io/2018/05/16/git代码回滚/';
-          this.page.identifier = '2018/05/16/git代码回滚/';
-          this.page.title = 'git代码回滚';
+          this.page.url = 'https://YoungZhang08.github.io/2018/08/08/Cookie 和 Session/';
+          this.page.identifier = '2018/08/08/Cookie 和 Session/';
+          this.page.title = 'Cookie 和 Session';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';
