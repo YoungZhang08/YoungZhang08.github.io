@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="webpack,gulp," />
+  <meta name="keywords" content="Cookie,Session,SSO," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="webpack和gulp的区别的话，我是这么理解的：  gulp是个自动化构建的工具，gulp所做的工作就是对指定文件的代码进行压缩合并或者资源打包，所以我一般会在自己的个人项目规模不是很大的时候使用gulp来构建，完了在页面中引用就行了，这样子的目的就是单纯的减小文件体积；  而webpack我觉得就拿我们这个SPA项目来看的话：">
-<meta name="keywords" content="webpack,gulp">
+<meta name="description" content="场景：你在访问淘宝首页之后，需要登录，当你登录成功之后，再去访问天猫，你会发现，天猫也是登录状态，这是怎么做到的？好吧~介绍阿里的 SSO 机制之前，建议移步至 Cookie 和 Session 先普及一下 Cookie 和 Session 机制。接下再介绍三个概念叫 访问控制 、SSO 和 权限系统。">
+<meta name="keywords" content="Cookie,Session,SSO">
 <meta property="og:type" content="article">
-<meta property="og:title" content="webpack和gulp的区别">
-<meta property="og:url" content="https://YoungZhang08.github.io/2018/05/24/webpack和gulp的区别/index.html">
+<meta property="og:title" content="聊聊阿里淘宝SSO跨域登录过程">
+<meta property="og:url" content="https://YoungZhang08.github.io/2018/08/08/聊聊阿里淘宝SSO跨域登录过程/index.html">
 <meta property="og:site_name" content="YoungZhang&#39;s Blog">
-<meta property="og:description" content="webpack和gulp的区别的话，我是这么理解的：  gulp是个自动化构建的工具，gulp所做的工作就是对指定文件的代码进行压缩合并或者资源打包，所以我一般会在自己的个人项目规模不是很大的时候使用gulp来构建，完了在页面中引用就行了，这样子的目的就是单纯的减小文件体积；  而webpack我觉得就拿我们这个SPA项目来看的话：">
+<meta property="og:description" content="场景：你在访问淘宝首页之后，需要登录，当你登录成功之后，再去访问天猫，你会发现，天猫也是登录状态，这是怎么做到的？好吧~介绍阿里的 SSO 机制之前，建议移步至 Cookie 和 Session 先普及一下 Cookie 和 Session 机制。接下再介绍三个概念叫 访问控制 、SSO 和 权限系统。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-05-24T07:19:52.000Z">
+<meta property="og:updated_time" content="2018-08-08T14:12:33.192Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="webpack和gulp的区别">
-<meta name="twitter:description" content="webpack和gulp的区别的话，我是这么理解的：  gulp是个自动化构建的工具，gulp所做的工作就是对指定文件的代码进行压缩合并或者资源打包，所以我一般会在自己的个人项目规模不是很大的时候使用gulp来构建，完了在页面中引用就行了，这样子的目的就是单纯的减小文件体积；  而webpack我觉得就拿我们这个SPA项目来看的话：">
+<meta name="twitter:title" content="聊聊阿里淘宝SSO跨域登录过程">
+<meta name="twitter:description" content="场景：你在访问淘宝首页之后，需要登录，当你登录成功之后，再去访问天猫，你会发现，天猫也是登录状态，这是怎么做到的？好吧~介绍阿里的 SSO 机制之前，建议移步至 Cookie 和 Session 先普及一下 Cookie 和 Session 机制。接下再介绍三个概念叫 访问控制 、SSO 和 权限系统。">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://YoungZhang08.github.io/2018/05/24/webpack和gulp的区别/"/>
+  <link rel="canonical" href="https://YoungZhang08.github.io/2018/08/08/聊聊阿里淘宝SSO跨域登录过程/"/>
 
 
 
 
 
-  <title>webpack和gulp的区别 | YoungZhang's Blog</title>
+  <title>聊聊阿里淘宝SSO跨域登录过程 | YoungZhang's Blog</title>
   
 
 
@@ -263,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/05/24/webpack和gulp的区别/">
+    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/08/08/聊聊阿里淘宝SSO跨域登录过程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YoungZhang">
@@ -280,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">webpack和gulp的区别</h1>
+          <h1 class="post-title" itemprop="name headline">聊聊阿里淘宝SSO跨域登录过程</h1>
         
 
         <div class="post-meta">
@@ -292,8 +292,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-24T15:18:49+08:00">
-                2018-05-24
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-08T21:18:54+08:00">
+                2018-08-08
               </time>
             
 
@@ -315,8 +315,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端构建工具/" itemprop="url" rel="index">
-                    <span itemprop="name">前端构建工具</span>
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
                   </a>
                 </span>
 
@@ -333,9 +333,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/05/24/webpack和gulp的区别/#comments" itemprop="discussionUrl">
+                <a href="/2018/08/08/聊聊阿里淘宝SSO跨域登录过程/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/05/24/webpack和gulp的区别/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/08/08/聊聊阿里淘宝SSO跨域登录过程/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -365,19 +365,36 @@
       
 
       
-        <p>webpack和gulp的区别的话，我是这么理解的：</p>
-<blockquote>
-<p>gulp是个自动化构建的工具，gulp所做的工作就是对指定文件的代码进行压缩合并或者资源打包，所以我一般会在自己的个人项目规模不是很大的时候使用gulp来构建，完了在页面中引用就行了，这样子的目的就是单纯的减小文件体积；</p>
+        <h3 id="场景：你在访问淘宝首页之后，需要登录，当你登录成功之后，再去访问天猫，你会发现，天猫也是登录状态，这是怎么做到的？"><a href="#场景：你在访问淘宝首页之后，需要登录，当你登录成功之后，再去访问天猫，你会发现，天猫也是登录状态，这是怎么做到的？" class="headerlink" title="场景：你在访问淘宝首页之后，需要登录，当你登录成功之后，再去访问天猫，你会发现，天猫也是登录状态，这是怎么做到的？"></a>场景：你在访问淘宝首页之后，需要登录，当你登录成功之后，再去访问天猫，你会发现，天猫也是登录状态，这是怎么做到的？</h3><p>好吧~介绍阿里的 SSO 机制之前，建议移步至 <a href="https://youngzhang08.github.io/2018/08/08/Cookie%20%E5%92%8C%20Session/">Cookie 和 Session</a> 先普及一下 Cookie 和 Session 机制。接下再介绍三个概念叫 <strong>访问控制</strong> 、<strong>SSO</strong> 和 <strong>权限系统</strong>。</p>
+<a id="more"></a>
+<h3 id="访问控制（Access-Control）"><a href="#访问控制（Access-Control）" class="headerlink" title="访问控制（Access Control）"></a>访问控制（Access Control）</h3><blockquote>
+<p>访问控制要完成的两个任务：1.识别和确认访问系统的用户；2.决定该用户可以对某一系统资源进行何种类型的访问</p>
 </blockquote>
-<p>而webpack我觉得就拿我们这个SPA项目来看的话：<br><a id="more"></a></p>
+<h3 id="SSO（Single-Site-On）"><a href="#SSO（Single-Site-On）" class="headerlink" title="SSO（Single Site On）"></a>SSO（Single Site On）</h3><blockquote>
+<p>让用户能够通过一次登录访问所有应用程序。它提供一个统一的机制来管理用户的身份验证，并实现业务规则来决定用户对应用程序和数据的访问。</p>
+</blockquote>
+<h3 id="权限系统"><a href="#权限系统" class="headerlink" title="权限系统"></a>权限系统</h3><p>这里主要对阿里的体系作介绍 —— <strong>统一登录（分布式 Session） + 接口鉴权</strong></p>
 <blockquote>
-<ol>
-<li>我们需要配置一个entry指明执行入口，找到每个文件所依赖的文件，递归下去，在解析文件递归的过程中根据文件类型和loader配置找出合适的loader用来对文件进行转换，并将最后递归得到的结果根据entry配置生成代码块chunk，然后输出chunk到文件系统</li>
-<li>我们引用了比较多的第三方库，那如果将这些类库在页面中分别引用，请求页面的时候，可能浏览器要发起多次请求，但是可能每一次的请求都是一小段的js代码或者很小的图片，本身可能才几k左右，下载可能只要1秒，但是http请求发送之前我们得先建立tcp连接，tcp的三握四挥消耗的时间比下载资源本身还要长，所以如果我们把这些文件都打包成一个文件，那么只进行一次tcp握手和挥手的过程，但是相应的结果是下载了多个资源，他们共享同一个http请求，让页面加载更快，用户体验更佳，这部分就是可以减少页面请求时间</li>
-<li>而且针对于第三方库，像Vue或者React这种体系库会包含有像其对应的状态管理库和路由管理库，这个时候webpack就可以让我们抽出这些基础库到一个单独的文件而不是和其他文件放在一起打包为一个文件，这样做的好处就是即便我们不去升级他们的版本就永远不会被刷新，但是如果我们把他们这些基础库和业务代码打包在一个文件里每次改动业务代码都会导致文件hash值变化紧接着导致浏览器缓存失效，那浏览器就会重复下载这些包含基础库的代码，所以这部分的话我们就可以利用webpack做代码分割的优化</li>
+<p>SSO系统集群部署后，面临的首要问题就是Session的共享问题，比如用户在sso-1 机器上登录了，下次访问sso-2机器时，也必须是登录态的。分布式Session使用较多的方案为：Session集中管理；比如阿里巴巴基于Tair 缓存体系的共享session体系tbsession。如果采用了session + cookie的方案，并且服务端集群是多域名共享登录的话，那么还需要提供cookie跨域同步的能力（解决cookie不能跨域的问题）。</p>
+</blockquote>
+<h3 id="测试过程："><a href="#测试过程：" class="headerlink" title="测试过程："></a>测试过程：</h3><ol>
+<li>访问 <a href="http://www.taobao.com" target="_blank" rel="noopener">www.taobao.com</a> 请求登录跳转至 login.taobao.com</li>
+<li>用户输入用户名和密码使用 POST 请求提交表单信息到 login.taobao.com</li>
+<li>登录成功后，response status为 302，redirect（重定向）至 <a href="http://www.taobao.com" target="_blank" rel="noopener">www.taobao.com</a></li>
+<li>访问 <a href="http://www.tmall.com" target="_blank" rel="noopener">www.tmall.com</a> 页面响应中发起新的请求 tmcc.tmall.com/pass.htm</li>
+<li>tmcc.tmall.com/pass.htm 的响应 302 至 login.taobao.com/jump?target=<a href="https://tmcc.tmall.com/pass.htm?tbpm=1" target="_blank" rel="noopener">https://tmcc.tmall.com/pass.htm?tbpm=1</a>(tbpm 为 1 表示：进行 tbsession 的跨域同步)</li>
+<li>请求 login.taobao.com/jump?target=<a href="https://tmcc.tmall.com/pass.htm?tbpm=1" target="_blank" rel="noopener">https://tmcc.tmall.com/pass.htm?tbpm=1</a> 的时候，会携带上 taobao.com 域下的 Cookie 信息，服务端把 taobao.com 域下的 Cookie 信息拼接到 <a href="https://pass.tmall.com/add?tb_token=eef03e35fbe&amp;u……&amp;target=https%3A%2F%2Ftmcc.tmall.com%2Fpass.htm%3Ftbpm%3D1" target="_blank" rel="noopener">https://pass.tmall.com/add?tb_token=eef03e35fbe&amp;u……&amp;target=https%3A%2F%2Ftmcc.tmall.com%2Fpass.htm%3Ftbpm%3D1</a> 的 query string 上 302 重定向</li>
+<li>请求页面 <a href="https://pass.tmall.com/add?tb_token=eef03e35fbe&amp;u……&amp;target=https%3A%2F%2Ftmcc.tmall.com%2Fpass.htm%3Ftbpm%3D1，携带" target="_blank" rel="noopener">https://pass.tmall.com/add?tb_token=eef03e35fbe&amp;u……&amp;target=https%3A%2F%2Ftmcc.tmall.com%2Fpass.htm%3Ftbpm%3D1，携带</a> taobao 的 Cookie 信息的 query string 参数请求 tmall.com 下的信息，添加 Cookie</li>
+<li>响应中把请求中的 Cookie 信息 Set 到浏览器的 Cookie 中，经由 302 重定向至 <a href="https://tmcc.tmall.com/pass.htm?tbpm=1，这样就完成了" target="_blank" rel="noopener">https://tmcc.tmall.com/pass.htm?tbpm=1，这样就完成了</a> tmall.com 域名下的 Cookie 同步</li>
+<li>请求 <a href="https://tmcc.tmall.com/pass.htm?tbpm=1" target="_blank" rel="noopener">https://tmcc.tmall.com/pass.htm?tbpm=1</a> 302 跳转至 <a href="https://tmcc.tmall.com/pass.htm" target="_blank" rel="noopener">https://tmcc.tmall.com/pass.htm</a> 去掉同步标识 tbpm</li>
 </ol>
-</blockquote>
-<p>当然webpack也不止这些功能，他也有诸多插件，比如热加载呀，自动刷新呀都是很方便的。</p>
+<h3 id="总结一下"><a href="#总结一下" class="headerlink" title="总结一下"></a>总结一下</h3><ol>
+<li>请求 tmall.com 的响应会重定向至请求 tmcc.tmall.com/pass.htm，由此 URL 再通过跨域请求至 login.taobao.com/jump?target=<a href="https://tmcc.tmall.com/pass.htm?tbpm=1" target="_blank" rel="noopener">https://tmcc.tmall.com/pass.htm?tbpm=1</a></li>
+<li>在这里，就是因为 tbpm=1 的标识，可以进行 tbsession 的跨域同步，这个请求中会携带 taobao.com 域下的 Cookie</li>
+<li>服务端将携带的 taobao.com 的 Cookie拼接到 <a href="https://pass.tmall.com/add?tb_token=eef03e35fbe&amp;u……&amp;target=https%3A%2F%2Ftmcc.tmall.com%2Fpass.htm%3Ftbpm%3D1" target="_blank" rel="noopener">https://pass.tmall.com/add?tb_token=eef03e35fbe&amp;u……&amp;target=https%3A%2F%2Ftmcc.tmall.com%2Fpass.htm%3Ftbpm%3D1</a> 下的 query string 上</li>
+<li>浏览器拿到这个响应将 Cookie Set 进浏览器的 Cookie 中，然后重定向至 <a href="https://tmcc.tmall.com/pass.htm?tbpm=1" target="_blank" rel="noopener">https://tmcc.tmall.com/pass.htm?tbpm=1</a> </li>
+<li>再重定向至 <a href="https://tmcc.tmall.com/pass.htm" target="_blank" rel="noopener">https://tmcc.tmall.com/pass.htm</a> 去掉同步标识 tbpm</li>
+</ol>
 
       
     </div>
@@ -395,9 +412,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/webpack/" rel="tag"># webpack</a>
+            <a href="/tags/Cookie/" rel="tag"># Cookie</a>
           
-            <a href="/tags/gulp/" rel="tag"># gulp</a>
+            <a href="/tags/Session/" rel="tag"># Session</a>
+          
+            <a href="/tags/SSO/" rel="tag"># SSO</a>
           
         </div>
       
@@ -410,8 +429,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/23/浅谈Webpack模块化实现原理/" rel="next" title="浅谈Webpack模块化实现原理">
-                <i class="fa fa-chevron-left"></i> 浅谈Webpack模块化实现原理
+              <a href="/2018/08/08/Cookie 和 Session/" rel="next" title="Cookie 和 Session">
+                <i class="fa fa-chevron-left"></i> Cookie 和 Session
               </a>
             
           </div>
@@ -419,10 +438,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/28/fis3前端工程化工具整理/" rel="prev" title="fis3前端工程化工具整理">
-                fis3前端工程化工具整理 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -484,8 +499,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -573,6 +597,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#场景：你在访问淘宝首页之后，需要登录，当你登录成功之后，再去访问天猫，你会发现，天猫也是登录状态，这是怎么做到的？"><span class="nav-number">1.</span> <span class="nav-text">场景：你在访问淘宝首页之后，需要登录，当你登录成功之后，再去访问天猫，你会发现，天猫也是登录状态，这是怎么做到的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问控制（Access-Control）"><span class="nav-number">2.</span> <span class="nav-text">访问控制（Access Control）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SSO（Single-Site-On）"><span class="nav-number">3.</span> <span class="nav-text">SSO（Single Site On）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#权限系统"><span class="nav-number">4.</span> <span class="nav-text">权限系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试过程："><span class="nav-number">5.</span> <span class="nav-text">测试过程：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结一下"><span class="nav-number">6.</span> <span class="nav-text">总结一下</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -737,9 +777,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://YoungZhang08.github.io/2018/05/24/webpack和gulp的区别/';
-          this.page.identifier = '2018/05/24/webpack和gulp的区别/';
-          this.page.title = 'webpack和gulp的区别';
+          this.page.url = 'https://YoungZhang08.github.io/2018/08/08/聊聊阿里淘宝SSO跨域登录过程/';
+          this.page.identifier = '2018/08/08/聊聊阿里淘宝SSO跨域登录过程/';
+          this.page.title = '聊聊阿里淘宝SSO跨域登录过程';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';
