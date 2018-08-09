@@ -79,23 +79,23 @@
 
 
 
-<meta name="description" content="为什么需要 DNS 解析 我们一般都是在地址栏输入域名去访问站点，因为我们是无法记住超多个 IP 地址的。但是计算机在网络上进行通讯时又只能识别 IP 地址，并不能识别域名，因为网络通信大都是基于 TCP/IP 的，而 TCP/IP 是基于 IP 地址的。这个时候，就需要 DNS 服务器将我们输入的域名“翻译”成对应的 IP 地址，继续后续的工作。  什么是 DNS Domain Name Sys">
+<meta name="description" content="为什么需要 DNS 解析 我们一般都是在地址栏输入域名去访问站点，因为我们是无法记住超多个 IP 地址的。但是计算机在网络上进行通讯时又只能识别 IP 地址，并不能识别域名，因为网络通信大都是基于 TCP/IP 的，而 TCP/IP 是基于 IP 地址的。这个时候，就需要 DNS 服务器将我们输入的域名“翻译”成对应的 IP 地址，继续后续的工作。">
 <meta name="keywords" content="DNS 查询原理,DNS 工作过程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入 DNS 查询">
 <meta property="og:url" content="https://YoungZhang08.github.io/2018/08/09/深入 DNS 查询/index.html">
 <meta property="og:site_name" content="YoungZhang&#39;s Blog">
-<meta property="og:description" content="为什么需要 DNS 解析 我们一般都是在地址栏输入域名去访问站点，因为我们是无法记住超多个 IP 地址的。但是计算机在网络上进行通讯时又只能识别 IP 地址，并不能识别域名，因为网络通信大都是基于 TCP/IP 的，而 TCP/IP 是基于 IP 地址的。这个时候，就需要 DNS 服务器将我们输入的域名“翻译”成对应的 IP 地址，继续后续的工作。  什么是 DNS Domain Name Sys">
+<meta property="og:description" content="为什么需要 DNS 解析 我们一般都是在地址栏输入域名去访问站点，因为我们是无法记住超多个 IP 地址的。但是计算机在网络上进行通讯时又只能识别 IP 地址，并不能识别域名，因为网络通信大都是基于 TCP/IP 的，而 TCP/IP 是基于 IP 地址的。这个时候，就需要 DNS 服务器将我们输入的域名“翻译”成对应的 IP 地址，继续后续的工作。">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://youngzhang08.github.io/2018/08/09/深入%20DNS%20查询/0.jpg">
-<meta property="og:image" content="https://youngzhang08.github.io/2018/08/09/深入%20DNS%20查询/0.png">
 <meta property="og:image" content="https://youngzhang08.github.io/2018/08/09/深入%20DNS%20查询/1.png">
 <meta property="og:image" content="https://youngzhang08.github.io/2018/08/09/深入%20DNS%20查询/2.png">
 <meta property="og:image" content="https://youngzhang08.github.io/2018/08/09/深入%20DNS%20查询/3.png">
-<meta property="og:updated_time" content="2018-08-09T08:15:28.683Z">
+<meta property="og:image" content="https://youngzhang08.github.io/2018/08/09/深入%20DNS%20查询/4.png">
+<meta property="og:updated_time" content="2018-08-09T11:59:51.065Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入 DNS 查询">
-<meta name="twitter:description" content="为什么需要 DNS 解析 我们一般都是在地址栏输入域名去访问站点，因为我们是无法记住超多个 IP 地址的。但是计算机在网络上进行通讯时又只能识别 IP 地址，并不能识别域名，因为网络通信大都是基于 TCP/IP 的，而 TCP/IP 是基于 IP 地址的。这个时候，就需要 DNS 服务器将我们输入的域名“翻译”成对应的 IP 地址，继续后续的工作。  什么是 DNS Domain Name Sys">
+<meta name="twitter:description" content="为什么需要 DNS 解析 我们一般都是在地址栏输入域名去访问站点，因为我们是无法记住超多个 IP 地址的。但是计算机在网络上进行通讯时又只能识别 IP 地址，并不能识别域名，因为网络通信大都是基于 TCP/IP 的，而 TCP/IP 是基于 IP 地址的。这个时候，就需要 DNS 服务器将我们输入的域名“翻译”成对应的 IP 地址，继续后续的工作。">
 <meta name="twitter:image" content="https://youngzhang08.github.io/2018/08/09/深入%20DNS%20查询/0.jpg">
 
 
@@ -372,7 +372,7 @@
 
       
         <h3 id="为什么需要-DNS-解析"><a href="#为什么需要-DNS-解析" class="headerlink" title="为什么需要 DNS 解析"></a>为什么需要 DNS 解析</h3><blockquote>
-<p>我们一般都是在地址栏输入域名去访问站点，因为我们是无法记住超多个 IP 地址的。但是计算机在网络上进行通讯时又只能识别 IP 地址，并不能识别域名，因为网络通信大都是基于 TCP/IP 的，而 TCP/IP 是基于 IP 地址的。这个时候，就需要 DNS 服务器将我们输入的域名“翻译”成对应的 IP 地址，继续后续的工作。</p>
+<p>我们一般都是在地址栏输入域名去访问站点，因为我们是无法记住超多个 IP 地址的。但是计算机在网络上进行通讯时又只能识别 IP 地址，并不能识别域名，因为网络通信大都是基于 TCP/IP 的，而 TCP/IP 是基于 IP 地址的。这个时候，就需要 DNS 服务器将我们输入的域名“翻译”成对应的 IP 地址，继续后续的工作。<br><a id="more"></a></p>
 </blockquote>
 <h3 id="什么是-DNS"><a href="#什么是-DNS" class="headerlink" title="什么是 DNS"></a>什么是 DNS</h3><blockquote>
 <p>Domain Name System(DNS)，它用于 TCP/IP 网络，是应用层的协议。DNS 服务器提供将主机名和域名转换为 IP 地址和将 IP 地址转换为域名的服务。</p>
@@ -415,16 +415,16 @@
 </blockquote>
 <p><strong>1. 本地解析</strong></p>
 <p>客户机平时得到的DNS查询记录都保留在DNS缓存中，客户机操作系统上都运行着一个DNS客户端程序。当其他程序提出DNS查询请求时，这个查询请求要传送至DNS客户端程序。DNS客户端程序首先使用本地缓存信息进行解析，如果可以解析所要查询的名称，则DNS客户端程序就直接应答该查询，而不需要向DNS服务器查询，该DNS查询处理过程也就结束了。</p>
-<p><img src="./0.png" alt="image"></p>
+<p><img src="./1.png" alt="image"></p>
 <p><strong>2. 直接解析</strong>：</p>
 <p>如果DNS客户端程序不能从本地DNS缓存回答客户机的DNS查询，它就向客户机所设定的局部DNS服务器发一个查询请求，要求局部DNS服务器进行解析。如下图所示，局部DNS服务器得到这个查询请求，首先查看一下所要求查询的域名是不是自己能回答的，如果能回答，则直接给予回答，如是不能回答，再查看自己的DNS缓存，如果可以从缓存中解析，则也是直接给予回应。</p>
-<p><img src="./1.png" alt="image"></p>
+<p><img src="./2.png" alt="image"></p>
 <p><strong>3. 递归解析</strong>:</p>
 <p>当局部DNS服务器自己不能回答客户机的DNS查询时，它就需要向其他DNS服务器进行查询。此时有两种方式，如下图所示的是递归方式。局部DNS服务器自己负责向其他DNS服务器进行查询，一般是先向该域名的根域服务器查询，再由根域名服务器一级级向下查询。最后得到的查询结果返回给局部DNS服务器，再由局部DNS服务器返回给客户端。</p>
-<p><img src="./2.png" alt="image"></p>
+<p><img src="./3.png" alt="image"></p>
 <p><strong>4. 迭代解析</strong>:</p>
 <p>当局部DNS服务器自己不能回答客户机的DNS查询时，也可以通过迭代查询的方式进行解析，如下图所示。局部DNS服务器不是自己向其他DNS服务器进行查询，而是把能解析该域名的其他DNS服务器的IP地址返回给客户端DNS程序，客户端DNS程序再继续向这些DNS服务器进行查询，直到得到查询结果为止。</p>
-<p><img src="./3.png" alt="image"></p>
+<p><img src="./4.png" alt="image"></p>
 
       
     </div>
