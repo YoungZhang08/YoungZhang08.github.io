@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Vuex," />
+  <meta name="keywords" content="CDN 加速原理,CDN 加速优势," />
 
 
 
@@ -79,18 +79,20 @@
 
 
 
-<meta name="description" content="解读目标 在根实例中注册store选项，该store实例会注入到格努组件下面的所有子组件中，并且子组件都能通过this.$store访问，那为啥它们都可以通过this.$store就能访问到store选项？从入口文件开始——">
-<meta name="keywords" content="Vuex">
+<meta name="description" content="什么是 CDN  CDN 是将源站内容分发至最接近用户的节点，使用户可就近取得所需内容，提高用户访问的响应速度和成功率。解决因分布、带宽、服务器性能带来的访问延迟问题，适用于站点加速、点播、直播等场景。  关于 CDN 的一些常见名词 Origin Server（源站）：做 CDN 之前的客户真正的服务器 Last Mile（最后一公里）：也就是网民到他所访问到的 CDN 服务器之间的路径 CNA">
+<meta name="keywords" content="CDN 加速原理,CDN 加速优势">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Vuex源码解读之install">
-<meta property="og:url" content="https://YoungZhang08.github.io/2018/06/05/Vuex源码解读之install/index.html">
+<meta property="og:title" content="关于 CDN 的总结">
+<meta property="og:url" content="https://YoungZhang08.github.io/2018/08/09/关于 CDN 的总结/index.html">
 <meta property="og:site_name" content="YoungZhang&#39;s Blog">
-<meta property="og:description" content="解读目标 在根实例中注册store选项，该store实例会注入到格努组件下面的所有子组件中，并且子组件都能通过this.$store访问，那为啥它们都可以通过this.$store就能访问到store选项？从入口文件开始——">
+<meta property="og:description" content="什么是 CDN  CDN 是将源站内容分发至最接近用户的节点，使用户可就近取得所需内容，提高用户访问的响应速度和成功率。解决因分布、带宽、服务器性能带来的访问延迟问题，适用于站点加速、点播、直播等场景。  关于 CDN 的一些常见名词 Origin Server（源站）：做 CDN 之前的客户真正的服务器 Last Mile（最后一公里）：也就是网民到他所访问到的 CDN 服务器之间的路径 CNA">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-06-05T13:06:40.000Z">
+<meta property="og:image" content="https://youngzhang08.github.io/2018/08/09/关于%20CDN%20的总结/cdn.jpg">
+<meta property="og:updated_time" content="2018-08-09T11:50:28.612Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Vuex源码解读之install">
-<meta name="twitter:description" content="解读目标 在根实例中注册store选项，该store实例会注入到格努组件下面的所有子组件中，并且子组件都能通过this.$store访问，那为啥它们都可以通过this.$store就能访问到store选项？从入口文件开始——">
+<meta name="twitter:title" content="关于 CDN 的总结">
+<meta name="twitter:description" content="什么是 CDN  CDN 是将源站内容分发至最接近用户的节点，使用户可就近取得所需内容，提高用户访问的响应速度和成功率。解决因分布、带宽、服务器性能带来的访问延迟问题，适用于站点加速、点播、直播等场景。  关于 CDN 的一些常见名词 Origin Server（源站）：做 CDN 之前的客户真正的服务器 Last Mile（最后一公里）：也就是网民到他所访问到的 CDN 服务器之间的路径 CNA">
+<meta name="twitter:image" content="https://youngzhang08.github.io/2018/08/09/关于%20CDN%20的总结/cdn.jpg">
 
 
 
@@ -120,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://YoungZhang08.github.io/2018/06/05/Vuex源码解读之install/"/>
+  <link rel="canonical" href="https://YoungZhang08.github.io/2018/08/09/关于 CDN 的总结/"/>
 
 
 
 
 
-  <title>Vuex源码解读之install | YoungZhang's Blog</title>
+  <title>关于 CDN 的总结 | YoungZhang's Blog</title>
   
 
 
@@ -263,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/06/05/Vuex源码解读之install/">
+    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/08/09/关于 CDN 的总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YoungZhang">
@@ -280,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Vuex源码解读之install</h1>
+          <h1 class="post-title" itemprop="name headline">关于 CDN 的总结</h1>
         
 
         <div class="post-meta">
@@ -292,8 +294,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-05T21:04:10+08:00">
-                2018-06-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-09T19:20:30+08:00">
+                2018-08-09
               </time>
             
 
@@ -315,8 +317,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端框架/" itemprop="url" rel="index">
-                    <span itemprop="name">前端框架</span>
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
                   </a>
                 </span>
 
@@ -333,9 +335,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/06/05/Vuex源码解读之install/#comments" itemprop="discussionUrl">
+                <a href="/2018/08/09/关于 CDN 的总结/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/06/05/Vuex源码解读之install/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/08/09/关于 CDN 的总结/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -365,18 +367,33 @@
       
 
       
-        <h4 id="解读目标"><a href="#解读目标" class="headerlink" title="解读目标"></a>解读目标</h4><blockquote>
-<p>在根实例中注册store选项，该store实例会注入到格努组件下面的所有子组件中，并且子组件都能通过this.$store访问，那为啥它们都可以通过this.$store就能访问到store选项？从入口文件开始——</p>
+        <h3 id="什么是-CDN"><a href="#什么是-CDN" class="headerlink" title="什么是 CDN"></a>什么是 CDN</h3><blockquote>
+<p> CDN 是将源站内容分发至最接近用户的节点，使用户可就近取得所需内容，提高用户访问的响应速度和成功率。解决因分布、带宽、服务器性能带来的访问延迟问题，适用于站点加速、点播、直播等场景。</p>
 </blockquote>
-<a id="more"></a>
-<h4 id="入口文件，在src-index-js目录下"><a href="#入口文件，在src-index-js目录下" class="headerlink" title="入口文件，在src/index.js目录下"></a>入口文件，在src/index.js目录下</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Store, install &#125; from &apos;./store&apos;</span><br><span class="line">import &#123; mapState, mapMutations, mapGetters, mapActions, createNamespacedHelpers &#125; from &apos;./helpers&apos;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  Store,</span><br><span class="line">  install,</span><br><span class="line">  version: &apos;__VERSION__&apos;,</span><br><span class="line">  mapState,</span><br><span class="line">  mapMutations,</span><br><span class="line">  mapGetters,</span><br><span class="line">  mapActions,</span><br><span class="line">  createNamespacedHelpers</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可以看到这里就是vuex暴露出来的API，首先来看看install这个公开方法，当在vue中使用插件时，必须使用install方法。所以我们一般都是这样使用vuex的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &apos;vue&apos;</span><br><span class="line">import Vuex from &apos;vuex&apos;</span><br><span class="line">...</span><br><span class="line">Vue.use(Vuex)</span><br></pre></td></tr></table></figure>
-<p>因为vuex也可以看成是一个插件，所以在调用vue.use(Vuex)的时候，实际上调用了install的方法并传入了Vue的引用。</p>
-<h4 id="install方法，在src-store-js目录下"><a href="#install方法，在src-store-js目录下" class="headerlink" title="install方法，在src/store.js目录下"></a>install方法，在src/store.js目录下</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">export function install (_Vue) &#123;</span><br><span class="line">  if (Vue &amp;&amp; _Vue === Vue) &#123;</span><br><span class="line">    if (process.env.NODE_ENV !== &apos;production&apos;) &#123;</span><br><span class="line">      console.error(</span><br><span class="line">        &apos;[vuex] already installed. Vue.use(Vuex) should be called only once.&apos;</span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">    return</span><br><span class="line">  &#125;</span><br><span class="line">  Vue = _Vue</span><br><span class="line">  applyMixin(Vue)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>对Vue的判断主要是保证install方法只执行一次，这里把install方法的参数在最后赋值给了Vue变量，这样的话在index.js文件的其他地方也可以使用Vue这个变量。install方法的最后调用了applyMixin方法：</p>
-<h4 id="applyMixin方法，在src-mixin-js目录下："><a href="#applyMixin方法，在src-mixin-js目录下：" class="headerlink" title="applyMixin方法，在src/mixin.js目录下："></a>applyMixin方法，在src/mixin.js目录下：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">export default function (Vue) &#123;</span><br><span class="line">  const version = Number(Vue.version.split(&apos;.&apos;)[0])</span><br><span class="line"></span><br><span class="line">  if (version &gt;= 2) &#123;</span><br><span class="line">    Vue.mixin(&#123; beforeCreate: vuexInit &#125;)</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    // override init and inject vuex init procedure</span><br><span class="line">    // for 1.x backwards compatibility.</span><br><span class="line">    const _init = Vue.prototype._init</span><br><span class="line">    Vue.prototype._init = function (options = &#123;&#125;) &#123;</span><br><span class="line">      options.init = options.init</span><br><span class="line">        ? [vuexInit].concat(options.init)</span><br><span class="line">        : vuexInit</span><br><span class="line">      _init.call(this, options)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * Vuex init hook, injected into each instances init hooks list.</span><br><span class="line">   */</span><br><span class="line"></span><br><span class="line">  function vuexInit () &#123;</span><br><span class="line">    const options = this.$options</span><br><span class="line">    // store injection</span><br><span class="line">    if (options.store) &#123;</span><br><span class="line">      this.$store = typeof options.store === &apos;function&apos;</span><br><span class="line">        ? options.store()</span><br><span class="line">        : options.store</span><br><span class="line">    &#125; else if (options.parent &amp;&amp; options.parent.$store) &#123;</span><br><span class="line">      this.$store = options.parent.$store</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这段代码实现了全局注册混合对象。先读取了Vue的版本对其做判断，如果版本是2.x，则在beforeCreate这个生命周期中调用vuexInit方法进行初始化，如果版本是2.x一下，则在init这个生命周期中调用vuexInit方法进行初始化。vuexInit方法中，实际做的事情就是组件取得Vue对象的$options，把$options里的store赋值给$store。如果$options没有store，则向其parent向上查找并赋值。这也就是为什么我们在Vue组件中可以通过this.$store.xxx访问到Vuex的各种数据和状态。</p>
+<h3 id="关于-CDN-的一些常见名词"><a href="#关于-CDN-的一些常见名词" class="headerlink" title="关于 CDN 的一些常见名词"></a>关于 CDN 的一些常见名词</h3><ol>
+<li>Origin Server（源站）：做 CDN 之前的客户真正的服务器</li>
+<li>Last Mile（最后一公里）：也就是网民到他所访问到的 CDN 服务器之间的路径</li>
+<li>CNAME记录（别名记录）：当 DNS 系统在查询 CNAME 左面的名称的时候，都会转向 CNAME 右面的名称再进行查询，一直追踪到最后的 PTR 或 A 名称，成功查询后才会做出回应，否则失败。</li>
+<li>CNAME域名：CDN的域名加速需要用到CNAME记录，假如在阿里云控制台配置完成CDN加速后，你会得到一个加速后的域名，称之为CNAME域名（该域名一定是 <a href="http://kunlun.com），" target="_blank" rel="noopener">http://kunlun.com），</a> 用户需要将自己的域名作CNAME指向这个 <a href="http://kunlun.com" target="_blank" rel="noopener">http://kunlun.com</a> 的域名后，域名解析的工作就正式转向阿里云，该域名所有的请求都将转向阿里云 CDN 的节点。</li>
+<li>边缘节点（CDN 节点、Cache 节点）：指距离最终用户接入具有较少的中间环节的网络节点，对最终接入用户有较好的响应能力和连接速度。其作用是将访问量较大的网页内容和对象保存在服务器前端的专用 cache 设备上，以此来提高网站访问的速度和质量。</li>
+<li>cache（cache高速缓冲存储器）：是一种特殊的存储器子系统，其中复制了频繁使用的数据以利于快速访问。存储器的高速缓冲存储器存储了频繁访问的 RAM 位置的内容以及这些数据项的存储地址。当处理器引用存储器中的某地址时，高速缓冲存储器便检查是否存有该地址。如果存有该地址，则将数据返回处理器；如果没有保存该地址，则进行常规的存储器访问。因为高速缓冲存储器总是比主RAM存储器速度快，所以当RAM的访问速度低于微处理器的速度时，常使用高速缓冲存储器。</li>
+</ol>
+<h3 id="CDN-加速（工作）原理"><a href="#CDN-加速（工作）原理" class="headerlink" title="CDN 加速（工作）原理"></a>CDN 加速（工作）原理</h3><p>最简单的 CDN 网络由一个 DNS 服务器和几台缓存服务器组成（如下图所示）：</p>
+<p><img src="./cdn.jpg" alt="image"></p>
+<ol>
+<li>当用户输入 URL，经过本地 DNS 系统解析，DNS 系统会最终将域名的解析权交给 CNAME 指向的 CDN 专用 DNS 服务器。</li>
+<li>CDN 的 DNS 服务器将 CDN 的全局负载均衡设备 IP 地址返回用户。</li>
+<li>用户向 CDN 的全局负载均衡设备发起访问请求。</li>
+<li>CDN 全局负载均衡设备根据用户 IP 地址，以及用户请求的 URL，选择一台用户所属区域的区域负载均衡设备，告诉用户向这台设备发起请求。</li>
+<li>区域负载均衡设备会为用户选择一台合适的缓存服务器提供服务，选择的依据包括：根据用户 IP 地址，判断哪一台服务器距用户最近；根据用户所请求的 URL 中携带的内容名称，判断哪一台服务器上有用户所需内容；查询各个服务器当前的负载情况，判断哪一台服务器尚有服务能力。基于以上这些条件的综合分析之后，区域负载均衡设备会向全局负载均衡设备返回一台缓存服务器的 IP 地址。</li>
+<li>全局负载均衡设备把服务器的 IP 地址返回给用户。</li>
+<li>用户向缓存服务器发起请求，缓存服务器响应用户请求，将用户所需内容传送到用户终端。如果这台缓存服务器上并没有用户想要的内容，而区域均衡设备依然将它分配给了用户，那么这台服务器就要向它的上一级缓存服务器请求内容，直至追溯到网站的源服务器将内容拉到本地。</li>
+</ol>
+<h3 id="使用-CDN-的适用场景"><a href="#使用-CDN-的适用场景" class="headerlink" title="使用 CDN 的适用场景"></a>使用 CDN 的适用场景</h3><ol>
+<li>网站站点/应用加速：站点或者应用中大量静态资源的加速分发，建议将站点内容进行动静分离，动态文件可以结合云服务器 ECS，静态资源如各类型图片、html、css、js文件等，建议结合对象存储 OSS 存储海量静态资源，可以有效加速内容加载速度</li>
+<li>视音频点播/大文件下载分发加速：mp4、flv 视频文件或者平均单个文件大小在 20M 以上，主要的业务场景是视音频点播、大文件下载（如安装包下载）等，建议搭配对象存储 OSS 使用，可提升回源速度，节约近 2/3 回源带宽成本</li>
+<li>移动应用加速：移动 APP 更新文件（apk文件）分发，移动 APP 内图片、页面、短视频、UGC 等内容的优化加速分发。提供 httpDNS 服务，避免 DNS 劫持并获得实时精确的 DNS 解析结果，有效缩短用户访问时间，提升用户体验。</li>
+</ol>
 
       
     </div>
@@ -394,7 +411,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Vuex/" rel="tag"># Vuex</a>
+            <a href="/tags/CDN-加速原理/" rel="tag"># CDN 加速原理</a>
+          
+            <a href="/tags/CDN-加速优势/" rel="tag"># CDN 加速优势</a>
           
         </div>
       
@@ -407,8 +426,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/01/解锁js数组去重的多种方法/" rel="next" title="解锁js数组去重的多种方法">
-                <i class="fa fa-chevron-left"></i> 解锁js数组去重的多种方法
+              <a href="/2018/08/09/深入 DNS 查询/" rel="next" title="深入 DNS 查询">
+                <i class="fa fa-chevron-left"></i> 深入 DNS 查询
               </a>
             
           </div>
@@ -416,10 +435,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/06/05/Vuex源码解读之store/" rel="prev" title="Vuex源码解读之store">
-                Vuex源码解读之store <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -589,7 +604,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#解读目标"><span class="nav-number">1.</span> <span class="nav-text">解读目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#入口文件，在src-index-js目录下"><span class="nav-number">2.</span> <span class="nav-text">入口文件，在src/index.js目录下</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#install方法，在src-store-js目录下"><span class="nav-number">3.</span> <span class="nav-text">install方法，在src/store.js目录下</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#applyMixin方法，在src-mixin-js目录下："><span class="nav-number">4.</span> <span class="nav-text">applyMixin方法，在src/mixin.js目录下：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是-CDN"><span class="nav-number">1.</span> <span class="nav-text">什么是 CDN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于-CDN-的一些常见名词"><span class="nav-number">2.</span> <span class="nav-text">关于 CDN 的一些常见名词</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CDN-加速（工作）原理"><span class="nav-number">3.</span> <span class="nav-text">CDN 加速（工作）原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-CDN-的适用场景"><span class="nav-number">4.</span> <span class="nav-text">使用 CDN 的适用场景</span></a></li></ol></div>
             
 
           </div>
@@ -759,9 +774,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://YoungZhang08.github.io/2018/06/05/Vuex源码解读之install/';
-          this.page.identifier = '2018/06/05/Vuex源码解读之install/';
-          this.page.title = 'Vuex源码解读之install';
+          this.page.url = 'https://YoungZhang08.github.io/2018/08/09/关于 CDN 的总结/';
+          this.page.identifier = '2018/08/09/关于 CDN 的总结/';
+          this.page.title = '关于 CDN 的总结';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';
