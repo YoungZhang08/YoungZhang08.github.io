@@ -87,10 +87,12 @@
 <meta property="og:site_name" content="YoungZhang&#39;s Blog">
 <meta property="og:description" content="场景：你在访问淘宝首页之后，需要登录，当你登录成功之后，再去访问天猫，你会发现，天猫也是登录状态，这是怎么做到的？好吧~介绍阿里的 SSO 机制之前，建议移步至 Cookie 和 Session 先普及一下 Cookie 和 Session 机制。接下再介绍三个概念叫 访问控制 、SSO 和 权限系统。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-08-08T14:12:33.192Z">
+<meta property="og:image" content="https://youngzhang08.github.io/2018/08/08/聊聊阿里淘宝SSO跨域登录过程/taobao.png">
+<meta property="og:updated_time" content="2018-08-09T01:53:12.667Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="聊聊阿里淘宝SSO跨域登录过程">
 <meta name="twitter:description" content="场景：你在访问淘宝首页之后，需要登录，当你登录成功之后，再去访问天猫，你会发现，天猫也是登录状态，这是怎么做到的？好吧~介绍阿里的 SSO 机制之前，建议移步至 Cookie 和 Session 先普及一下 Cookie 和 Session 机制。接下再介绍三个概念叫 访问控制 、SSO 和 权限系统。">
+<meta name="twitter:image" content="https://youngzhang08.github.io/2018/08/08/聊聊阿里淘宝SSO跨域登录过程/taobao.png">
 
 
 
@@ -388,7 +390,8 @@
 <li>响应中把请求中的 Cookie 信息 Set 到浏览器的 Cookie 中，经由 302 重定向至 <a href="https://tmcc.tmall.com/pass.htm?tbpm=1，这样就完成了" target="_blank" rel="noopener">https://tmcc.tmall.com/pass.htm?tbpm=1，这样就完成了</a> tmall.com 域名下的 Cookie 同步</li>
 <li>请求 <a href="https://tmcc.tmall.com/pass.htm?tbpm=1" target="_blank" rel="noopener">https://tmcc.tmall.com/pass.htm?tbpm=1</a> 302 跳转至 <a href="https://tmcc.tmall.com/pass.htm" target="_blank" rel="noopener">https://tmcc.tmall.com/pass.htm</a> 去掉同步标识 tbpm</li>
 </ol>
-<h3 id="总结一下"><a href="#总结一下" class="headerlink" title="总结一下"></a>总结一下</h3><ol>
+<h3 id="总结一下，上图"><a href="#总结一下，上图" class="headerlink" title="总结一下，上图"></a>总结一下，上图</h3><p><img src="./taobao.png" alt="image"></p>
+<ol>
 <li>请求 tmall.com 的响应会重定向至请求 tmcc.tmall.com/pass.htm，由此 URL 再通过跨域请求至 login.taobao.com/jump?target=<a href="https://tmcc.tmall.com/pass.htm?tbpm=1" target="_blank" rel="noopener">https://tmcc.tmall.com/pass.htm?tbpm=1</a></li>
 <li>在这里，就是因为 tbpm=1 的标识，可以进行 tbsession 的跨域同步，这个请求中会携带 taobao.com 域下的 Cookie</li>
 <li>服务端将携带的 taobao.com 的 Cookie拼接到 <a href="https://pass.tmall.com/add?tb_token=eef03e35fbe&amp;u……&amp;target=https%3A%2F%2Ftmcc.tmall.com%2Fpass.htm%3Ftbpm%3D1" target="_blank" rel="noopener">https://pass.tmall.com/add?tb_token=eef03e35fbe&amp;u……&amp;target=https%3A%2F%2Ftmcc.tmall.com%2Fpass.htm%3Ftbpm%3D1</a> 下的 query string 上</li>
@@ -607,7 +610,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#场景：你在访问淘宝首页之后，需要登录，当你登录成功之后，再去访问天猫，你会发现，天猫也是登录状态，这是怎么做到的？"><span class="nav-number">1.</span> <span class="nav-text">场景：你在访问淘宝首页之后，需要登录，当你登录成功之后，再去访问天猫，你会发现，天猫也是登录状态，这是怎么做到的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问控制（Access-Control）"><span class="nav-number">2.</span> <span class="nav-text">访问控制（Access Control）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SSO（Single-Site-On）"><span class="nav-number">3.</span> <span class="nav-text">SSO（Single Site On）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#权限系统"><span class="nav-number">4.</span> <span class="nav-text">权限系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试过程："><span class="nav-number">5.</span> <span class="nav-text">测试过程：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结一下"><span class="nav-number">6.</span> <span class="nav-text">总结一下</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#场景：你在访问淘宝首页之后，需要登录，当你登录成功之后，再去访问天猫，你会发现，天猫也是登录状态，这是怎么做到的？"><span class="nav-number">1.</span> <span class="nav-text">场景：你在访问淘宝首页之后，需要登录，当你登录成功之后，再去访问天猫，你会发现，天猫也是登录状态，这是怎么做到的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问控制（Access-Control）"><span class="nav-number">2.</span> <span class="nav-text">访问控制（Access Control）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SSO（Single-Site-On）"><span class="nav-number">3.</span> <span class="nav-text">SSO（Single Site On）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#权限系统"><span class="nav-number">4.</span> <span class="nav-text">权限系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试过程："><span class="nav-number">5.</span> <span class="nav-text">测试过程：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结一下，上图"><span class="nav-number">6.</span> <span class="nav-text">总结一下，上图</span></a></li></ol></div>
             
 
           </div>
