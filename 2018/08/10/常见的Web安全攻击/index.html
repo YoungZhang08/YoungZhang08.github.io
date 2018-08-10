@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="XSS,CSRF," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="CSRF（Cross Site Request Forgery，跨站请求伪造） 攻击原理：   受害者用户登录网站 A，输入个人信息，在本地保存服务器生成的 cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的 cookie 信息一起发送给网址 A，A 网站收到请求后，确认 cookie 信息无误，以为此链接是受害者发出的操作，">
+<meta name="keywords" content="XSS,CSRF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常见的Web安全攻击">
+<meta property="og:url" content="https://YoungZhang08.github.io/2018/08/10/常见的Web安全攻击/index.html">
+<meta property="og:site_name" content="YoungZhang&#39;s Blog">
+<meta property="og:description" content="CSRF（Cross Site Request Forgery，跨站请求伪造） 攻击原理：   受害者用户登录网站 A，输入个人信息，在本地保存服务器生成的 cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的 cookie 信息一起发送给网址 A，A 网站收到请求后，确认 cookie 信息无误，以为此链接是受害者发出的操作，">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://youngzhang08.github.io/2018/08/10/常见的Web安全攻击/csrf.png">
+<meta property="og:image" content="https://youngzhang08.github.io/2018/08/10/常见的Web安全攻击/xss.png">
+<meta property="og:updated_time" content="2018-08-10T14:02:02.737Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="常见的Web安全攻击">
+<meta name="twitter:description" content="CSRF（Cross Site Request Forgery，跨站请求伪造） 攻击原理：   受害者用户登录网站 A，输入个人信息，在本地保存服务器生成的 cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的 cookie 信息一起发送给网址 A，A 网站收到请求后，确认 cookie 信息无误，以为此链接是受害者发出的操作，">
+<meta name="twitter:image" content="https://youngzhang08.github.io/2018/08/10/常见的Web安全攻击/csrf.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://YoungZhang08.github.io/2018/08/10/常见的Web安全攻击/"/>
+
+
+
+
+
+  <title>常见的Web安全攻击 | YoungZhang's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">YoungZhang's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/08/10/常见的Web安全攻击/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YoungZhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YoungZhang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">常见的Web安全攻击</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-10T18:07:45+08:00">
+                2018-08-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/10/常见的Web安全攻击/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/10/常见的Web安全攻击/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+      
+      </div>
+    </header>
+  
+
+          
+
+          
+
+        
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="CSRF（Cross-Site-Request-Forgery，跨站请求伪造）"><a href="#CSRF（Cross-Site-Request-Forgery，跨站请求伪造）" class="headerlink" title="CSRF（Cross Site Request Forgery，跨站请求伪造）"></a>CSRF（Cross Site Request Forgery，跨站请求伪造）</h3><ol>
+<li><p>攻击原理：</p>
+<p> <img src="./csrf.png" alt="image"></p>
+<h4 id="受害者用户登录网站-A，输入个人信息，在本地保存服务器生成的-cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的-cookie-信息一起发送给网址-A，A-网站收到请求后，确认-cookie-信息无误，以为此链接是受害者发出的操作，导致受害者的身份被盗用，造成攻击行为完成。"><a href="#受害者用户登录网站-A，输入个人信息，在本地保存服务器生成的-cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的-cookie-信息一起发送给网址-A，A-网站收到请求后，确认-cookie-信息无误，以为此链接是受害者发出的操作，导致受害者的身份被盗用，造成攻击行为完成。" class="headerlink" title="受害者用户登录网站 A，输入个人信息，在本地保存服务器生成的 cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的 cookie 信息一起发送给网址 A，A 网站收到请求后，确认 cookie 信息无误，以为此链接是受害者发出的操作，导致受害者的身份被盗用，造成攻击行为完成。"></a>受害者用户登录网站 A，输入个人信息，在本地保存服务器生成的 cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的 cookie 信息一起发送给网址 A，A 网站收到请求后，确认 cookie 信息无误，以为此链接是受害者发出的操作，导致受害者的身份被盗用，造成攻击行为完成。</h4><a id="more"></a></li>
+<li><p>防范：</p>
+<ul>
+<li>验证码。应用程序和用户进行交互过程中，特别是账户交易这种核心步骤，强制用户输入验证码，才能完成最终请求。在通常情况下，验证码够很好地遏制CSRF攻击。但增加验证码降低了用户的体验，网站不能给所有的操作都加上验证码。所以只能将验证码作为一种辅助手段，在关键业务点设置验证码。</li>
+<li><p>Referer Check。HTTP Referer 是 header 的一部分，当浏览器向 web 服务器发送请求时，一般会带上 Referer 信息告诉服务器是从哪个页面链接过来的，服务器籍此可以获得一些信息用于处理。可以通过检查请求的来源来防御 CSRF 攻击。正常请求的 referer 具有一定规律，如在提交表单的 referer 必定是在该页面发起的请求。所以通过检查 http 包头 referer 的值是不是这个页面，来判断是不是 CSRF 攻击。</p>
+<ul>
+<li>但在某些情况下如从 https 跳转到 http，浏览器处于安全考虑，不会发送 referer，服务器就无法进行 check 了。若与该网站同域的其他网站有 XSS 漏洞，那么攻击者可以在其他网站注入恶意脚本，受害者进入了此类同域的网址，也会遭受攻击。出于以上原因，无法完全依赖 Referer Check 作为防御 CSRF 的主要手段。但是可以通过 Referer Check 来监控 CSRF 攻击的发生。</li>
+</ul>
+</li>
+<li><p>Anti CSRF Token。目前比较完善的解决方案是加入 Anti-CSRF-Token，即发送请求时在 HTTP 请求中以参数的形式加入一个随机产生的 token，并在服务器建立一个拦截器来验证这个 token。服务器读取浏览器当前域 cookie 中这个 token 值，会进行校验该请求当中的 token 和 cookie 当中的 token 值是否都存在且相等，才认为这是合法的请求。否则认为这次请求是违法的，拒绝该次服务。</p>
+<ul>
+<li>token 可以在用户登陆后产生并放于 session 或 cookie 中，然后在每次请求时服务器把 token 从 session 或 cookie 中拿出，与本次请求中的 token 进行比对。由于 token 的存在，攻击者无法再构造出一个完整的 URL 实施 CSRF 攻击。</li>
+</ul>
+</li>
+<li><p>遵循标准的 GET 动作。防止利用 img 标签或者其他类型的 GET 请求的 CSRF。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="XSS（Cross-Site-Script，跨站脚本攻击）"><a href="#XSS（Cross-Site-Script，跨站脚本攻击）" class="headerlink" title="XSS（Cross Site Script，跨站脚本攻击）"></a>XSS（Cross Site Script，跨站脚本攻击）</h3><ol>
+<li><p>攻击原理：</p>
+<p> <img src="./xss.png" alt="image"></p>
+<h4 id="恶意攻击者往-Web-页面里注入恶意-Script-代码，当用户浏览这些网页时，就会执行其中的恶意代码，可对用户进行盗取-cookie-信息、会话劫持等各种攻击。XSS-跨站脚本攻击本身对-Web-服务器没有直接的危害，它借助网站进行传播，使网站上大量用户受到攻击。攻击者一般通过留言、电子邮件或其他途径向受害者发送一个精心构造的恶意-URL，当受害者在-Web-中打开该-URL-的时候，恶意脚本会在受害者的计算机上悄悄执行。"><a href="#恶意攻击者往-Web-页面里注入恶意-Script-代码，当用户浏览这些网页时，就会执行其中的恶意代码，可对用户进行盗取-cookie-信息、会话劫持等各种攻击。XSS-跨站脚本攻击本身对-Web-服务器没有直接的危害，它借助网站进行传播，使网站上大量用户受到攻击。攻击者一般通过留言、电子邮件或其他途径向受害者发送一个精心构造的恶意-URL，当受害者在-Web-中打开该-URL-的时候，恶意脚本会在受害者的计算机上悄悄执行。" class="headerlink" title="恶意攻击者往 Web 页面里注入恶意 Script 代码，当用户浏览这些网页时，就会执行其中的恶意代码，可对用户进行盗取 cookie 信息、会话劫持等各种攻击。XSS 跨站脚本攻击本身对 Web 服务器没有直接的危害，它借助网站进行传播，使网站上大量用户受到攻击。攻击者一般通过留言、电子邮件或其他途径向受害者发送一个精心构造的恶意 URL，当受害者在 Web 中打开该 URL 的时候，恶意脚本会在受害者的计算机上悄悄执行。"></a>恶意攻击者往 Web 页面里注入恶意 Script 代码，当用户浏览这些网页时，就会执行其中的恶意代码，可对用户进行盗取 cookie 信息、会话劫持等各种攻击。XSS 跨站脚本攻击本身对 Web 服务器没有直接的危害，它借助网站进行传播，使网站上大量用户受到攻击。攻击者一般通过留言、电子邮件或其他途径向受害者发送一个精心构造的恶意 URL，当受害者在 Web 中打开该 URL 的时候，恶意脚本会在受害者的计算机上悄悄执行。</h4></li>
+<li><p>攻击类型：</p>
+<ul>
+<li><p>反射型XSS(Non-persistent XSS)，服务器接受客户端的请求包，不会存储请求包的内容，只是简单的把用户输入的数据“反射”给浏览器。例如：<a href="http://www.a.com?xss.php?name=" target="_blank" rel="noopener">www.a.com?xss.php?name=</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(document.cookie)&lt;/script&gt;。</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">访问这个链接则会弹出页面的 cookie 内容，若攻击者把 alert 改为一个精心构造的发送函数，就可以把用户的 cookie 偷走。</span><br><span class="line"></span><br><span class="line">- 存储型XSS(Persistent XSS)，这类 XSS 攻击会把用户输入的数据“存储”在服务器端，具有很强的稳定性。注入脚本跟反射型 XSS 大同小异，只是脚本不是通过浏览器 -&gt; 服务器 -&gt; 浏览器这样的反射方式，而是多发生在富文本编辑器、日志、留言、配置系统等数据库保存用户输入内容的业务场景。即用户的注入脚本保存到了数据库里，其他用户进行访问涉及到包含恶意脚本的链接都会中招。由于这段恶意的脚本被上传保存到了服务器，这种 XSS 攻击就叫做“存储型 XSS”。</span><br><span class="line"></span><br><span class="line">- DOM based XSS(Document Object Model XSS)，这类XSS攻击者将攻击脚本注入到 DOM 结构里。出现该类攻击的大多原因是含 JavaScrip 静态 HTML 页面存在 XSS 漏洞。例如下面是一段存在 DOM 类型跨站脚本漏洞的代码：</span><br></pre></td></tr></table></figure>
+<p><script>document.write(window.location.search); </script></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在JS中 window.location.search 是指 URL 中 ? 之后的内容，document.write 是将内容输出到页面。这时把链接换成 http://localhost/test.php?default=</span><br></pre></td></tr></table></figure>
+<p><script>alert(document.cookie)</script><br><code>`</code><br>那用户的 cookie 就被盗了。上面的例子只是很简单的一种，总结起来是使用了诸如 document.write, innerHTML 之类的渲染页面方法需要注意参数内容是否是可信任的。</p>
+</li>
+</ul>
+</li>
+<li><p>防范：</p>
+<ul>
+<li><p>输入过滤。对用户输入的数据做一定的过滤。如输入的数据是否符合预期的格式，比如日期格式，Email 格式，电话号码格式等等。这样可以初步对 XSS 漏洞进行防御。</p>
+</li>
+<li><p>输出编码。服务器端输出到浏览器的数据，可以使用系统的安全函数来进行编码或转义来防范 XSS 攻击。</p>
+</li>
+<li><p>HttpOnly Cookie。预防 XSS 攻击窃取用户 cookie 最有效的防御手段。Web 应用程序在设置 cookie 时，将其属性设为 HttpOnly，就可以避免该网页的 cookie 被客户端恶意 JavaScript 窃取，保护用户 cookie 信息。</p>
+</li>
+<li><p>WAF(Web Application Firewall)，Web 应用防火墙，主要的功能是防范诸如网页木马、XSS 以及 CSRF 等常见的 Web 漏洞攻击。由第三方公司开发，在企业环境中深受欢迎。</p>
+</li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/XSS/" rel="tag"># XSS</a>
+          
+            <a href="/tags/CSRF/" rel="tag"># CSRF</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/10/浅谈Web缓存技术/" rel="next" title="浅谈Web缓存技术">
+                <i class="fa fa-chevron-left"></i> 浅谈Web缓存技术
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">YoungZhang</p>
+              <p class="site-description motion-element" itemprop="description">越努力越幸运~</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/YoungZhang08" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zhangyangyang@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/zhangyangyang" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/youngzhang1001" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CSRF（Cross-Site-Request-Forgery，跨站请求伪造）"><span class="nav-number">1.</span> <span class="nav-text">CSRF（Cross Site Request Forgery，跨站请求伪造）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#受害者用户登录网站-A，输入个人信息，在本地保存服务器生成的-cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的-cookie-信息一起发送给网址-A，A-网站收到请求后，确认-cookie-信息无误，以为此链接是受害者发出的操作，导致受害者的身份被盗用，造成攻击行为完成。"><span class="nav-number">1.1.</span> <span class="nav-text">受害者用户登录网站 A，输入个人信息，在本地保存服务器生成的 cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的 cookie 信息一起发送给网址 A，A 网站收到请求后，确认 cookie 信息无误，以为此链接是受害者发出的操作，导致受害者的身份被盗用，造成攻击行为完成。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XSS（Cross-Site-Script，跨站脚本攻击）"><span class="nav-number">2.</span> <span class="nav-text">XSS（Cross Site Script，跨站脚本攻击）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#恶意攻击者往-Web-页面里注入恶意-Script-代码，当用户浏览这些网页时，就会执行其中的恶意代码，可对用户进行盗取-cookie-信息、会话劫持等各种攻击。XSS-跨站脚本攻击本身对-Web-服务器没有直接的危害，它借助网站进行传播，使网站上大量用户受到攻击。攻击者一般通过留言、电子邮件或其他途径向受害者发送一个精心构造的恶意-URL，当受害者在-Web-中打开该-URL-的时候，恶意脚本会在受害者的计算机上悄悄执行。"><span class="nav-number">2.1.</span> <span class="nav-text">恶意攻击者往 Web 页面里注入恶意 Script 代码，当用户浏览这些网页时，就会执行其中的恶意代码，可对用户进行盗取 cookie 信息、会话劫持等各种攻击。XSS 跨站脚本攻击本身对 Web 服务器没有直接的危害，它借助网站进行传播，使网站上大量用户受到攻击。攻击者一般通过留言、电子邮件或其他途径向受害者发送一个精心构造的恶意 URL，当受害者在 Web 中打开该 URL 的时候，恶意脚本会在受害者的计算机上悄悄执行。</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YoungZhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://YoungZhang08.github.io/2018/08/10/常见的Web安全攻击/';
+          this.page.identifier = '2018/08/10/常见的Web安全攻击/';
+          this.page.title = '常见的Web安全攻击';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+  
+</body>
+</html>

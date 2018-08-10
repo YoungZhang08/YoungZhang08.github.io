@@ -262,6 +262,168 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/08/10/常见的Web安全攻击/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YoungZhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YoungZhang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/10/常见的Web安全攻击/" itemprop="url">常见的Web安全攻击</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-10T18:07:45+08:00">
+                2018-08-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/10/常见的Web安全攻击/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/10/常见的Web安全攻击/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+      
+      </div>
+    </header>
+  
+
+          
+
+          
+
+        
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="CSRF（Cross-Site-Request-Forgery，跨站请求伪造）"><a href="#CSRF（Cross-Site-Request-Forgery，跨站请求伪造）" class="headerlink" title="CSRF（Cross Site Request Forgery，跨站请求伪造）"></a>CSRF（Cross Site Request Forgery，跨站请求伪造）</h3><ol>
+<li><p>攻击原理：</p>
+<p> <img src="./csrf.png" alt="image"></p>
+<h4 id="受害者用户登录网站-A，输入个人信息，在本地保存服务器生成的-cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的-cookie-信息一起发送给网址-A，A-网站收到请求后，确认-cookie-信息无误，以为此链接是受害者发出的操作，导致受害者的身份被盗用，造成攻击行为完成。"><a href="#受害者用户登录网站-A，输入个人信息，在本地保存服务器生成的-cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的-cookie-信息一起发送给网址-A，A-网站收到请求后，确认-cookie-信息无误，以为此链接是受害者发出的操作，导致受害者的身份被盗用，造成攻击行为完成。" class="headerlink" title="受害者用户登录网站 A，输入个人信息，在本地保存服务器生成的 cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的 cookie 信息一起发送给网址 A，A 网站收到请求后，确认 cookie 信息无误，以为此链接是受害者发出的操作，导致受害者的身份被盗用，造成攻击行为完成。"></a>受害者用户登录网站 A，输入个人信息，在本地保存服务器生成的 cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的 cookie 信息一起发送给网址 A，A 网站收到请求后，确认 cookie 信息无误，以为此链接是受害者发出的操作，导致受害者的身份被盗用，造成攻击行为完成。</h4>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/10/常见的Web安全攻击/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/08/10/浅谈Web缓存技术/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -367,7 +529,10 @@
 
       
         
-          <h4 id="先从思维导图看起，接下来根据思维导图走，CDN-缓存已经写过一篇-关于CDN的总结-可以去瞅瞅-H5-缓存后续分享，此篇主要讲-HTTP-缓存机制，"><a href="#先从思维导图看起，接下来根据思维导图走，CDN-缓存已经写过一篇-关于CDN的总结-可以去瞅瞅-H5-缓存后续分享，此篇主要讲-HTTP-缓存机制，" class="headerlink" title="先从思维导图看起，接下来根据思维导图走，CDN 缓存已经写过一篇 关于CDN的总结 可以去瞅瞅~ H5 缓存后续分享，此篇主要讲 HTTP 缓存机制，"></a>先从思维导图看起，接下来根据思维导图走，CDN 缓存已经写过一篇 <a href="https://youngzhang08.github.io/2018/08/09/关于%20CDN%20的总结/">关于CDN的总结</a> 可以去瞅瞅~ H5 缓存后续分享，此篇主要讲 HTTP 缓存机制，</h4>
+          <h4 id="先从思维导图看起，接下来根据思维导图走，CDN-缓存已经写过一篇-关于CDN的总结-可以去瞅瞅-H5-缓存后续分享，此篇主要讲-HTTP-缓存机制，"><a href="#先从思维导图看起，接下来根据思维导图走，CDN-缓存已经写过一篇-关于CDN的总结-可以去瞅瞅-H5-缓存后续分享，此篇主要讲-HTTP-缓存机制，" class="headerlink" title="先从思维导图看起，接下来根据思维导图走，CDN 缓存已经写过一篇 关于CDN的总结 可以去瞅瞅~ H5 缓存后续分享，此篇主要讲 HTTP 缓存机制，"></a>先从思维导图看起，接下来根据思维导图走，CDN 缓存已经写过一篇 <a href="https://youngzhang08.github.io/2018/08/09/关于%20CDN%20的总结/">关于CDN的总结</a> 可以去瞅瞅~ H5 缓存后续分享，此篇主要讲 HTTP 缓存机制，</h4><p><img src="./cache.png" alt="image"></p>
+<h3 id="Cache-Control"><a href="#Cache-Control" class="headerlink" title="Cache-Control"></a>Cache-Control</h3><blockquote>
+<p>每个资源都可通过 Cache-Control HTTP 标头定义其缓存策略，Cache-Control 指令控制谁在什么条件下可以缓存响应以及可以缓存多久。</p>
+</blockquote>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/08/10/浅谈Web缓存技术/#more" rel="contents">
@@ -1700,175 +1865,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/07/28/聊聊Vue的双向数据绑定/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="YoungZhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YoungZhang's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/28/聊聊Vue的双向数据绑定/" itemprop="url">聊聊Vue的双向数据绑定</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-28T16:33:21+08:00">
-                2018-07-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端框架/" itemprop="url" rel="index">
-                    <span itemprop="name">前端框架</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/07/28/聊聊Vue的双向数据绑定/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/07/28/聊聊Vue的双向数据绑定/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-      
-      </div>
-    </header>
-  
-
-          
-
-          
-
-        
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>先读一段对话娱乐一下~</p>
-<blockquote>
-<p>我：——你在干嘛？</p>
-</blockquote>
-<blockquote>
-<p>男票（Android客户端）：——吃屎</p>
-</blockquote>
-<blockquote>
-<p>我：——emmmm，懂了（他在读Android源码···）</p>
-</blockquote>
-<h4 id="好吧-我也要直播吃屎了······接下来就是我看完vue-src-core-observer之后的总结以及源码分析-看源码不仅是看实现原理，也是看大牛的编码风格，以及为日后接触别的框架源码打基础，今天我主要聊的就是Vue的双向数据绑定"><a href="#好吧-我也要直播吃屎了······接下来就是我看完vue-src-core-observer之后的总结以及源码分析-看源码不仅是看实现原理，也是看大牛的编码风格，以及为日后接触别的框架源码打基础，今天我主要聊的就是Vue的双向数据绑定" class="headerlink" title="好吧~我也要直播吃屎了······接下来就是我看完vue/src/core/observer之后的总结以及源码分析~看源码不仅是看实现原理，也是看大牛的编码风格，以及为日后接触别的框架源码打基础，今天我主要聊的就是Vue的双向数据绑定~"></a>好吧~我也要直播吃屎了······接下来就是我看完vue/src/core/observer之后的总结以及源码分析~看源码不仅是看实现原理，也是看大牛的编码风格，以及为日后接触别的框架源码打基础，今天我主要聊的就是Vue的双向数据绑定~</h4>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/07/28/聊聊Vue的双向数据绑定/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1919,7 +1915,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1941,7 +1937,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

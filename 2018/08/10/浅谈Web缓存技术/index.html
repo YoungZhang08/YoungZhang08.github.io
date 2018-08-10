@@ -79,22 +79,22 @@
 
 
 
-<meta name="description" content="先从思维导图看起，接下来根据思维导图走，CDN 缓存已经写过一篇 关于CDN的总结 可以去瞅瞅~ H5 缓存后续分享，此篇主要讲 HTTP 缓存机制，">
+<meta name="description" content="先从思维导图看起，接下来根据思维导图走，CDN 缓存已经写过一篇 关于CDN的总结 可以去瞅瞅~ H5 缓存后续分享，此篇主要讲 HTTP 缓存机制， Cache-Control 每个资源都可通过 Cache-Control HTTP 标头定义其缓存策略，Cache-Control 指令控制谁在什么条件下可以缓存响应以及可以缓存多久。">
 <meta name="keywords" content="HTTP缓存,性能优化">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅谈Web缓存技术">
 <meta property="og:url" content="https://YoungZhang08.github.io/2018/08/10/浅谈Web缓存技术/index.html">
 <meta property="og:site_name" content="YoungZhang&#39;s Blog">
-<meta property="og:description" content="先从思维导图看起，接下来根据思维导图走，CDN 缓存已经写过一篇 关于CDN的总结 可以去瞅瞅~ H5 缓存后续分享，此篇主要讲 HTTP 缓存机制，">
+<meta property="og:description" content="先从思维导图看起，接下来根据思维导图走，CDN 缓存已经写过一篇 关于CDN的总结 可以去瞅瞅~ H5 缓存后续分享，此篇主要讲 HTTP 缓存机制， Cache-Control 每个资源都可通过 Cache-Control HTTP 标头定义其缓存策略，Cache-Control 指令控制谁在什么条件下可以缓存响应以及可以缓存多久。">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://youngzhang08.github.io/2018/08/10/浅谈Web缓存技术/cache.png">
 <meta property="og:image" content="https://youngzhang08.github.io/2018/08/10/浅谈Web缓存技术/cachecontrol.png">
 <meta property="og:image" content="https://youngzhang08.github.io/2018/08/10/浅谈Web缓存技术/ETag.png">
 <meta property="og:image" content="https://youngzhang08.github.io/2018/08/10/浅谈Web缓存技术/code.png">
-<meta property="og:updated_time" content="2018-08-10T05:10:10.432Z">
+<meta property="og:updated_time" content="2018-08-10T11:46:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈Web缓存技术">
-<meta name="twitter:description" content="先从思维导图看起，接下来根据思维导图走，CDN 缓存已经写过一篇 关于CDN的总结 可以去瞅瞅~ H5 缓存后续分享，此篇主要讲 HTTP 缓存机制，">
+<meta name="twitter:description" content="先从思维导图看起，接下来根据思维导图走，CDN 缓存已经写过一篇 关于CDN的总结 可以去瞅瞅~ H5 缓存后续分享，此篇主要讲 HTTP 缓存机制， Cache-Control 每个资源都可通过 Cache-Control HTTP 标头定义其缓存策略，Cache-Control 指令控制谁在什么条件下可以缓存响应以及可以缓存多久。">
 <meta name="twitter:image" content="https://youngzhang08.github.io/2018/08/10/浅谈Web缓存技术/cache.png">
 
 
@@ -370,11 +370,11 @@
       
 
       
-        <h4 id="先从思维导图看起，接下来根据思维导图走，CDN-缓存已经写过一篇-关于CDN的总结-可以去瞅瞅-H5-缓存后续分享，此篇主要讲-HTTP-缓存机制，"><a href="#先从思维导图看起，接下来根据思维导图走，CDN-缓存已经写过一篇-关于CDN的总结-可以去瞅瞅-H5-缓存后续分享，此篇主要讲-HTTP-缓存机制，" class="headerlink" title="先从思维导图看起，接下来根据思维导图走，CDN 缓存已经写过一篇 关于CDN的总结 可以去瞅瞅~ H5 缓存后续分享，此篇主要讲 HTTP 缓存机制，"></a>先从思维导图看起，接下来根据思维导图走，CDN 缓存已经写过一篇 <a href="https://youngzhang08.github.io/2018/08/09/关于%20CDN%20的总结/">关于CDN的总结</a> 可以去瞅瞅~ H5 缓存后续分享，此篇主要讲 HTTP 缓存机制，</h4><a id="more"></a>
-<p><img src="./cache.png" alt="image"></p>
+        <h4 id="先从思维导图看起，接下来根据思维导图走，CDN-缓存已经写过一篇-关于CDN的总结-可以去瞅瞅-H5-缓存后续分享，此篇主要讲-HTTP-缓存机制，"><a href="#先从思维导图看起，接下来根据思维导图走，CDN-缓存已经写过一篇-关于CDN的总结-可以去瞅瞅-H5-缓存后续分享，此篇主要讲-HTTP-缓存机制，" class="headerlink" title="先从思维导图看起，接下来根据思维导图走，CDN 缓存已经写过一篇 关于CDN的总结 可以去瞅瞅~ H5 缓存后续分享，此篇主要讲 HTTP 缓存机制，"></a>先从思维导图看起，接下来根据思维导图走，CDN 缓存已经写过一篇 <a href="https://youngzhang08.github.io/2018/08/09/关于%20CDN%20的总结/">关于CDN的总结</a> 可以去瞅瞅~ H5 缓存后续分享，此篇主要讲 HTTP 缓存机制，</h4><p><img src="./cache.png" alt="image"></p>
 <h3 id="Cache-Control"><a href="#Cache-Control" class="headerlink" title="Cache-Control"></a>Cache-Control</h3><blockquote>
 <p>每个资源都可通过 Cache-Control HTTP 标头定义其缓存策略，Cache-Control 指令控制谁在什么条件下可以缓存响应以及可以缓存多久。</p>
 </blockquote>
+<a id="more"></a>
 <ol>
 <li>no-cache 和 no-store<ul>
 <li>no-cache :表示必须先与服务器确认返回的响应是否发生了变化，然后才能使用该响应来满足后续对同一网址的请求。因此，如果存在合适的验证令牌（ETag，协商缓存中讲），no-cache 会发起往返通信来验证缓存的响应，但如果资源未发生改变，则可避免下载。</li>
@@ -466,6 +466,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/08/10/常见的Web安全攻击/" rel="prev" title="常见的Web安全攻击">
+                常见的Web安全攻击 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -551,7 +555,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -573,7 +577,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
