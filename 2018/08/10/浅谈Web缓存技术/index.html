@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="HTTP缓存,性能优化," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="先从思维导图看起，接下来根据思维导图走，CDN 缓存已经写过一篇 关于CDN的总结 可以去瞅瞅~ H5 缓存后续分享，此篇主要讲 HTTP 缓存机制， Cache-Control 每个资源都可通过 Cache-Control HTTP 标头定义其缓存策略，Cache-Control 指令控制谁在什么条件下可以缓存响应以及可以缓存多久。   no-cache 和 no-store no-cache">
+<meta name="keywords" content="HTTP缓存,性能优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈Web缓存技术">
+<meta property="og:url" content="https://YoungZhang08.github.io/2018/08/10/浅谈Web缓存技术/index.html">
+<meta property="og:site_name" content="YoungZhang&#39;s Blog">
+<meta property="og:description" content="先从思维导图看起，接下来根据思维导图走，CDN 缓存已经写过一篇 关于CDN的总结 可以去瞅瞅~ H5 缓存后续分享，此篇主要讲 HTTP 缓存机制， Cache-Control 每个资源都可通过 Cache-Control HTTP 标头定义其缓存策略，Cache-Control 指令控制谁在什么条件下可以缓存响应以及可以缓存多久。   no-cache 和 no-store no-cache">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://youngzhang08.github.io/2018/08/10/浅谈Web缓存技术/cache.png">
+<meta property="og:image" content="https://youngzhang08.github.io/2018/08/10/浅谈Web缓存技术/cache-control.png">
+<meta property="og:image" content="https://youngzhang08.github.io/2018/08/10/浅谈Web缓存技术/ETag.png">
+<meta property="og:image" content="https://youngzhang08.github.io/2018/08/10/浅谈Web缓存技术/code.png">
+<meta property="og:updated_time" content="2018-08-10T05:03:33.887Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅谈Web缓存技术">
+<meta name="twitter:description" content="先从思维导图看起，接下来根据思维导图走，CDN 缓存已经写过一篇 关于CDN的总结 可以去瞅瞅~ H5 缓存后续分享，此篇主要讲 HTTP 缓存机制， Cache-Control 每个资源都可通过 Cache-Control HTTP 标头定义其缓存策略，Cache-Control 指令控制谁在什么条件下可以缓存响应以及可以缓存多久。   no-cache 和 no-store no-cache">
+<meta name="twitter:image" content="https://youngzhang08.github.io/2018/08/10/浅谈Web缓存技术/cache.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://YoungZhang08.github.io/2018/08/10/浅谈Web缓存技术/"/>
+
+
+
+
+
+  <title>浅谈Web缓存技术 | YoungZhang's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">YoungZhang's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/08/10/浅谈Web缓存技术/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YoungZhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YoungZhang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">浅谈Web缓存技术</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-10T09:27:51+08:00">
+                2018-08-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络-前端性能优化/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络 前端性能优化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/10/浅谈Web缓存技术/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/10/浅谈Web缓存技术/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+      
+      </div>
+    </header>
+  
+
+          
+
+          
+
+        
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="先从思维导图看起，接下来根据思维导图走，CDN-缓存已经写过一篇-关于CDN的总结-可以去瞅瞅-H5-缓存后续分享，此篇主要讲-HTTP-缓存机制，"><a href="#先从思维导图看起，接下来根据思维导图走，CDN-缓存已经写过一篇-关于CDN的总结-可以去瞅瞅-H5-缓存后续分享，此篇主要讲-HTTP-缓存机制，" class="headerlink" title="先从思维导图看起，接下来根据思维导图走，CDN 缓存已经写过一篇 关于CDN的总结 可以去瞅瞅~ H5 缓存后续分享，此篇主要讲 HTTP 缓存机制，"></a>先从思维导图看起，接下来根据思维导图走，CDN 缓存已经写过一篇 <a href="https://youngzhang08.github.io/2018/08/09/关于%20CDN%20的总结/">关于CDN的总结</a> 可以去瞅瞅~ H5 缓存后续分享，此篇主要讲 HTTP 缓存机制，</h4><p><img src="./cache.png" alt="image"></p>
+<h3 id="Cache-Control"><a href="#Cache-Control" class="headerlink" title="Cache-Control"></a>Cache-Control</h3><blockquote>
+<p>每个资源都可通过 Cache-Control HTTP 标头定义其缓存策略，Cache-Control 指令控制谁在什么条件下可以缓存响应以及可以缓存多久。</p>
+</blockquote>
+<ol>
+<li>no-cache 和 no-store<ul>
+<li>no-cache :表示必须先与服务器确认返回的响应是否发生了变化，然后才能使用该响应来满足后续对同一网址的请求。因此，如果存在合适的验证令牌（ETag，协商缓存中讲），no-cache 会发起往返通信来验证缓存的响应，但如果资源未发生改变，则可避免下载。</li>
+<li>no-store :直接禁止浏览器以及所有中间缓存存储任何版本的返回响应，例如，包含个人隐私数据或银行业务数据的响应。每次用户请求该资产时，都会向服务器发送请求，并下载完整的响应。</li>
+</ul>
+</li>
+<li>public 和 private<ul>
+<li>public :表示即使他有关联的 HTTP 身份验证，甚至响应状态代码通常无法缓存，也可以缓存响应。大多数情况下，public 不是必需的，因为明确的缓存信息（例如：max-age）已经表示响应式可以缓存的。</li>
+<li>private :表示浏览器可以缓存。不过，这些响应通常只为单个用户缓存，因此不允许任何中间缓存对其进行缓存。例如，用户的浏览器可以缓存包含用户私人信息的 HTML 网页，但是 CDN 却不能缓存。</li>
+</ul>
+</li>
+<li>max-age<ul>
+<li>指令指定从请求开始的时间开始，允许获取的响应被重用的最长时间（单位：（秒）。例如，max-age=60 表示可在接下来的 60 秒缓存和重用响应。</li>
+</ul>
+</li>
+<li>定义最佳 Cache-Control 策略</li>
+</ol>
+<p><img src="./cache-control.png" alt="image"></p>
+<h3 id="协商缓存策略（下面的字段都要和-Cache-Control-配合使用）"><a href="#协商缓存策略（下面的字段都要和-Cache-Control-配合使用）" class="headerlink" title="协商缓存策略（下面的字段都要和 Cache-Control 配合使用）"></a>协商缓存策略（下面的字段都要和 Cache-Control 配合使用）</h3><ol>
+<li><p>ETag 和 If-None-Match</p>
+<ul>
+<li><p>ETag :服务器使用 ETag HTTP 标头传递验证令牌，验证令牌可实现高效的资源更新检查：如果资源的内容没有发生改变，Web 服务器就不需要发送一个完整的响应。</p>
+</li>
+<li><p>生成 ETag 常用的方法包括对资源内容使用抗碰撞散列函数，使用最近修改的时间戳的哈希值，甚至只是一个版本号。为了避免使用过时的缓存数据，用于生成 ETag 的方法应保证（同时尽可能的实用）每一个 ETag 都是唯一的。</p>
+</li>
+<li><p>ETag 机制同时支持强校验和弱校验。它们通过 ETag 标识符的开头是否存在“W/”来区分：强：”123456789”  弱：W/“123456789”</p>
+</li>
+<li><p>强校验的 ETag 匹配要求两个资源内容的每个字节需完全相同，包括所有其他实体字段（如Content-Language）不发生变化。强 ETag 允许重新装配和缓存部分响应，以及字节范围请求。 弱校验的 ETag 匹配要求两个资源在语义上相等，这意味着在实际情况下它们可以互换，而且缓存副本也可以使用。不过这些资源不需要每个字节相同，因此弱 ETag 不适合字节范围请求。</p>
+</li>
+<li><p>当一个URL被请求，Web 服务器会返回资源和其相应的 ETag 值，它会被放置在HTTP的 ETag 字段中。然后，客户端可以决定是否缓存这个资源和它的 ETag。以后，如果客户端想再次请求相同的 URL，将会发送一个包含已保存的ETag 在 If-None-Match 字段的请求。</p>
+<h4 id="看个图："><a href="#看个图：" class="headerlink" title="看个图："></a>看个图：</h4><p>  <img src="./ETag.png" alt="image"></p>
+<h4 id="上面可以看到客户端在-If-None-Match-HTTP-请求标头内提供-ETag-令牌。服务器根据当前资源核对令牌。如果-ETag-值匹配，这就意味着资源没有改变，服务器便会发送回一个极短的响应，包含-HTTP-“304-未修改”的状态。304状态告诉客户端，它的缓存版本是最新的，并应该使用它。如果-ETag-的值不匹配，这就意味着资源很可能发生了变化，那么，一个完整的响应就会被返回，包括资源的内容，就好像-ETag-没有被使用。这种情况下，客户端可以用新返回的资源和新的-ETag-替代先前的缓存版本。"><a href="#上面可以看到客户端在-If-None-Match-HTTP-请求标头内提供-ETag-令牌。服务器根据当前资源核对令牌。如果-ETag-值匹配，这就意味着资源没有改变，服务器便会发送回一个极短的响应，包含-HTTP-“304-未修改”的状态。304状态告诉客户端，它的缓存版本是最新的，并应该使用它。如果-ETag-的值不匹配，这就意味着资源很可能发生了变化，那么，一个完整的响应就会被返回，包括资源的内容，就好像-ETag-没有被使用。这种情况下，客户端可以用新返回的资源和新的-ETag-替代先前的缓存版本。" class="headerlink" title="上面可以看到客户端在 If-None-Match HTTP 请求标头内提供 ETag 令牌。服务器根据当前资源核对令牌。如果 ETag 值匹配，这就意味着资源没有改变，服务器便会发送回一个极短的响应，包含 HTTP “304 未修改”的状态。304状态告诉客户端，它的缓存版本是最新的，并应该使用它。如果 ETag 的值不匹配，这就意味着资源很可能发生了变化，那么，一个完整的响应就会被返回，包括资源的内容，就好像 ETag 没有被使用。这种情况下，客户端可以用新返回的资源和新的 ETag 替代先前的缓存版本。"></a>上面可以看到客户端在 If-None-Match HTTP 请求标头内提供 ETag 令牌。服务器根据当前资源核对令牌。如果 ETag 值匹配，这就意味着资源没有改变，服务器便会发送回一个极短的响应，包含 HTTP “304 未修改”的状态。304状态告诉客户端，它的缓存版本是最新的，并应该使用它。如果 ETag 的值不匹配，这就意味着资源很可能发生了变化，那么，一个完整的响应就会被返回，包括资源的内容，就好像 ETag 没有被使用。这种情况下，客户端可以用新返回的资源和新的 ETag 替代先前的缓存版本。</h4></li>
+</ul>
+</li>
+<li><p>Last-Modified 和 If-Modified-Since</p>
+<ul>
+<li><p>Last-Modified：响应首部，其中包含源头服务器认定的资源做出修改的日期及时间。它通常被用作一个验证器来判断接收到的或者存储的资源是否彼此一致。由于精确度比 ETag 要低，是使用修改时间而不是实体标签，所以这是一个备用机制。</p>
+</li>
+<li><p>当一个URL被请求，Web 服务器会返回资源和其相应的 资源做出修改的日期及时间值，它会被放置在 HTTP 的 Last-Modified 字段中。然后，客户端可以决定是否缓存这个资源和它的 Last-Modified。以后，如果客户端想再次请求相同的 URL，将会发送一个包含已保存的 Last-Modified 在If-Modified-Since 字段的请求。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="所有可能返回-304-的情况"><a href="#所有可能返回-304-的情况" class="headerlink" title="所有可能返回 304 的情况"></a>所有可能返回 304 的情况</h3><ol>
+<li>Cache-Control：max-age &gt; 0</li>
+<li>ETag 和 If-None-Match 值相同</li>
+<li>Last-Modified 和 If-Modified-Since 值相同</li>
+</ol>
+<h3 id="最后再贴一张图："><a href="#最后再贴一张图：" class="headerlink" title="最后再贴一张图："></a>最后再贴一张图：</h3><p><img src="./code.png" alt="image"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/HTTP缓存/" rel="tag"># HTTP缓存</a>
+          
+            <a href="/tags/性能优化/" rel="tag"># 性能优化</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/09/关于CDN的总结/" rel="next" title="关于CDN的总结">
+                <i class="fa fa-chevron-left"></i> 关于CDN的总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">YoungZhang</p>
+              <p class="site-description motion-element" itemprop="description">越努力越幸运~</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/YoungZhang08" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zhangyangyang@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/zhangyangyang" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/youngzhang1001" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#先从思维导图看起，接下来根据思维导图走，CDN-缓存已经写过一篇-关于CDN的总结-可以去瞅瞅-H5-缓存后续分享，此篇主要讲-HTTP-缓存机制，"><span class="nav-number">1.</span> <span class="nav-text">先从思维导图看起，接下来根据思维导图走，CDN 缓存已经写过一篇 关于CDN的总结 可以去瞅瞅~ H5 缓存后续分享，此篇主要讲 HTTP 缓存机制，</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cache-Control"><span class="nav-number"></span> <span class="nav-text">Cache-Control</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#协商缓存策略（下面的字段都要和-Cache-Control-配合使用）"><span class="nav-number"></span> <span class="nav-text">协商缓存策略（下面的字段都要和 Cache-Control 配合使用）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#看个图："><span class="nav-number">1.</span> <span class="nav-text">看个图：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#上面可以看到客户端在-If-None-Match-HTTP-请求标头内提供-ETag-令牌。服务器根据当前资源核对令牌。如果-ETag-值匹配，这就意味着资源没有改变，服务器便会发送回一个极短的响应，包含-HTTP-“304-未修改”的状态。304状态告诉客户端，它的缓存版本是最新的，并应该使用它。如果-ETag-的值不匹配，这就意味着资源很可能发生了变化，那么，一个完整的响应就会被返回，包括资源的内容，就好像-ETag-没有被使用。这种情况下，客户端可以用新返回的资源和新的-ETag-替代先前的缓存版本。"><span class="nav-number">2.</span> <span class="nav-text">上面可以看到客户端在 If-None-Match HTTP 请求标头内提供 ETag 令牌。服务器根据当前资源核对令牌。如果 ETag 值匹配，这就意味着资源没有改变，服务器便会发送回一个极短的响应，包含 HTTP “304 未修改”的状态。304状态告诉客户端，它的缓存版本是最新的，并应该使用它。如果 ETag 的值不匹配，这就意味着资源很可能发生了变化，那么，一个完整的响应就会被返回，包括资源的内容，就好像 ETag 没有被使用。这种情况下，客户端可以用新返回的资源和新的 ETag 替代先前的缓存版本。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#所有可能返回-304-的情况"><span class="nav-number"></span> <span class="nav-text">所有可能返回 304 的情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后再贴一张图："><span class="nav-number"></span> <span class="nav-text">最后再贴一张图：</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YoungZhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://YoungZhang08.github.io/2018/08/10/浅谈Web缓存技术/';
+          this.page.identifier = '2018/08/10/浅谈Web缓存技术/';
+          this.page.title = '浅谈Web缓存技术';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+  
+</body>
+</html>

@@ -262,7 +262,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/08/09/关于 CDN 的总结/">
+    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/08/10/浅谈Web缓存技术/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YoungZhang">
@@ -281,7 +281,214 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/09/关于 CDN 的总结/" itemprop="url">关于 CDN 的总结</a></h1>
+                <a class="post-title-link" href="/2018/08/10/浅谈Web缓存技术/" itemprop="url">浅谈Web缓存技术</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-10T09:27:51+08:00">
+                2018-08-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络-前端性能优化/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络 前端性能优化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/10/浅谈Web缓存技术/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/10/浅谈Web缓存技术/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+      
+      </div>
+    </header>
+  
+
+          
+
+          
+
+        
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="先从思维导图看起，接下来根据思维导图走，CDN-缓存已经写过一篇-关于CDN的总结-可以去瞅瞅-H5-缓存后续分享，此篇主要讲-HTTP-缓存机制，"><a href="#先从思维导图看起，接下来根据思维导图走，CDN-缓存已经写过一篇-关于CDN的总结-可以去瞅瞅-H5-缓存后续分享，此篇主要讲-HTTP-缓存机制，" class="headerlink" title="先从思维导图看起，接下来根据思维导图走，CDN 缓存已经写过一篇 关于CDN的总结 可以去瞅瞅~ H5 缓存后续分享，此篇主要讲 HTTP 缓存机制，"></a>先从思维导图看起，接下来根据思维导图走，CDN 缓存已经写过一篇 <a href="https://youngzhang08.github.io/2018/08/09/关于%20CDN%20的总结/">关于CDN的总结</a> 可以去瞅瞅~ H5 缓存后续分享，此篇主要讲 HTTP 缓存机制，</h4><p><img src="./cache.png" alt="image"></p>
+<h3 id="Cache-Control"><a href="#Cache-Control" class="headerlink" title="Cache-Control"></a>Cache-Control</h3><blockquote>
+<p>每个资源都可通过 Cache-Control HTTP 标头定义其缓存策略，Cache-Control 指令控制谁在什么条件下可以缓存响应以及可以缓存多久。</p>
+</blockquote>
+<ol>
+<li>no-cache 和 no-store<ul>
+<li>no-cache :表示必须先与服务器确认返回的响应是否发生了变化，然后才能使用该响应来满足后续对同一网址的请求。因此，如果存在合适的验证令牌（ETag，协商缓存中讲），no-cache 会发起往返通信来验证缓存的响应，但如果资源未发生改变，则可避免下载。</li>
+<li>no-store :直接禁止浏览器以及所有中间缓存存储任何版本的返回响应，例如，包含个人隐私数据或银行业务数据的响应。每次用户请求该资产时，都会向服务器发送请求，并下载完整的响应。</li>
+</ul>
+</li>
+<li>public 和 private<ul>
+<li>public :表示即使他有关联的 HTTP 身份验证，甚至响应状态代码通常无法缓存，也可以缓存响应。大多数情况下，public 不是必需的，因为明确的缓存信息（例如：max-age）已经表示响应式可以缓存的。</li>
+<li>private :表示浏览器可以缓存。不过，这些响应通常只为单个用户缓存，因此不允许任何中间缓存对其进行缓存。例如，用户的浏览器可以缓存包含用户私人信息的 HTML 网页，但是 CDN 却不能缓存。</li>
+</ul>
+</li>
+<li>max-age<ul>
+<li>指令指定从请求开始的时间开始，允许获取的响应被重用的最长时间（单位：（秒）。例如，max-age=60 表示可在接下来的 60 秒缓存和重用响应。</li>
+</ul>
+</li>
+<li>定义最佳 Cache-Control 策略</li>
+</ol>
+<p><img src="./cache-control.png" alt="image"></p>
+<h3 id="协商缓存策略（下面的字段都要和-Cache-Control-配合使用）"><a href="#协商缓存策略（下面的字段都要和-Cache-Control-配合使用）" class="headerlink" title="协商缓存策略（下面的字段都要和 Cache-Control 配合使用）"></a>协商缓存策略（下面的字段都要和 Cache-Control 配合使用）</h3><ol>
+<li><p>ETag 和 If-None-Match</p>
+<ul>
+<li><p>ETag :服务器使用 ETag HTTP 标头传递验证令牌，验证令牌可实现高效的资源更新检查：如果资源的内容没有发生改变，Web 服务器就不需要发送一个完整的响应。</p>
+</li>
+<li><p>生成 ETag 常用的方法包括对资源内容使用抗碰撞散列函数，使用最近修改的时间戳的哈希值，甚至只是一个版本号。为了避免使用过时的缓存数据，用于生成 ETag 的方法应保证（同时尽可能的实用）每一个 ETag 都是唯一的。</p>
+</li>
+<li><p>ETag 机制同时支持强校验和弱校验。它们通过 ETag 标识符的开头是否存在“W/”来区分：强：”123456789”  弱：W/“123456789”</p>
+</li>
+<li><p>强校验的 ETag 匹配要求两个资源内容的每个字节需完全相同，包括所有其他实体字段（如Content-Language）不发生变化。强 ETag 允许重新装配和缓存部分响应，以及字节范围请求。 弱校验的 ETag 匹配要求两个资源在语义上相等，这意味着在实际情况下它们可以互换，而且缓存副本也可以使用。不过这些资源不需要每个字节相同，因此弱 ETag 不适合字节范围请求。</p>
+</li>
+<li><p>当一个URL被请求，Web 服务器会返回资源和其相应的 ETag 值，它会被放置在HTTP的 ETag 字段中。然后，客户端可以决定是否缓存这个资源和它的 ETag。以后，如果客户端想再次请求相同的 URL，将会发送一个包含已保存的ETag 在 If-None-Match 字段的请求。</p>
+<h4 id="看个图："><a href="#看个图：" class="headerlink" title="看个图："></a>看个图：</h4><p>  <img src="./ETag.png" alt="image"></p>
+<h4 id="上面可以看到客户端在-If-None-Match-HTTP-请求标头内提供-ETag-令牌。服务器根据当前资源核对令牌。如果-ETag-值匹配，这就意味着资源没有改变，服务器便会发送回一个极短的响应，包含-HTTP-“304-未修改”的状态。304状态告诉客户端，它的缓存版本是最新的，并应该使用它。如果-ETag-的值不匹配，这就意味着资源很可能发生了变化，那么，一个完整的响应就会被返回，包括资源的内容，就好像-ETag-没有被使用。这种情况下，客户端可以用新返回的资源和新的-ETag-替代先前的缓存版本。"><a href="#上面可以看到客户端在-If-None-Match-HTTP-请求标头内提供-ETag-令牌。服务器根据当前资源核对令牌。如果-ETag-值匹配，这就意味着资源没有改变，服务器便会发送回一个极短的响应，包含-HTTP-“304-未修改”的状态。304状态告诉客户端，它的缓存版本是最新的，并应该使用它。如果-ETag-的值不匹配，这就意味着资源很可能发生了变化，那么，一个完整的响应就会被返回，包括资源的内容，就好像-ETag-没有被使用。这种情况下，客户端可以用新返回的资源和新的-ETag-替代先前的缓存版本。" class="headerlink" title="上面可以看到客户端在 If-None-Match HTTP 请求标头内提供 ETag 令牌。服务器根据当前资源核对令牌。如果 ETag 值匹配，这就意味着资源没有改变，服务器便会发送回一个极短的响应，包含 HTTP “304 未修改”的状态。304状态告诉客户端，它的缓存版本是最新的，并应该使用它。如果 ETag 的值不匹配，这就意味着资源很可能发生了变化，那么，一个完整的响应就会被返回，包括资源的内容，就好像 ETag 没有被使用。这种情况下，客户端可以用新返回的资源和新的 ETag 替代先前的缓存版本。"></a>上面可以看到客户端在 If-None-Match HTTP 请求标头内提供 ETag 令牌。服务器根据当前资源核对令牌。如果 ETag 值匹配，这就意味着资源没有改变，服务器便会发送回一个极短的响应，包含 HTTP “304 未修改”的状态。304状态告诉客户端，它的缓存版本是最新的，并应该使用它。如果 ETag 的值不匹配，这就意味着资源很可能发生了变化，那么，一个完整的响应就会被返回，包括资源的内容，就好像 ETag 没有被使用。这种情况下，客户端可以用新返回的资源和新的 ETag 替代先前的缓存版本。</h4></li>
+</ul>
+</li>
+<li><p>Last-Modified 和 If-Modified-Since</p>
+<ul>
+<li><p>Last-Modified：响应首部，其中包含源头服务器认定的资源做出修改的日期及时间。它通常被用作一个验证器来判断接收到的或者存储的资源是否彼此一致。由于精确度比 ETag 要低，是使用修改时间而不是实体标签，所以这是一个备用机制。</p>
+</li>
+<li><p>当一个URL被请求，Web 服务器会返回资源和其相应的 资源做出修改的日期及时间值，它会被放置在 HTTP 的 Last-Modified 字段中。然后，客户端可以决定是否缓存这个资源和它的 Last-Modified。以后，如果客户端想再次请求相同的 URL，将会发送一个包含已保存的 Last-Modified 在If-Modified-Since 字段的请求。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="所有可能返回-304-的情况"><a href="#所有可能返回-304-的情况" class="headerlink" title="所有可能返回 304 的情况"></a>所有可能返回 304 的情况</h3><ol>
+<li>Cache-Control：max-age &gt; 0</li>
+<li>ETag 和 If-None-Match 值相同</li>
+<li>Last-Modified 和 If-Modified-Since 值相同</li>
+</ol>
+<h3 id="最后再贴一张图："><a href="#最后再贴一张图：" class="headerlink" title="最后再贴一张图："></a>最后再贴一张图：</h3><p><img src="./code.png" alt="image"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/08/09/关于CDN的总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YoungZhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YoungZhang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/09/关于CDN的总结/" itemprop="url">关于CDN的总结</a></h1>
         
 
         <div class="post-meta">
@@ -334,9 +541,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/08/09/关于 CDN 的总结/#comments" itemprop="discussionUrl">
+                <a href="/2018/08/09/关于CDN的总结/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/09/关于 CDN 的总结/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/08/09/关于CDN的总结/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -371,7 +578,7 @@
 <p> CDN 是将源站内容分发至最接近用户的节点，使用户可就近取得所需内容，提高用户访问的响应速度和成功率。解决因分布、带宽、服务器性能带来的访问延迟问题，适用于站点加速、点播、直播等场景。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/09/关于 CDN 的总结/#more" rel="contents">
+            <a class="btn" href="/2018/08/09/关于CDN的总结/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -422,7 +629,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/08/09/深入 DNS 查询/">
+    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/08/09/深入DNS查询/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YoungZhang">
@@ -441,7 +648,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/09/深入 DNS 查询/" itemprop="url">深入 DNS 查询</a></h1>
+                <a class="post-title-link" href="/2018/08/09/深入DNS查询/" itemprop="url">深入DNS查询</a></h1>
         
 
         <div class="post-meta">
@@ -494,9 +701,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/08/09/深入 DNS 查询/#comments" itemprop="discussionUrl">
+                <a href="/2018/08/09/深入DNS查询/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/09/深入 DNS 查询/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/08/09/深入DNS查询/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -531,7 +738,7 @@
 <p>我们一般都是在地址栏输入域名去访问站点，因为我们是无法记住超多个 IP 地址的。但是计算机在网络上进行通讯时又只能识别 IP 地址，并不能识别域名，因为网络通信大都是基于 TCP/IP 的，而 TCP/IP 是基于 IP 地址的。这个时候，就需要 DNS 服务器将我们输入的域名“翻译”成对应的 IP 地址，继续后续的工作。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/09/深入 DNS 查询/#more" rel="contents">
+            <a class="btn" href="/2018/08/09/深入DNS查询/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -741,7 +948,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/08/08/Cookie 和 Session/">
+    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/08/08/Cookie和Session/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YoungZhang">
@@ -760,7 +967,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/08/Cookie 和 Session/" itemprop="url">Cookie 和 Session</a></h1>
+                <a class="post-title-link" href="/2018/08/08/Cookie和Session/" itemprop="url">Cookie和Session</a></h1>
         
 
         <div class="post-meta">
@@ -813,9 +1020,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/08/08/Cookie 和 Session/#comments" itemprop="discussionUrl">
+                <a href="/2018/08/08/Cookie和Session/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/08/Cookie 和 Session/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/08/08/Cookie和Session/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -858,7 +1065,7 @@
 </ul>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/08/Cookie 和 Session/#more" rel="contents">
+            <a class="btn" href="/2018/08/08/Cookie和Session/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1710,166 +1917,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/07/22/浅谈前端模块化/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="YoungZhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YoungZhang's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/22/浅谈前端模块化/" itemprop="url">浅谈前端模块化</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-22T09:37:37+08:00">
-                2018-07-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/模块化方案/" itemprop="url" rel="index">
-                    <span itemprop="name">模块化方案</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/07/22/浅谈前端模块化/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/07/22/浅谈前端模块化/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-      
-      </div>
-    </header>
-  
-
-          
-
-          
-
-        
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="首先，为什么会有模块化的概念？"><a href="#首先，为什么会有模块化的概念？" class="headerlink" title="首先，为什么会有模块化的概念？"></a>首先，为什么会有模块化的概念？</h3><blockquote>
-<p>前端最开始的时候，所有的JS文件都写在一个文件里面，只要加载这一个文件就可以。但是随着JS的迅猛发展，网页中嵌入的JS代码越来越多，一个文件很难管理和维护，必须分成多个文件一次加载。但是一次加载多个JS文件的时候，浏览器会停止网页的渲染，加载文件越多，网页失去响应的时间就会越长。至此，出现了模块化的概念，根据依赖保证加载顺序。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/07/22/浅谈前端模块化/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1920,7 +1967,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1931,7 +1978,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1942,7 +1989,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
