@@ -79,22 +79,22 @@
 
 
 
-<meta name="description" content="先从思维导图看起，接下来根据思维导图走，CDN 缓存已经写过一篇 关于CDN的总结 可以去瞅瞅~ H5 缓存后续分享，此篇主要讲 HTTP 缓存机制， Cache-Control 每个资源都可通过 Cache-Control HTTP 标头定义其缓存策略，Cache-Control 指令控制谁在什么条件下可以缓存响应以及可以缓存多久。   no-cache 和 no-store no-cache">
+<meta name="description" content="先从思维导图看起，接下来根据思维导图走，CDN 缓存已经写过一篇 关于CDN的总结 可以去瞅瞅~ H5 缓存后续分享，此篇主要讲 HTTP 缓存机制，">
 <meta name="keywords" content="HTTP缓存,性能优化">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅谈Web缓存技术">
 <meta property="og:url" content="https://YoungZhang08.github.io/2018/08/10/浅谈Web缓存技术/index.html">
 <meta property="og:site_name" content="YoungZhang&#39;s Blog">
-<meta property="og:description" content="先从思维导图看起，接下来根据思维导图走，CDN 缓存已经写过一篇 关于CDN的总结 可以去瞅瞅~ H5 缓存后续分享，此篇主要讲 HTTP 缓存机制， Cache-Control 每个资源都可通过 Cache-Control HTTP 标头定义其缓存策略，Cache-Control 指令控制谁在什么条件下可以缓存响应以及可以缓存多久。   no-cache 和 no-store no-cache">
+<meta property="og:description" content="先从思维导图看起，接下来根据思维导图走，CDN 缓存已经写过一篇 关于CDN的总结 可以去瞅瞅~ H5 缓存后续分享，此篇主要讲 HTTP 缓存机制，">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://youngzhang08.github.io/2018/08/10/浅谈Web缓存技术/cache.png">
 <meta property="og:image" content="https://youngzhang08.github.io/2018/08/10/浅谈Web缓存技术/cache-control.png">
 <meta property="og:image" content="https://youngzhang08.github.io/2018/08/10/浅谈Web缓存技术/ETag.png">
 <meta property="og:image" content="https://youngzhang08.github.io/2018/08/10/浅谈Web缓存技术/code.png">
-<meta property="og:updated_time" content="2018-08-10T05:03:33.887Z">
+<meta property="og:updated_time" content="2018-08-10T05:07:07.168Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈Web缓存技术">
-<meta name="twitter:description" content="先从思维导图看起，接下来根据思维导图走，CDN 缓存已经写过一篇 关于CDN的总结 可以去瞅瞅~ H5 缓存后续分享，此篇主要讲 HTTP 缓存机制， Cache-Control 每个资源都可通过 Cache-Control HTTP 标头定义其缓存策略，Cache-Control 指令控制谁在什么条件下可以缓存响应以及可以缓存多久。   no-cache 和 no-store no-cache">
+<meta name="twitter:description" content="先从思维导图看起，接下来根据思维导图走，CDN 缓存已经写过一篇 关于CDN的总结 可以去瞅瞅~ H5 缓存后续分享，此篇主要讲 HTTP 缓存机制，">
 <meta name="twitter:image" content="https://youngzhang08.github.io/2018/08/10/浅谈Web缓存技术/cache.png">
 
 
@@ -371,6 +371,7 @@
 
       
         <h4 id="先从思维导图看起，接下来根据思维导图走，CDN-缓存已经写过一篇-关于CDN的总结-可以去瞅瞅-H5-缓存后续分享，此篇主要讲-HTTP-缓存机制，"><a href="#先从思维导图看起，接下来根据思维导图走，CDN-缓存已经写过一篇-关于CDN的总结-可以去瞅瞅-H5-缓存后续分享，此篇主要讲-HTTP-缓存机制，" class="headerlink" title="先从思维导图看起，接下来根据思维导图走，CDN 缓存已经写过一篇 关于CDN的总结 可以去瞅瞅~ H5 缓存后续分享，此篇主要讲 HTTP 缓存机制，"></a>先从思维导图看起，接下来根据思维导图走，CDN 缓存已经写过一篇 <a href="https://youngzhang08.github.io/2018/08/09/关于%20CDN%20的总结/">关于CDN的总结</a> 可以去瞅瞅~ H5 缓存后续分享，此篇主要讲 HTTP 缓存机制，</h4><p><img src="./cache.png" alt="image"></p>
+<a id="more"></a>
 <h3 id="Cache-Control"><a href="#Cache-Control" class="headerlink" title="Cache-Control"></a>Cache-Control</h3><blockquote>
 <p>每个资源都可通过 Cache-Control HTTP 标头定义其缓存策略，Cache-Control 指令控制谁在什么条件下可以缓存响应以及可以缓存多久。</p>
 </blockquote>
