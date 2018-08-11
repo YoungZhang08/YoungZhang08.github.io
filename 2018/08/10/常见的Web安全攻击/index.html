@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="CSRF（Cross Site Request Forgery，跨站请求伪造） 攻击原理：   受害者用户登录网站 A，输入个人信息，在本地保存服务器生成的 cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的 cookie 信息一起发送给网址 A，A 网站收到请求后，确认 cookie 信息无误，以为此链接是受害者发出的操作，">
+<meta name="description" content="CSRF（Cross Site Request Forgery，跨站请求伪造） 攻击原理： 受害者用户登录网站 A，输入个人信息，在本地保存服务器生成的 cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的 cookie 信息一起发送给网址 A，A 网站收到请求后，确认 cookie 信息无误，以为此链接是受害者发出的操作，导致">
 <meta name="keywords" content="XSS,CSRF">
 <meta property="og:type" content="article">
 <meta property="og:title" content="常见的Web安全攻击">
 <meta property="og:url" content="https://YoungZhang08.github.io/2018/08/10/常见的Web安全攻击/index.html">
 <meta property="og:site_name" content="YoungZhang&#39;s Blog">
-<meta property="og:description" content="CSRF（Cross Site Request Forgery，跨站请求伪造） 攻击原理：   受害者用户登录网站 A，输入个人信息，在本地保存服务器生成的 cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的 cookie 信息一起发送给网址 A，A 网站收到请求后，确认 cookie 信息无误，以为此链接是受害者发出的操作，">
+<meta property="og:description" content="CSRF（Cross Site Request Forgery，跨站请求伪造） 攻击原理： 受害者用户登录网站 A，输入个人信息，在本地保存服务器生成的 cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的 cookie 信息一起发送给网址 A，A 网站收到请求后，确认 cookie 信息无误，以为此链接是受害者发出的操作，导致">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://youngzhang08.github.io/2018/08/10/常见的Web安全攻击/csrf.png">
 <meta property="og:image" content="https://youngzhang08.github.io/2018/08/10/常见的Web安全攻击/xss.png">
-<meta property="og:updated_time" content="2018-08-10T14:02:02.737Z">
+<meta property="og:updated_time" content="2018-08-11T00:32:06.653Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常见的Web安全攻击">
-<meta name="twitter:description" content="CSRF（Cross Site Request Forgery，跨站请求伪造） 攻击原理：   受害者用户登录网站 A，输入个人信息，在本地保存服务器生成的 cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的 cookie 信息一起发送给网址 A，A 网站收到请求后，确认 cookie 信息无误，以为此链接是受害者发出的操作，">
+<meta name="twitter:description" content="CSRF（Cross Site Request Forgery，跨站请求伪造） 攻击原理： 受害者用户登录网站 A，输入个人信息，在本地保存服务器生成的 cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的 cookie 信息一起发送给网址 A，A 网站收到请求后，确认 cookie 信息无误，以为此链接是受害者发出的操作，导致">
 <meta name="twitter:image" content="https://youngzhang08.github.io/2018/08/10/常见的Web安全攻击/csrf.png">
 
 
@@ -370,8 +370,9 @@
       
         <h3 id="CSRF（Cross-Site-Request-Forgery，跨站请求伪造）"><a href="#CSRF（Cross-Site-Request-Forgery，跨站请求伪造）" class="headerlink" title="CSRF（Cross Site Request Forgery，跨站请求伪造）"></a>CSRF（Cross Site Request Forgery，跨站请求伪造）</h3><ol>
 <li><p>攻击原理：</p>
+<h4 id="受害者用户登录网站-A，输入个人信息，在本地保存服务器生成的-cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的-cookie-信息一起发送给网址-A，A-网站收到请求后，确认-cookie-信息无误，以为此链接是受害者发出的操作，导致受害者的身份被盗用，造成攻击行为完成。"><a href="#受害者用户登录网站-A，输入个人信息，在本地保存服务器生成的-cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的-cookie-信息一起发送给网址-A，A-网站收到请求后，确认-cookie-信息无误，以为此链接是受害者发出的操作，导致受害者的身份被盗用，造成攻击行为完成。" class="headerlink" title="受害者用户登录网站 A，输入个人信息，在本地保存服务器生成的 cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的 cookie 信息一起发送给网址 A，A 网站收到请求后，确认 cookie 信息无误，以为此链接是受害者发出的操作，导致受害者的身份被盗用，造成攻击行为完成。"></a>受害者用户登录网站 A，输入个人信息，在本地保存服务器生成的 cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的 cookie 信息一起发送给网址 A，A 网站收到请求后，确认 cookie 信息无误，以为此链接是受害者发出的操作，导致受害者的身份被盗用，造成攻击行为完成。</h4> <a id="more"></a>
 <p> <img src="./csrf.png" alt="image"></p>
-<h4 id="受害者用户登录网站-A，输入个人信息，在本地保存服务器生成的-cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的-cookie-信息一起发送给网址-A，A-网站收到请求后，确认-cookie-信息无误，以为此链接是受害者发出的操作，导致受害者的身份被盗用，造成攻击行为完成。"><a href="#受害者用户登录网站-A，输入个人信息，在本地保存服务器生成的-cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的-cookie-信息一起发送给网址-A，A-网站收到请求后，确认-cookie-信息无误，以为此链接是受害者发出的操作，导致受害者的身份被盗用，造成攻击行为完成。" class="headerlink" title="受害者用户登录网站 A，输入个人信息，在本地保存服务器生成的 cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的 cookie 信息一起发送给网址 A，A 网站收到请求后，确认 cookie 信息无误，以为此链接是受害者发出的操作，导致受害者的身份被盗用，造成攻击行为完成。"></a>受害者用户登录网站 A，输入个人信息，在本地保存服务器生成的 cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的 cookie 信息一起发送给网址 A，A 网站收到请求后，确认 cookie 信息无误，以为此链接是受害者发出的操作，导致受害者的身份被盗用，造成攻击行为完成。</h4><a id="more"></a></li>
+</li>
 <li><p>防范：</p>
 <ul>
 <li>验证码。应用程序和用户进行交互过程中，特别是账户交易这种核心步骤，强制用户输入验证码，才能完成最终请求。在通常情况下，验证码够很好地遏制CSRF攻击。但增加验证码降低了用户的体验，网站不能给所有的操作都加上验证码。所以只能将验证码作为一种辅助手段，在关键业务点设置验证码。</li>
@@ -397,10 +398,10 @@
 <li><p>攻击类型：</p>
 <ul>
 <li><p>反射型XSS(Non-persistent XSS)，服务器接受客户端的请求包，不会存储请求包的内容，只是简单的把用户输入的数据“反射”给浏览器。例如：<a href="http://www.a.com?xss.php?name=" target="_blank" rel="noopener">www.a.com?xss.php?name=</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(document.cookie)&lt;/script&gt;。</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">访问这个链接则会弹出页面的 cookie 内容，若攻击者把 alert 改为一个精心构造的发送函数，就可以把用户的 cookie 偷走。</span><br><span class="line"></span><br><span class="line">- 存储型XSS(Persistent XSS)，这类 XSS 攻击会把用户输入的数据“存储”在服务器端，具有很强的稳定性。注入脚本跟反射型 XSS 大同小异，只是脚本不是通过浏览器 -&gt; 服务器 -&gt; 浏览器这样的反射方式，而是多发生在富文本编辑器、日志、留言、配置系统等数据库保存用户输入内容的业务场景。即用户的注入脚本保存到了数据库里，其他用户进行访问涉及到包含恶意脚本的链接都会中招。由于这段恶意的脚本被上传保存到了服务器，这种 XSS 攻击就叫做“存储型 XSS”。</span><br><span class="line"></span><br><span class="line">- DOM based XSS(Document Object Model XSS)，这类XSS攻击者将攻击脚本注入到 DOM 结构里。出现该类攻击的大多原因是含 JavaScrip 静态 HTML 页面存在 XSS 漏洞。例如下面是一段存在 DOM 类型跨站脚本漏洞的代码：</span><br></pre></td></tr></table></figure>
-<p><script>document.write(window.location.search); </script></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;&lt;/script&gt;</span><br><span class="line">alert(document.cookie)（这段代码在script标签中内嵌）</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">访问这个链接则会弹出页面的 cookie 内容，若攻击者把 alert 改为一个精心构造的发送函数，就可以把用户的 cookie 偷走。</span><br><span class="line"></span><br><span class="line">- 存储型XSS(Persistent XSS)，这类 XSS 攻击会把用户输入的数据“存储”在服务器端，具有很强的稳定性。注入脚本跟反射型 XSS 大同小异，只是脚本不是通过浏览器 -&gt; 服务器 -&gt; 浏览器这样的反射方式，而是多发生在富文本编辑器、日志、留言、配置系统等数据库保存用户输入内容的业务场景。即用户的注入脚本保存到了数据库里，其他用户进行访问涉及到包含恶意脚本的链接都会中招。由于这段恶意的脚本被上传保存到了服务器，这种 XSS 攻击就叫做“存储型 XSS”。</span><br><span class="line"></span><br><span class="line">- DOM based XSS(Document Object Model XSS)，这类XSS攻击者将攻击脚本注入到 DOM 结构里。出现该类攻击的大多原因是含 JavaScrip 静态 HTML 页面存在 XSS 漏洞。例如下面是一段存在 DOM 类型跨站脚本漏洞的代码：</span><br></pre></td></tr></table></figure>
+<p><script></script><br>document.write(window.location.search);（这段代码在script标签中内嵌）</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在JS中 window.location.search 是指 URL 中 ? 之后的内容，document.write 是将内容输出到页面。这时把链接换成 http://localhost/test.php?default=</span><br></pre></td></tr></table></figure>
-<p><script>alert(document.cookie)</script><br><code>`</code><br>那用户的 cookie 就被盗了。上面的例子只是很简单的一种，总结起来是使用了诸如 document.write, innerHTML 之类的渲染页面方法需要注意参数内容是否是可信任的。</p>
+<p><script></script><br>alert(document.cookie)（这段代码在script标签中内嵌）<br><code>`</code><br>那用户的 cookie 就被盗了。上面的例子只是很简单的一种，总结起来是使用了诸如 document.write, innerHTML 之类的渲染页面方法需要注意参数内容是否是可信任的。</p>
 </li>
 </ul>
 </li>
