@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="XSS,CSRF," />
+  <meta name="keywords" content="XSS,CSRF,DoS," />
 
 
 
@@ -80,7 +80,7 @@
 
 
 <meta name="description" content="CSRF（Cross Site Request Forgery，跨站请求伪造） 攻击原理： 受害者用户登录网站 A，输入个人信息，在本地保存服务器生成的 cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的 cookie 信息一起发送给网址 A，A 网站收到请求后，确认 cookie 信息无误，以为此链接是受害者发出的操作，导致">
-<meta name="keywords" content="XSS,CSRF">
+<meta name="keywords" content="XSS,CSRF,DoS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="常见的Web安全攻击">
 <meta property="og:url" content="https://YoungZhang08.github.io/2018/08/10/常见的Web安全攻击/index.html">
@@ -89,7 +89,8 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://youngzhang08.github.io/2018/08/10/常见的Web安全攻击/csrf.png">
 <meta property="og:image" content="https://youngzhang08.github.io/2018/08/10/常见的Web安全攻击/xss.png">
-<meta property="og:updated_time" content="2018-08-11T00:32:06.653Z">
+<meta property="og:image" content="https://youngzhang08.github.io/2018/08/10/常见的Web安全攻击/ack.png">
+<meta property="og:updated_time" content="2018-08-11T02:38:02.357Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常见的Web安全攻击">
 <meta name="twitter:description" content="CSRF（Cross Site Request Forgery，跨站请求伪造） 攻击原理： 受害者用户登录网站 A，输入个人信息，在本地保存服务器生成的 cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的 cookie 信息一起发送给网址 A，A 网站收到请求后，确认 cookie 信息无误，以为此链接是受害者发出的操作，导致">
@@ -418,6 +419,18 @@
 </ul>
 </li>
 </ol>
+<h3 id="DoS（Denial-of-Service）-和-DDoS（Distributed-Denial-of-Service）"><a href="#DoS（Denial-of-Service）-和-DDoS（Distributed-Denial-of-Service）" class="headerlink" title="DoS（Denial of Service） 和 DDoS（Distributed Denial of Service）"></a>DoS（Denial of Service） 和 DDoS（Distributed Denial of Service）</h3><ol>
+<li><p>攻击原理：</p>
+<h4 id="在-DoS-攻击中，攻击者通过伪造-ACK-数据包，希望-Server-重传某些数据包，Server-根据-TCP-重转机制，进行数据重传。攻击者利用-TCP-协议缺陷，通过发送大量的半连接请求，耗费-CPU-和内存资源。实现方式如下图："><a href="#在-DoS-攻击中，攻击者通过伪造-ACK-数据包，希望-Server-重传某些数据包，Server-根据-TCP-重转机制，进行数据重传。攻击者利用-TCP-协议缺陷，通过发送大量的半连接请求，耗费-CPU-和内存资源。实现方式如下图：" class="headerlink" title="在 DoS 攻击中，攻击者通过伪造 ACK 数据包，希望 Server 重传某些数据包，Server 根据 TCP 重转机制，进行数据重传。攻击者利用 TCP 协议缺陷，通过发送大量的半连接请求，耗费 CPU 和内存资源。实现方式如下图："></a>在 DoS 攻击中，攻击者通过伪造 ACK 数据包，希望 Server 重传某些数据包，Server 根据 TCP 重转机制，进行数据重传。攻击者利用 TCP 协议缺陷，通过发送大量的半连接请求，耗费 CPU 和内存资源。实现方式如下图：</h4><p> <img src="./ack.png" alt="image"></p>
+<h4 id="三次握手过程中，服务器给客户端发送-SYN-ACK-之后到收到客户端的-ACK-之前的-TCP-连接称为半连接，此时服务器处于-SYN-RCVD-状态。攻击者配合-IP-欺骗，SYN-攻击会达到很好的效果。SYN-攻击指的就是在短时间内伪造大量不存在的-IP-地址，向服务器不断地发送-SYN-包，服务器回复确认包，并等待客户的确认，由于源地址是不存在的，服务器需要不断的重发直至超时，这些伪造的-SYN-包将长时间占用未连接队列，正常的-SYN-请求被丢弃，目标系统运行缓慢，严重者引起网络堵塞甚至系统瘫痪。"><a href="#三次握手过程中，服务器给客户端发送-SYN-ACK-之后到收到客户端的-ACK-之前的-TCP-连接称为半连接，此时服务器处于-SYN-RCVD-状态。攻击者配合-IP-欺骗，SYN-攻击会达到很好的效果。SYN-攻击指的就是在短时间内伪造大量不存在的-IP-地址，向服务器不断地发送-SYN-包，服务器回复确认包，并等待客户的确认，由于源地址是不存在的，服务器需要不断的重发直至超时，这些伪造的-SYN-包将长时间占用未连接队列，正常的-SYN-请求被丢弃，目标系统运行缓慢，严重者引起网络堵塞甚至系统瘫痪。" class="headerlink" title="三次握手过程中，服务器给客户端发送 SYN+ACK 之后到收到客户端的 ACK 之前的 TCP 连接称为半连接，此时服务器处于 SYN_RCVD 状态。攻击者配合 IP 欺骗，SYN 攻击会达到很好的效果。SYN 攻击指的就是在短时间内伪造大量不存在的 IP 地址，向服务器不断地发送 SYN 包，服务器回复确认包，并等待客户的确认，由于源地址是不存在的，服务器需要不断的重发直至超时，这些伪造的 SYN 包将长时间占用未连接队列，正常的 SYN 请求被丢弃，目标系统运行缓慢，严重者引起网络堵塞甚至系统瘫痪。"></a>三次握手过程中，服务器给客户端发送 SYN+ACK 之后到收到客户端的 ACK 之前的 TCP 连接称为半连接，此时服务器处于 SYN_RCVD 状态。攻击者配合 IP 欺骗，SYN 攻击会达到很好的效果。SYN 攻击指的就是在短时间内伪造大量不存在的 IP 地址，向服务器不断地发送 SYN 包，服务器回复确认包，并等待客户的确认，由于源地址是不存在的，服务器需要不断的重发直至超时，这些伪造的 SYN 包将长时间占用未连接队列，正常的 SYN 请求被丢弃，目标系统运行缓慢，严重者引起网络堵塞甚至系统瘫痪。</h4></li>
+<li><p>防御：</p>
+<ul>
+<li>缩短 SYN Timeout 时间，及时将超时请求丢弃，释放被占用的 CPU 和内存资源</li>
+<li>限制同时打开的 SYN 半连接数目，关闭不必要的服务</li>
+<li>设置 SYN Cookie，给每一个请求连接的 IP 地址分配一个 Cookie。如果短时间内连续受到某个 IP 的重复 SYN 报文，就认定受到了攻击，以后从这个 IP 来的请求包都会丢弃</li>
+</ul>
+</li>
+</ol>
 
       
     </div>
@@ -438,6 +451,8 @@
             <a href="/tags/XSS/" rel="tag"># XSS</a>
           
             <a href="/tags/CSRF/" rel="tag"># CSRF</a>
+          
+            <a href="/tags/DoS/" rel="tag"># DoS</a>
           
         </div>
       
@@ -567,7 +582,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-count">47</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -628,7 +643,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CSRF（Cross-Site-Request-Forgery，跨站请求伪造）"><span class="nav-number">1.</span> <span class="nav-text">CSRF（Cross Site Request Forgery，跨站请求伪造）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#受害者用户登录网站-A，输入个人信息，在本地保存服务器生成的-cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的-cookie-信息一起发送给网址-A，A-网站收到请求后，确认-cookie-信息无误，以为此链接是受害者发出的操作，导致受害者的身份被盗用，造成攻击行为完成。"><span class="nav-number">1.1.</span> <span class="nav-text">受害者用户登录网站 A，输入个人信息，在本地保存服务器生成的 cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的 cookie 信息一起发送给网址 A，A 网站收到请求后，确认 cookie 信息无误，以为此链接是受害者发出的操作，导致受害者的身份被盗用，造成攻击行为完成。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XSS（Cross-Site-Script，跨站脚本攻击）"><span class="nav-number">2.</span> <span class="nav-text">XSS（Cross Site Script，跨站脚本攻击）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#恶意攻击者往-Web-页面里注入恶意-Script-代码，当用户浏览这些网页时，就会执行其中的恶意代码，可对用户进行盗取-cookie-信息、会话劫持等各种攻击。XSS-跨站脚本攻击本身对-Web-服务器没有直接的危害，它借助网站进行传播，使网站上大量用户受到攻击。攻击者一般通过留言、电子邮件或其他途径向受害者发送一个精心构造的恶意-URL，当受害者在-Web-中打开该-URL-的时候，恶意脚本会在受害者的计算机上悄悄执行。"><span class="nav-number">2.1.</span> <span class="nav-text">恶意攻击者往 Web 页面里注入恶意 Script 代码，当用户浏览这些网页时，就会执行其中的恶意代码，可对用户进行盗取 cookie 信息、会话劫持等各种攻击。XSS 跨站脚本攻击本身对 Web 服务器没有直接的危害，它借助网站进行传播，使网站上大量用户受到攻击。攻击者一般通过留言、电子邮件或其他途径向受害者发送一个精心构造的恶意 URL，当受害者在 Web 中打开该 URL 的时候，恶意脚本会在受害者的计算机上悄悄执行。</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CSRF（Cross-Site-Request-Forgery，跨站请求伪造）"><span class="nav-number">1.</span> <span class="nav-text">CSRF（Cross Site Request Forgery，跨站请求伪造）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#受害者用户登录网站-A，输入个人信息，在本地保存服务器生成的-cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的-cookie-信息一起发送给网址-A，A-网站收到请求后，确认-cookie-信息无误，以为此链接是受害者发出的操作，导致受害者的身份被盗用，造成攻击行为完成。"><span class="nav-number">1.1.</span> <span class="nav-text">受害者用户登录网站 A，输入个人信息，在本地保存服务器生成的 cookie。攻击者构建一条恶意链接并把该链接通过一定方式发给受害者用户，受害者用户若在浏览器打开此链接，会将之前登陆后的 cookie 信息一起发送给网址 A，A 网站收到请求后，确认 cookie 信息无误，以为此链接是受害者发出的操作，导致受害者的身份被盗用，造成攻击行为完成。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XSS（Cross-Site-Script，跨站脚本攻击）"><span class="nav-number">2.</span> <span class="nav-text">XSS（Cross Site Script，跨站脚本攻击）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#恶意攻击者往-Web-页面里注入恶意-Script-代码，当用户浏览这些网页时，就会执行其中的恶意代码，可对用户进行盗取-cookie-信息、会话劫持等各种攻击。XSS-跨站脚本攻击本身对-Web-服务器没有直接的危害，它借助网站进行传播，使网站上大量用户受到攻击。攻击者一般通过留言、电子邮件或其他途径向受害者发送一个精心构造的恶意-URL，当受害者在-Web-中打开该-URL-的时候，恶意脚本会在受害者的计算机上悄悄执行。"><span class="nav-number">2.1.</span> <span class="nav-text">恶意攻击者往 Web 页面里注入恶意 Script 代码，当用户浏览这些网页时，就会执行其中的恶意代码，可对用户进行盗取 cookie 信息、会话劫持等各种攻击。XSS 跨站脚本攻击本身对 Web 服务器没有直接的危害，它借助网站进行传播，使网站上大量用户受到攻击。攻击者一般通过留言、电子邮件或其他途径向受害者发送一个精心构造的恶意 URL，当受害者在 Web 中打开该 URL 的时候，恶意脚本会在受害者的计算机上悄悄执行。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DoS（Denial-of-Service）-和-DDoS（Distributed-Denial-of-Service）"><span class="nav-number">3.</span> <span class="nav-text">DoS（Denial of Service） 和 DDoS（Distributed Denial of Service）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在-DoS-攻击中，攻击者通过伪造-ACK-数据包，希望-Server-重传某些数据包，Server-根据-TCP-重转机制，进行数据重传。攻击者利用-TCP-协议缺陷，通过发送大量的半连接请求，耗费-CPU-和内存资源。实现方式如下图："><span class="nav-number">3.1.</span> <span class="nav-text">在 DoS 攻击中，攻击者通过伪造 ACK 数据包，希望 Server 重传某些数据包，Server 根据 TCP 重转机制，进行数据重传。攻击者利用 TCP 协议缺陷，通过发送大量的半连接请求，耗费 CPU 和内存资源。实现方式如下图：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三次握手过程中，服务器给客户端发送-SYN-ACK-之后到收到客户端的-ACK-之前的-TCP-连接称为半连接，此时服务器处于-SYN-RCVD-状态。攻击者配合-IP-欺骗，SYN-攻击会达到很好的效果。SYN-攻击指的就是在短时间内伪造大量不存在的-IP-地址，向服务器不断地发送-SYN-包，服务器回复确认包，并等待客户的确认，由于源地址是不存在的，服务器需要不断的重发直至超时，这些伪造的-SYN-包将长时间占用未连接队列，正常的-SYN-请求被丢弃，目标系统运行缓慢，严重者引起网络堵塞甚至系统瘫痪。"><span class="nav-number">3.2.</span> <span class="nav-text">三次握手过程中，服务器给客户端发送 SYN+ACK 之后到收到客户端的 ACK 之前的 TCP 连接称为半连接，此时服务器处于 SYN_RCVD 状态。攻击者配合 IP 欺骗，SYN 攻击会达到很好的效果。SYN 攻击指的就是在短时间内伪造大量不存在的 IP 地址，向服务器不断地发送 SYN 包，服务器回复确认包，并等待客户的确认，由于源地址是不存在的，服务器需要不断的重发直至超时，这些伪造的 SYN 包将长时间占用未连接队列，正常的 SYN 请求被丢弃，目标系统运行缓慢，严重者引起网络堵塞甚至系统瘫痪。</span></a></li></ol></li></ol></div>
             
 
           </div>
