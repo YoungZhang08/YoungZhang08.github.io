@@ -87,15 +87,15 @@
 <meta property="og:site_name" content="YoungZhang&#39;s Blog">
 <meta property="og:description" content="首先，本文只是对我对浏览器渲染机制这块之前的纠结点做一整理和总结，不会面面俱到，我会的一句代过，不清楚的我会特地作说明。本文的所有结论都是基于控制台的 performance 下的主线程分析~关于关键渲染路径 关键渲染路径可以理解为浏览器从加载 HTML 文档到完成首屏渲染的过程中必须要经过的步骤，具体就是浏览器收到 HTML、CSS 和 JavaScript 等资源并对其进行处理从而渲染出 We">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://youngzhang08.github.io/2018/08/14/从F12的performance细看浏览器渲染/render.png">
+<meta property="og:image" content="https://youngzhang08.github.io/2018/08/14/从F12的performance细看浏览器渲染/paint.png">
 <meta property="og:image" content="https://youngzhang08.github.io/2018/08/14/从F12的performance细看浏览器渲染/html.png">
 <meta property="og:image" content="https://youngzhang08.github.io/2018/08/14/从F12的performance细看浏览器渲染/parseHtml.png">
-<meta property="og:image" content="https://youngzhang08.github.io/2018/08/14/从F12的performance细看浏览器渲染/paint.png">
-<meta property="og:updated_time" content="2018-08-14T12:06:37.340Z">
+<meta property="og:image" content="https://youngzhang08.github.io/2018/08/14/从F12的performance细看浏览器渲染/render.png">
+<meta property="og:updated_time" content="2018-08-14T12:10:06.230Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从F12的performance细看浏览器渲染">
 <meta name="twitter:description" content="首先，本文只是对我对浏览器渲染机制这块之前的纠结点做一整理和总结，不会面面俱到，我会的一句代过，不清楚的我会特地作说明。本文的所有结论都是基于控制台的 performance 下的主线程分析~关于关键渲染路径 关键渲染路径可以理解为浏览器从加载 HTML 文档到完成首屏渲染的过程中必须要经过的步骤，具体就是浏览器收到 HTML、CSS 和 JavaScript 等资源并对其进行处理从而渲染出 We">
-<meta name="twitter:image" content="https://youngzhang08.github.io/2018/08/14/从F12的performance细看浏览器渲染/render.png">
+<meta name="twitter:image" content="https://youngzhang08.github.io/2018/08/14/从F12的performance细看浏览器渲染/paint.png">
 
 
 
@@ -371,7 +371,7 @@
 
       
         <h4 id="首先，本文只是对我对浏览器渲染机制这块之前的纠结点做一整理和总结，不会面面俱到，我会的一句代过，不清楚的我会特地作说明。本文的所有结论都是基于控制台的-performance-下的主线程分析"><a href="#首先，本文只是对我对浏览器渲染机制这块之前的纠结点做一整理和总结，不会面面俱到，我会的一句代过，不清楚的我会特地作说明。本文的所有结论都是基于控制台的-performance-下的主线程分析" class="headerlink" title="首先，本文只是对我对浏览器渲染机制这块之前的纠结点做一整理和总结，不会面面俱到，我会的一句代过，不清楚的我会特地作说明。本文的所有结论都是基于控制台的 performance 下的主线程分析~"></a>首先，本文只是对我对浏览器渲染机制这块之前的纠结点做一整理和总结，不会面面俱到，我会的一句代过，不清楚的我会特地作说明。本文的所有结论都是基于控制台的 performance 下的主线程分析~</h4><h3 id="关于关键渲染路径"><a href="#关于关键渲染路径" class="headerlink" title="关于关键渲染路径"></a>关于关键渲染路径</h3><blockquote>
-<p>关键渲染路径可以理解为浏览器从加载 HTML 文档到完成首屏渲染的过程中必须要经过的步骤，具体就是浏览器收到 HTML、CSS 和 JavaScript 等资源并对其进行处理从而渲染出 Web 页面，关键路径的长度指获取所有阻塞资源（关键资源：比如说样式文件，脚本文件）所需的往返次数，也就是说，第一次 paint 之后紧接着就是 load 完成，到这里，就算首屏渲染完毕。</p>
+<p>关键渲染路径可以理解为浏览器从加载 HTML 文档到完成首屏渲染的过程中必须要经过的步骤，具体就是浏览器收到 HTML、CSS 和 JavaScript 等资源并对其进行处理从而渲染出 Web 页面，关键路径的长度指获取所有阻塞资源（关键资源：比如说样式文件，脚本文件）所需的往返次数，也就是说，第一次 paint 之后紧接着就是 load 完成，到这里，就算首屏渲染完毕。<br><a id="more"></a></p>
 </blockquote>
 <h3 id="关于外部资源请求与加载（响应）"><a href="#关于外部资源请求与加载（响应）" class="headerlink" title="关于外部资源请求与加载（响应）"></a>关于外部资源请求与加载（响应）</h3><blockquote>
 <p>CSS 资源和 JS 脚本是在开始解析 HTML 之后由浏览器的 Render 进程下的网络请求线程处理的，两者并行发起请求，但是浏览器会默认 JS 是依赖于 CSS 的（因为 JS 中可能会有操作 DOM 修改样式的代码，避免重绘），所以，CSS 的请求一定会先响应（默认情况下，不给 link 设置 media 属性的情况下）。</p>
@@ -385,10 +385,10 @@
 <h3 id="综上"><a href="#综上" class="headerlink" title="综上"></a>综上</h3><blockquote>
 <p>实际使用的时候在引用顺序上会让 CSS 资源优先于 JavaScript 资源引入。尽早在 HTML 文档内指定所有 CSS 资源，以便浏览器尽早发现 link 标记并尽早发出 CSS 请求。</p>
 </blockquote>
-<h3 id="整体流程"><a href="#整体流程" class="headerlink" title="整体流程"></a>整体流程</h3><p><img src="./render.png" alt="image"></p>
+<h3 id="整体流程"><a href="#整体流程" class="headerlink" title="整体流程"></a>整体流程</h3><p><img src="./paint.png" alt="image"></p>
 <h3 id="1-请求-响应-HTML"><a href="#1-请求-响应-HTML" class="headerlink" title="1. 请求/响应 HTML"></a>1. 请求/响应 HTML</h3><p><img src="./html.png" alt="image"></p>
 <h3 id="2-解析-HTML-gt-解析-CSS-gt-执行-JS-脚本-gt-Layout-gt-Paint"><a href="#2-解析-HTML-gt-解析-CSS-gt-执行-JS-脚本-gt-Layout-gt-Paint" class="headerlink" title="2. 解析 HTML-&gt;解析 CSS-&gt;执行 JS 脚本-&gt;Layout-&gt;Paint"></a>2. 解析 HTML-&gt;解析 CSS-&gt;执行 JS 脚本-&gt;Layout-&gt;Paint</h3><p><img src="./parseHtml.png" alt="image"></p>
-<p><img src="./paint.png" alt="image"></p>
+<p><img src="./render.png" alt="image"></p>
 
       
     </div>
