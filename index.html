@@ -262,6 +262,179 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/08/14/从F12的performance细看浏览器渲染/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YoungZhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YoungZhang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/14/从F12的performance细看浏览器渲染/" itemprop="url">从F12的performance细看浏览器渲染</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-14T14:35:32+08:00">
+                2018-08-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端性能优化/" itemprop="url" rel="index">
+                    <span itemprop="name">前端性能优化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/14/从F12的performance细看浏览器渲染/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/14/从F12的performance细看浏览器渲染/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+      
+      </div>
+    </header>
+  
+
+          
+
+          
+
+        
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="首先，本文只是对我对浏览器渲染机制这块之前的纠结点做一整理和总结，不会面面俱到，我会的一句代过，不清楚的我会特地作说明。本文的所有结论都是基于控制台的-performance-下的主线程分析"><a href="#首先，本文只是对我对浏览器渲染机制这块之前的纠结点做一整理和总结，不会面面俱到，我会的一句代过，不清楚的我会特地作说明。本文的所有结论都是基于控制台的-performance-下的主线程分析" class="headerlink" title="首先，本文只是对我对浏览器渲染机制这块之前的纠结点做一整理和总结，不会面面俱到，我会的一句代过，不清楚的我会特地作说明。本文的所有结论都是基于控制台的 performance 下的主线程分析~"></a>首先，本文只是对我对浏览器渲染机制这块之前的纠结点做一整理和总结，不会面面俱到，我会的一句代过，不清楚的我会特地作说明。本文的所有结论都是基于控制台的 performance 下的主线程分析~</h4><h3 id="关于关键渲染路径"><a href="#关于关键渲染路径" class="headerlink" title="关于关键渲染路径"></a>关于关键渲染路径</h3><blockquote>
+<p>关键渲染路径可以理解为浏览器从加载 HTML 文档到完成首屏渲染的过程中必须要经过的步骤，具体就是浏览器收到 HTML、CSS 和 JavaScript 等资源并对其进行处理从而渲染出 Web 页面，关键路径的长度指获取所有阻塞资源（关键资源：比如说样式文件，脚本文件）所需的往返次数，也就是说，第一次 paint 之后紧接着就是 load 完成，到这里，就算首屏渲染完毕。</p>
+</blockquote>
+<h3 id="关于外部资源请求与加载（响应）"><a href="#关于外部资源请求与加载（响应）" class="headerlink" title="关于外部资源请求与加载（响应）"></a>关于外部资源请求与加载（响应）</h3><blockquote>
+<p>CSS 资源和 JS 脚本是在开始解析 HTML 之后由浏览器的 Render 进程下的网络请求线程处理的，两者并行发起请求，但是浏览器会默认 JS 是依赖于 CSS 的（因为 JS 中可能会有操作 DOM 修改样式的代码，避免重绘），所以，CSS 的请求一定会先响应（默认情况下，不给 link 设置 media 属性的情况下）。</p>
+</blockquote>
+<h3 id="关于-CSS-被视为阻塞渲染的资源"><a href="#关于-CSS-被视为阻塞渲染的资源" class="headerlink" title="关于 CSS 被视为阻塞渲染的资源"></a>关于 CSS 被视为阻塞渲染的资源</h3><blockquote>
+<p>默认情况下，CSS 会被视为阻塞渲染的资源，也就意味着在 CSSOM 构建完成前浏览器将不渲染其他已处理的内容。当存在阻塞的 CSS 资源时，浏览器会延迟 JavaScript 的执行和 DOM 的构建。CSSOM 构建时，JS 会暂停执行。</p>
+</blockquote>
+<h3 id="关于-JS-被视为阻塞-DOMTree-构建的资源"><a href="#关于-JS-被视为阻塞-DOMTree-构建的资源" class="headerlink" title="关于 JS 被视为阻塞 DOMTree 构建的资源"></a>关于 JS 被视为阻塞 DOMTree 构建的资源</h3><blockquote>
+<p>浏览器遇到 <code>&lt;script&gt;</code> 标签时，DOM Tree 构建将暂停，HTML 解析器虽然会停止构建 DOM，但仍会识别该脚本后面的资源，并进行预加载。</p>
+</blockquote>
+<h3 id="综上"><a href="#综上" class="headerlink" title="综上"></a>综上</h3><blockquote>
+<p>实际使用的时候在引用顺序上会让 CSS 资源优先于 JavaScript 资源引入。尽早在 HTML 文档内指定所有 CSS 资源，以便浏览器尽早发现 link 标记并尽早发出 CSS 请求。</p>
+</blockquote>
+<h3 id="整体流程"><a href="#整体流程" class="headerlink" title="整体流程"></a>整体流程</h3><p><img src="./render.png" alt="image"></p>
+<h3 id="1-请求-响应-HTML"><a href="#1-请求-响应-HTML" class="headerlink" title="1. 请求/响应 HTML"></a>1. 请求/响应 HTML</h3><p><img src="./html.png" alt="image"></p>
+<h3 id="2-解析-HTML-gt-解析-CSS-gt-执行-JS-脚本-gt-Layout-gt-Paint"><a href="#2-解析-HTML-gt-解析-CSS-gt-执行-JS-脚本-gt-Layout-gt-Paint" class="headerlink" title="2. 解析 HTML-&gt;解析 CSS-&gt;执行 JS 脚本-&gt;Layout-&gt;Paint"></a>2. 解析 HTML-&gt;解析 CSS-&gt;执行 JS 脚本-&gt;Layout-&gt;Paint</h3><p><img src="./parseHtml.png" alt="image"></p>
+<p><img src="./paint.png" alt="image"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/08/10/常见的Web安全攻击/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -477,8 +650,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机网络-前端性能优化/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机网络 前端性能优化</span>
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
                   </a>
                 </span>
 
@@ -1701,169 +1874,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://YoungZhang08.github.io/2018/07/30/为什么defineProperty不能检测到数组长度的变化/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="YoungZhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YoungZhang's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/30/为什么defineProperty不能检测到数组长度的变化/" itemprop="url">为什么defineProperty不能检测到数组长度的变化</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-30T14:35:05+08:00">
-                2018-07-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端框架/" itemprop="url" rel="index">
-                    <span itemprop="name">前端框架</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/07/30/为什么defineProperty不能检测到数组长度的变化/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/07/30/为什么defineProperty不能检测到数组长度的变化/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-      
-      </div>
-    </header>
-  
-
-          
-
-          
-
-        
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>正如Vue文档中所述：</p>
-<blockquote>
-<p>由于 JavaScript 的限制，Vue 无法检测到以下数组变动：1. 当你使用索引直接设置一项时，例如 vm.items[indexOfItem] = newValue 2. 当你修改数组长度时，例如 vm.items.length = newLength</p>
-</blockquote>
-<p>首先，明白vue对于监听数据的变动是通过ES5的Object.defineProperty()来实现的，<a href="https://youngzhang08.github.io/2018/07/28/聊聊Vue的双向数据绑定/">聊聊Vue的双向数据绑定</a> 中已经说过Vue对于监测数组的变动是重写的数组的原型来达到目的的，原因是defineProperty不能检测数组的长度变化，准确来说是 <strong>通过改变数组的length而增加的长度是不能被监测到的</strong> 。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/07/30/为什么defineProperty不能检测到数组长度的变化/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1914,7 +1924,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1936,7 +1946,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
