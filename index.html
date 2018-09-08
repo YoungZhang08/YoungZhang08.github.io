@@ -367,33 +367,16 @@
 
       
         
-          
-            <h3 id="一、运营商劫持"><a href="#一、运营商劫持" class="headerlink" title="一、运营商劫持"></a>一、运营商劫持</h3><blockquote>
+          <h3 id="一、运营商劫持"><a href="#一、运营商劫持" class="headerlink" title="一、运营商劫持"></a>一、运营商劫持</h3><blockquote>
 <p>运营商是指那些提供宽带服务的 ISP，包括三大运营商中国电信、中国移动和中国联通，还有一些小运营商。运营商都是提供最基础的网络服务，网络运营商为了卖广告或者其他经济利益，有时候会直接劫持用户的访问，目前，运营商比较常见的劫持方式有两种，分别是 DNS 劫持，HTTP 劫持。</p>
 </blockquote>
-<h3 id="二、劫持分类"><a href="#二、劫持分类" class="headerlink" title="二、劫持分类"></a>二、劫持分类</h3><h4 id="1-DNS-劫持"><a href="#1-DNS-劫持" class="headerlink" title="1. DNS 劫持"></a>1. DNS 劫持</h4><blockquote>
-<p>DNS 劫持也可以理解为用户的请求去往了错误的 DNS 服务器进行查询解析，返回来的目的主机 IP 是运营商的中间服务器 IP，访问该服务器会一致性的返回 302，让用户浏览器跳转到预处理好的带广告的网页，在该网页中再通过 iframe 打开用户原来访问的地址。</p>
-</blockquote>
-<h4 id="2-HTTP-劫持"><a href="#2-HTTP-劫持" class="headerlink" title="2. HTTP 劫持"></a>2. HTTP 劫持</h4><blockquote>
-<p>在运营商的路由器节点上，使用旁路设备设置协议检测，一旦发现是 HTTP 请求，而且是 html 类型请求，则拦截处理。后续做法往往分为 2 种，1 种是返回 302 让用户浏览器跳转到另外的地址，还有 1 种是在服务器返回的 HTML 数据中插入 js 或 dom 节点（广告），浏览器收到 302 代码后就会跳转到错误的地址，或者修改了的 HTML 有广告，随后返回的真正数据到达后反而会被丢弃。</p>
-</blockquote>
-<h3 id="三、HTTP-劫持的防御"><a href="#三、HTTP-劫持的防御" class="headerlink" title="三、HTTP 劫持的防御"></a>三、HTTP 劫持的防御</h3><blockquote>
-<p>旁路设备中检测http协议的模块比较简单，一般只会检测TCP连接建立后的第一个数据包，如果其是一个完整的http协议才会被标记；如果并非是一个完整的http协议，由于无法得到足够多的劫持信息，所以并不会被标记为http协议。</p>
-</blockquote>
-<h4 id="所以，防止劫持的办法是："><a href="#所以，防止劫持的办法是：" class="headerlink" title="所以，防止劫持的办法是："></a>所以，防止劫持的办法是：</h4><ol>
-<li><p>终端拦截所有响应包，判断ip来自黑名单（劫持的中间ip）则丢弃返回包。 </p>
-<blockquote>
-<p>运营商劫持 HTTP 请求后，并不是完全丢弃请求包，而是做了复制，一份继续发给目标服务器，另外一份做劫持处理直接返回 302。因为这个 302 会比目标服务器的正常返回早得多，所以用户浏览器会只认第一个 302，而丢弃后到的正常返回。如果先把第一个 302 丢弃，等待后续正常返回，则问题解决。</p>
-</blockquote>
-</li>
-<li><p>终端拦截请求包，并拆包发送。</p>
-<blockquote>
-<p>运营商一般判断是否劫持，通过判断是否 HTTP 请求。 一般只会检测 TCP 连接建立后的第一个数据包，如果其是一个完整的 HTTP 协议才会被标记；如果并非是一个完整的 HTTP 协议，由于无法得到足够多的劫持信息，所以并不会被标记为HTTP协议。所以，只要将 HTTP 请求分拆到多个数据包内，就能躲过一部分劫持。</p>
-</blockquote>
-</li>
-</ol>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/05/运营商劫持/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -545,8 +528,7 @@
 
       
         
-          
-            <h3 id="1-语法"><a href="#1-语法" class="headerlink" title="1. 语法"></a>1. 语法</h3><blockquote>
+          <h3 id="1-语法"><a href="#1-语法" class="headerlink" title="1. 语法"></a>1. 语法</h3><blockquote>
 <p>Object.defineProperty(obj, prop, descriptor)</p>
 </blockquote>
 <ul>
@@ -559,39 +541,14 @@
 <li>创建属性</li>
 </ul>
 <blockquote>
-<p>如果对象中不存在指定的属性，Object.defineProperty() 就创建这个属性。当描述符中省略某些字段时，这些字段将使用它们的默认值——拥有布尔值的字段的默认值都是false；value，get 和 set 字段的默认值为 undefined。一个没有get/set/value/writable定义的属性被称为“通用的”，并被“键入”为一个数据描述符。</p>
-</blockquote>
-<ul>
-<li><p>修改属性</p>
-<ol>
-<li>Writable：当 writable 属性设置为 false 时，该属性被称为“不可写”。它不能被重新分配。试图写入非可写属性不会改变它，也不会引发错误。</li>
-<li>Enumerable：enumerable 定义了对象的属性是否可以在 for…in 循环和 Object.keys() 中被枚举。</li>
-<li>Configurable：configurable 特性表示对象的属性是否可以被删除，以及除 writable 特性外的其他特性是否可以被修改。</li>
-</ol>
-</li>
-<li><p>添加多个属性和默认值</p>
-<blockquote>
-<p>通常，使用点运算符和 Object.defineProperty() 为对象的属性赋值时，数据描述符中的属性默认值是不同的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">var o = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">o.a = 1;</span><br><span class="line">// 等同于 :</span><br><span class="line">Object.defineProperty(o, &quot;a&quot;, &#123;</span><br><span class="line">  value : 1,</span><br><span class="line">  writable : true,</span><br><span class="line">  configurable : true,</span><br><span class="line">  enumerable : true</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 另一方面，</span><br><span class="line">Object.defineProperty(o, &quot;a&quot;, &#123; value : 1 &#125;);</span><br><span class="line">// 等同于 :</span><br><span class="line">Object.defineProperty(o, &quot;a&quot;, &#123;</span><br><span class="line">  value : 1,</span><br><span class="line">  writable : false,</span><br><span class="line">  configurable : false,</span><br><span class="line">  enumerable : false</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-</blockquote>
-</li>
-<li><p>一般的 Setter 和 Getter</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">function Archiver() &#123;</span><br><span class="line">  var temperature = null;</span><br><span class="line">  var archive = [];</span><br><span class="line"></span><br><span class="line">  Object.defineProperty(this, &apos;temperature&apos;, &#123;</span><br><span class="line">    get: function() &#123;</span><br><span class="line">      console.log(&apos;get!&apos;);</span><br><span class="line">      return temperature;</span><br><span class="line">    &#125;,</span><br><span class="line">    set: function(value) &#123;</span><br><span class="line">      temperature = value;</span><br><span class="line">      archive.push(&#123; val: temperature &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  this.getArchive = function() &#123; return archive; &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var arc = new Archiver();</span><br><span class="line">arc.temperature; // &apos;get!&apos;</span><br><span class="line">arc.temperature = 11;</span><br><span class="line">arc.temperature = 13;</span><br><span class="line">arc.getArchive(); // [&#123; val: 11 &#125;, &#123; val: 13 &#125;]</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="3-重定义数组对象的-length-属性"><a href="#3-重定义数组对象的-length-属性" class="headerlink" title="3. 重定义数组对象的 length 属性"></a>3. 重定义数组对象的 length 属性</h3><blockquote>
-<p>数组的 length 属性是可以重定义的，但是会受到一般的重定义限制。（length 属性初始化为 non-configurable，non-enumerable，以及 writable。对于一个内容不可变的数组，改变其 length 属性的值或者使它变为 non-writable 是可以的。但是改变其可枚举性和可配置性或者当它是 non-writable 时尝试改变它的值或是可写性，这两者都是不被允许的。）然而，并不是所有浏览器都允许 Array.length 的重定义。只在 Internet Explorer 9 及以后版本和 Firefox 23 及以后版本中，才完整地正确地支持数组 length 属性的重新定义。</p>
-</blockquote>
-<h3 id="4-IE-8-具体案例"><a href="#4-IE-8-具体案例" class="headerlink" title="4. IE 8 具体案例"></a>4. IE 8 具体案例</h3><blockquote>
-<p>Internet Explorer 8 实现了 Object.defineProperty() 方法，但 只能在 DOM 对象上使用。 需要注意的一些事情：</p>
-</blockquote>
-<ul>
-<li>尝试在原生对象上使用 Object.defineProperty() 会报错。</li>
-<li>属性特性必须设置一些特定的值。对于数据属性描述符，configurable, enumerable 和 writable 特性必须全部设置为 true；对于访问器属性描述符，configurable 必须设置为 true，enumerable 必须设置为 false。试图提供其他值将导致一个错误抛出。</li>
-<li>重新配置一个属性首先需要删除该属性。如果属性没有删除，就如同重新配置前的尝试。</li>
-</ul>
-
-          
+<p>如果对象中不存在指定的属性，Object.defineProperty() 就创建这个属性。当描述符中省略某些字段时，这些字段将使用它们的默认值——拥有布尔值的字段的默认值都是false；value，get 和 set 字段的默认值为 undefined。一个没有get/set/value/writable定义的属性被称为“通用的”，并被“键入”为一个数据描述符。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/03/Object-defineProperty的兼容性问题和解决方案/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

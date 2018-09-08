@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="YoungZhang&#39;s Blog">
 <meta property="og:description" content="1. 语法 Object.defineProperty(obj, prop, descriptor)   obj：要在其上定义属性的对象。 prop：要定义或修改的属性的名称。 descriptor：将被定义或修改的属性描述符。 返回值：被传递给函数的对象。  2. 属性描述符 创建属性   如果对象中不存在指定的属性，Object.defineProperty() 就创建这个属性。当描述符中省略">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-09-05T03:40:25.557Z">
+<meta property="og:updated_time" content="2018-09-08T05:52:08.837Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Object.defineProperty的兼容性问题和解决方案">
 <meta name="twitter:description" content="1. 语法 Object.defineProperty(obj, prop, descriptor)   obj：要在其上定义属性的对象。 prop：要定义或修改的属性的名称。 descriptor：将被定义或修改的属性描述符。 返回值：被传递给函数的对象。  2. 属性描述符 创建属性   如果对象中不存在指定的属性，Object.defineProperty() 就创建这个属性。当描述符中省略">
@@ -378,16 +378,15 @@
 <li>创建属性</li>
 </ul>
 <blockquote>
-<p>如果对象中不存在指定的属性，Object.defineProperty() 就创建这个属性。当描述符中省略某些字段时，这些字段将使用它们的默认值——拥有布尔值的字段的默认值都是false；value，get 和 set 字段的默认值为 undefined。一个没有get/set/value/writable定义的属性被称为“通用的”，并被“键入”为一个数据描述符。</p>
-</blockquote>
+<p>如果对象中不存在指定的属性，Object.defineProperty() 就创建这个属性。当描述符中省略某些字段时，这些字段将使用它们的默认值——拥有布尔值的字段的默认值都是false；value，get 和 set 字段的默认值为 undefined。一个没有get/set/value/writable定义的属性被称为“通用的”，并被“键入”为一个数据描述符。<br><a id="more"></a></p>
 <ul>
-<li><p>修改属性</p>
-<ol>
-<li>Writable：当 writable 属性设置为 false 时，该属性被称为“不可写”。它不能被重新分配。试图写入非可写属性不会改变它，也不会引发错误。</li>
-<li>Enumerable：enumerable 定义了对象的属性是否可以在 for…in 循环和 Object.keys() 中被枚举。</li>
-<li>Configurable：configurable 特性表示对象的属性是否可以被删除，以及除 writable 特性外的其他特性是否可以被修改。</li>
-</ol>
-</li>
+<li>修改属性</li>
+</ul>
+</blockquote>
+<pre><code>1. Writable：当 writable 属性设置为 false 时，该属性被称为“不可写”。它不能被重新分配。试图写入非可写属性不会改变它，也不会引发错误。
+2. Enumerable：enumerable 定义了对象的属性是否可以在 for...in 循环和 Object.keys() 中被枚举。
+3. Configurable：configurable 特性表示对象的属性是否可以被删除，以及除 writable 特性外的其他特性是否可以被修改。
+</code></pre><ul>
 <li><p>添加多个属性和默认值</p>
 <blockquote>
 <p>通常，使用点运算符和 Object.defineProperty() 为对象的属性赋值时，数据描述符中的属性默认值是不同的</p>
